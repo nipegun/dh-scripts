@@ -9,13 +9,13 @@
 # Script de NiPeGun para preparar la máquina de Metasploitable3-Ubuntu usando QEMU en Debian
 #
 # Ejecución remota (puede requerir permisos sudo):
-#   curl -sL https://raw.githubusercontent.com/nipegun/dh-scripts/refs/heads/main/Recursos/Software/Vulnerable/MV/Metasploitable3-Ubuntu-Preparar-ConQEMU.sh | bash
+#   curl -sL https://raw.githubusercontent.com/nipegun/dh-scripts/refs/heads/main/Recursos/Software/Vulnerable/MVs/Metasploitable3-Ubuntu-Preparar-ConQEMU.sh | bash
 #
 # Ejecución remota como root (para sistemas sin sudo):
-#   curl -sL https://raw.githubusercontent.com/nipegun/dh-scripts/refs/heads/main/Recursos/Software/Vulnerable/MV/Metasploitable3-Ubuntu-Preparar-ConQEMU.sh | sed 's-sudo--g' | bash
+#   curl -sL https://raw.githubusercontent.com/nipegun/dh-scripts/refs/heads/main/Recursos/Software/Vulnerable/MVs/Metasploitable3-Ubuntu-Preparar-ConQEMU.sh | sed 's-sudo--g' | bash
 #
 # Bajar y editar directamente el archivo en nano
-#   curl -sL https://raw.githubusercontent.com/nipegun/dh-scripts/refs/heads/main/Recursos/Software/Vulnerable/MV/Metasploitable3-Ubuntu-Preparar-ConQEMU.sh | nano -
+#   curl -sL https://raw.githubusercontent.com/nipegun/dh-scripts/refs/heads/main/Recursos/Software/Vulnerable/MVs/Metasploitable3-Ubuntu-Preparar-ConQEMU.sh | nano -
 # ----------
 
 # Definir constantes de color
