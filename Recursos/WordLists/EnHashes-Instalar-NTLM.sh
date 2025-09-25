@@ -62,14 +62,14 @@
 # Crear el menú
   menu=(dialog --checklist "Marca las WordLists EnHashes que quieras instalar:" 22 80 16)
     opciones=(
-      1 "WeakPass RockYou NTLM           (  0,6 GB descomprimido)" off
-      2 "WeakPass 4 Latin NTLM           (105,0 GB descomprimido)" off
-      3 "WeakPass 4 Merged NTLM          (150,0 GB descomprimido)" off
-      4 "WeakPass 4 Policy NTLM          ( 14,0 GB descomprimido)" off
-      5 "WeakPass 4a Latin NTLM          (340,0 GB descomprimido)" off
-      6 "WeakPass 4a Policy NTLM         ( 73,0 GB descomprimido)" off
-      7 "WeakPass All in One Policy NTLM (302,0 GB descomprimido)" off
-      8 "WeakPass All in One Latin NTLM  (  1,1 TB descomprimido)" off
+      1 "WeakPass RockYou NTLM           (  0,7 GB descomprimido)" off
+      2 "WeakPass 4 Latin NTLM           (xxx,x GB descomprimido)" off
+      3 "WeakPass 4 Merged NTLM          (158,6 GB descomprimido)" off
+      4 "WeakPass 4 Policy NTLM          ( 14,3 GB descomprimido)" off
+      5 "WeakPass 4a Latin NTLM          (358.6 GB descomprimido)" off
+      6 "WeakPass 4a Policy NTLM         ( 78,0 GB descomprimido)" off
+      7 "WeakPass All in One Policy NTLM (xxx,x GB descomprimido)" off
+      8 "WeakPass All in One Latin NTLM  (xxx,x TB descomprimido)" off
     )
     choices=$("${menu[@]}" "${opciones[@]}" 2>&1 >/dev/tty)
 
@@ -83,7 +83,7 @@
               echo "  Instalando la WordList WeakPass RockYou NTLM..."
               echo ""
               # Calcular espacio libre disponible antes de instalar la WordList
-                if fCalcularEspacioLibre 0.3; then
+                if fCalcularEspacioLibre 0.7; then
                   # Descargar archivo comprimido
                     sudo rm -f "$vCarpetaTemporal"/rockyou.txt.ntlm.txt.7z 2> /dev/null
                     curl -L https://weakpass.com/pre-computed/download/rockyou.txt.ntlm.txt.7z -o "$vCarpetaTemporal"/rockyou.txt.ntlm.txt.7z
@@ -112,7 +112,7 @@
               echo "  Instalando la WordList WeakPass 4 Latin NTLM..."
               echo ""
               # Calcular espacio libre disponible antes de instalar la WordList
-                if fCalcularEspacioLibre 89; then
+                if fCalcularEspacioLibre xx; then
                   # Descargar archivo comprimido
                     sudo rm -f "$vCarpetaTemporal"/weakpass_4.latin.txt.ntlm.txt.7z 2> /dev/null
                     curl -L https://weakpass.com/pre-computed/download/weakpass_4.latin.txt.ntlm.txt.7z -o "$vCarpetaTemporal"/weakpass_4.latin.txt.ntlm.txt.7z
@@ -141,7 +141,7 @@
               echo "  Instalando la WordList WeakPass 4 Merged NTLM..."
               echo ""
               # Calcular espacio libre disponible antes de instalar la WordList
-                if fCalcularEspacioLibre 148; then
+                if fCalcularEspacioLibre 158.6; then
                   # Descargar archivo comprimido
                     sudo rm -f "$vCarpetaTemporal"/weakpass_4.merged.txt.ntlm.txt.7z 2> /dev/null
                     curl -L https://weakpass.com/pre-computed/download/weakpass_4.merged.txt.ntlm.txt.7z -o "$vCarpetaTemporal"/weakpass_4.merged.txt.ntlm.txt.7z
@@ -170,7 +170,7 @@
               echo "  Instalando la WordList WeakPass 4 Policy NTLM..."
               echo ""
               # Calcular espacio libre disponible antes de instalar la WordList
-                if fCalcularEspacioLibre 14; then
+                if fCalcularEspacioLibre 14.3; then
                   # Descargar archivo comprimido
                     sudo rm -f "$vCarpetaTemporal"/weakpass_4.policy.txt.ntlm.txt.7z 2> /dev/null
                     curl -L https://weakpass.com/pre-computed/download/weakpass_4.policy.txt.ntlm.txt.7z -o "$vCarpetaTemporal"/weakpass_4.policy.txt.ntlm.txt.7z
@@ -199,7 +199,7 @@
               echo "  Instalando la WordList WeakPass 4a Latin NTLM..."
               echo ""
               # Calcular espacio libre disponible antes de instalar la WordList
-                if fCalcularEspacioLibre 335; then
+                if fCalcularEspacioLibre 358.6; then
                   # Descargar archivo comprimido
                     sudo rm -f "$vCarpetaTemporal"/weakpass_4a.latin.txt.ntlm.txt.7z 2> /dev/null
                     curl -L https://weakpass.com/pre-computed/download/weakpass_4a.latin.txt.ntlm.txt.7z -o "$vCarpetaTemporal"/weakpass_4a.latin.txt.ntlm.txt.7z
@@ -228,7 +228,7 @@
               echo "  Instalando la WordList WeakPass 4a Policy NTLM..."
               echo ""
               # Calcular espacio libre disponible antes de instalar la WordList
-                if fCalcularEspacioLibre 73; then
+                if fCalcularEspacioLibre 78; then
                   # Descargar archivo comprimido
                     sudo rm -f "$vCarpetaTemporal"/weakpass_4a.policy.txt.ntlm.txt.7z 2> /dev/null
                     curl -L https://weakpass.com/pre-computed/download/weakpass_4a.policy.txt.ntlm.txt.7z -o "$vCarpetaTemporal"/weakpass_4a.policy.txt.ntlm.txt.7z
