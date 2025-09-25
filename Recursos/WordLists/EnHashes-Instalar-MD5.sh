@@ -62,14 +62,14 @@
 # Crear el menú
   menu=(dialog --checklist "Marca las WordLists EnHashes que quieras instalar:" 22 80 16)
     opciones=(
-      1 "WeakPass RockYou MD5            (  0,6 GB descomprimido)" off
-      2 "WeakPass 4 Latin MD5            ( 90,0 GB descomprimido)" off
-      3 "WeakPass 4 Merged MD5           (150,0 GB descomprimido)" off
-      4 "WeakPass 4 Policy MD5           ( 14,0 GB descomprimido)" off
-      5 "WeakPass 4a Latin MD5           (340,0 GB descomprimido)" off
-      6 "WeakPass 4a Policy MD5          ( 73,0 GB descomprimido)" off
-      7 "WeakPass All in One Policy MD5  (302,0 GB descomprimido)" off
-      8 "WeakPass All in One Latin MD5   (  1,1 TB descomprimido)" off
+      1 "WeakPass RockYou MD5            (  0,7 GB descomprimido)" off
+      2 "WeakPass 4 Latin MD5            ( 95,0 GB descomprimido)" off
+      3 "WeakPass 4 Merged MD5           (158,6 GB descomprimido)" off
+      4 "WeakPass 4 Policy MD5           ( 14,3 GB descomprimido)" off
+      5 "WeakPass 4a Latin MD5           (358,6 GB descomprimido)" off
+      6 "WeakPass 4a Policy MD5          ( 78,0 GB descomprimido)" off
+      7 "WeakPass All in One Policy MD5  (xxx,x GB descomprimido)" off
+      8 "WeakPass All in One Latin MD5   (xxx,x TB descomprimido)" off
     )
     choices=$("${menu[@]}" "${opciones[@]}" 2>&1 >/dev/tty)
 
@@ -83,7 +83,7 @@
               echo "  Instalando la WordList WeakPass RockYou MD5..."
               echo ""
               # Calcular espacio libre disponible antes de instalar la WordList
-                if fCalcularEspacioLibre 0.3; then
+                if fCalcularEspacioLibre 0.7; then
                   # Descargar archivo comprimido
                     sudo rm -f "$vCarpetaTemporal"/rockyou.txt.md5.txt.7z 2> /dev/null
                     curl -L https://weakpass.com/pre-computed/download/rockyou.txt.md5.txt.7z -o "$vCarpetaTemporal"/rockyou.txt.md5.txt.7z
@@ -112,7 +112,7 @@
               echo "  Instalando la WordList WeakPass 4 Latin MD5..."
               echo ""
               # Calcular espacio libre disponible antes de instalar la WordList
-                if fCalcularEspacioLibre 89; then
+                if fCalcularEspacioLibre 95; then
                   # Descargar archivo comprimido
                     sudo rm -f "$vCarpetaTemporal"/weakpass_4.latin.txt.md5.txt.7z 2> /dev/null
                     curl -L https://weakpass.com/pre-computed/download/weakpass_4.latin.txt.md5.txt.7z -o "$vCarpetaTemporal"/weakpass_4.latin.txt.md5.txt.7z
@@ -141,7 +141,7 @@
               echo "  Instalando la WordList WeakPass 4 Merged MD5..."
               echo ""
               # Calcular espacio libre disponible antes de instalar la WordList
-                if fCalcularEspacioLibre 148; then
+                if fCalcularEspacioLibre 158.6; then
                   # Descargar archivo comprimido
                     sudo rm -f "$vCarpetaTemporal"/weakpass_4.merged.txt.md5.txt.7z 2> /dev/null
                     curl -L https://weakpass.com/pre-computed/download/weakpass_4.merged.txt.md5.txt.7z -o "$vCarpetaTemporal"/weakpass_4.merged.txt.md5.txt.7z
@@ -170,7 +170,7 @@
               echo "  Instalando la WordList WeakPass 4 Policy MD5..."
               echo ""
               # Calcular espacio libre disponible antes de instalar la WordList
-                if fCalcularEspacioLibre 14; then
+                if fCalcularEspacioLibre 14.3; then
                   # Descargar archivo comprimido
                     sudo rm -f "$vCarpetaTemporal"/weakpass_4.policy.txt.md5.txt.7z 2> /dev/null
                     curl -L https://weakpass.com/pre-computed/download/weakpass_4.policy.txt.md5.txt.7z -o "$vCarpetaTemporal"/weakpass_4.policy.txt.md5.txt.7z
@@ -199,7 +199,7 @@
               echo "  Instalando la WordList WeakPass 4a Latin MD5..."
               echo ""
               # Calcular espacio libre disponible antes de instalar la WordList
-                if fCalcularEspacioLibre 335; then
+                if fCalcularEspacioLibre 358.6; then
                   # Descargar archivo comprimido
                     sudo rm -f "$vCarpetaTemporal"/weakpass_4a.latin.txt.md5.txt.7z 2> /dev/null
                     curl -L https://weakpass.com/pre-computed/download/weakpass_4a.latin.txt.md5.txt.7z -o "$vCarpetaTemporal"/weakpass_4a.latin.txt.md5.txt.7z
@@ -228,7 +228,7 @@
               echo "  Instalando la WordList WeakPass 4a Policy MD5..."
               echo ""
               # Calcular espacio libre disponible antes de instalar la WordList
-                if fCalcularEspacioLibre 73; then
+                if fCalcularEspacioLibre 78; then
                   # Descargar archivo comprimido
                     sudo rm -f "$vCarpetaTemporal"/weakpass_4a.policy.txt.md5.txt.7z 2> /dev/null
                     curl -L https://weakpass.com/pre-computed/download/weakpass_4a.policy.txt.md5.txt.7z -o "$vCarpetaTemporal"/weakpass_4a.policy.txt.md5.txt.7z
@@ -286,7 +286,7 @@
               echo "  Instalando la WordList WeakPass All in One Latin MD5..."
               echo ""
               # Calcular espacio libre disponible antes de instalar la WordList
-                if fCalcularEspacioLibre 563; then
+                if fCalcularEspacioLibre 1000; then
                   # Descargar archivo comprimido
                     sudo rm -f "$vCarpetaTemporal"/all_in_one.latin.txt.md5.txt.7z 2> /dev/null
                     curl -L https://weakpass.com/pre-computed/download/all_in_one.latin.txt.md5.txt.7z -o "$vCarpetaTemporal"/all_in_one.latin.txt.md5.txt.7z
