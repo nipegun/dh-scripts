@@ -112,7 +112,7 @@
               echo "  Instalando la WordList WeakPass 4 Latin NTLM..."
               echo ""
               # Calcular espacio libre disponible antes de instalar la WordList
-                if fCalcularEspacioLibre xx; then
+                if fCalcularEspacioLibre 1; then
                   # Descargar archivo comprimido
                     sudo rm -f "$vCarpetaTemporal"/weakpass_4.latin.txt.ntlm.txt.7z 2> /dev/null
                     curl -L https://weakpass.com/pre-computed/download/weakpass_4.latin.txt.ntlm.txt.7z -o "$vCarpetaTemporal"/weakpass_4.latin.txt.ntlm.txt.7z
