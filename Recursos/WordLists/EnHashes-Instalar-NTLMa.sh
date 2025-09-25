@@ -63,7 +63,7 @@
   menu=(dialog --checklist "Marca las WordLists EnHashes que quieras instalar:" 22 80 16)
     opciones=(
       1 "WeakPass RockYou NTLM           (  0,7 GB descomprimido)" off
-      2 "WeakPass 4 Latin NTLM           (xxx,x GB descomprimido)" off
+      2 "WeakPass 4 Latin NTLM           ( 95,0 GB descomprimido)" off
       3 "WeakPass 4 Merged NTLM          (158,6 GB descomprimido)" off
       4 "WeakPass 4 Policy NTLM          ( 14,3 GB descomprimido)" off
       5 "WeakPass 4a Latin NTLM          (358.6 GB descomprimido)" off
@@ -112,7 +112,7 @@
               echo "  Instalando la WordList WeakPass 4 Latin NTLM..."
               echo ""
               # Calcular espacio libre disponible antes de instalar la WordList
-                if fCalcularEspacioLibre 1; then
+                if fCalcularEspacioLibre 95; then
                   # Descargar archivo comprimido
                     sudo rm -f "$vCarpetaTemporal"/weakpass_4.latin.txt.ntlm.txt.7z 2> /dev/null
                     curl -L https://weakpass.com/pre-computed/download/weakpass_4.latin.txt.ntlm.txt.7z -o "$vCarpetaTemporal"/weakpass_4.latin.txt.ntlm.txt.7z
