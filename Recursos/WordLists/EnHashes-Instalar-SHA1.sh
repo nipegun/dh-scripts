@@ -62,13 +62,13 @@
 # Crear el menú
   menu=(dialog --checklist "Marca las WordLists EnHashes que quieras instalar:" 22 80 16)
     opciones=(
-      1 "WeakPass RockYou SHA1           (  0,7 GB descomprimido)" off
-      2 "WeakPass 4 Latin SHA1           (105,0 GB descomprimido)" off
-      3 "WeakPass 4 Merged SHA1          (180,0 GB descomprimido)" off
-      4 "WeakPass 4 Policy SHA1          ( 16,0 GB descomprimido)" off
-      5 "WeakPass 4a Latin SHA1          (400,0 GB descomprimido)" off
-      6 "WeakPass 4a Policy SHA1         ( 86,0 GB descomprimido)" off
-      7 "WeakPass All in One Policy SHA1 (355,0 GB descomprimido)" off
+      1 "WeakPass RockYou SHA1           (  0,8 GB descomprimido)" off
+      2 "WeakPass 4 Latin SHA1           (112,3 GB descomprimido)" off
+      3 "WeakPass 4 Merged SHA1          (187,3 GB descomprimido)" off
+      4 "WeakPass 4 Policy SHA1          ( 16,9 GB descomprimido)" off
+      5 "WeakPass 4a Latin SHA1          (424,9 GB descomprimido)" off
+      6 "WeakPass 4a Policy SHA1         ( 91,9 GB descomprimido)" off
+      7 "WeakPass All in One Policy SHA1 (xxx,x GB descomprimido)" off
     )
     choices=$("${menu[@]}" "${opciones[@]}" 2>&1 >/dev/tty)
 
@@ -82,7 +82,7 @@
               echo "  Instalando la WordList WeakPass RockYou SHA1..."
               echo ""
               # Calcular espacio libre disponible antes de instalar la WordList
-                if fCalcularEspacioLibre 0.4; then
+                if fCalcularEspacioLibre 0.8; then
                   # Descargar archivo comprimido
                     sudo rm -f "$vCarpetaTemporal"/rockyou.txt.sha1.txt.7z 2> /dev/null
                     curl -L https://weakpass.com/pre-computed/download/rockyou.txt.sha1.txt.7z -o "$vCarpetaTemporal"/rockyou.txt.sha1.txt.7z
@@ -111,7 +111,7 @@
               echo "  Instalando la WordList WeakPass 4 Latin SHA1..."
               echo ""
               # Calcular espacio libre disponible antes de instalar la WordList
-                if fCalcularEspacioLibre 105; then
+                if fCalcularEspacioLibre 112.3; then
                   # Descargar archivo comprimido
                     sudo rm -f "$vCarpetaTemporal"/weakpass_4.latin.txt.sha1.txt.7z 2> /dev/null
                     curl -L https://weakpass.com/pre-computed/download/weakpass_4.latin.txt.sha1.txt.7z -o "$vCarpetaTemporal"/weakpass_4.latin.txt.sha1.txt.7z
@@ -140,7 +140,7 @@
               echo "  Instalando la WordList WeakPass 4 Merged SHA1..."
               echo ""
               # Calcular espacio libre disponible antes de instalar la WordList
-                if fCalcularEspacioLibre 175; then
+                if fCalcularEspacioLibre 187.3; then
                   # Descargar archivo comprimido
                     sudo rm -f "$vCarpetaTemporal"/weakpass_4.merged.txt.sha1.txt.7z 2> /dev/null
                     curl -L https://weakpass.com/pre-computed/download/weakpass_4.merged.txt.sha1.txt.7z -o "$vCarpetaTemporal"/weakpass_4.merged.txt.sha1.txt.7z
@@ -169,7 +169,7 @@
               echo "  Instalando la WordList WeakPass 4 Policy SHA1..."
               echo ""
               # Calcular espacio libre disponible antes de instalar la WordList
-                if fCalcularEspacioLibre 16; then
+                if fCalcularEspacioLibre 16.9; then
                   # Descargar archivo comprimido
                     sudo rm -f "$vCarpetaTemporal"/weakpass_4.policy.txt.sha1.txt.7z 2> /dev/null
                     curl -L https://weakpass.com/pre-computed/download/weakpass_4.policy.txt.sha1.txt.7z -o "$vCarpetaTemporal"/weakpass_4.policy.txt.sha1.txt.7z
@@ -198,7 +198,7 @@
               echo "  Instalando la WordList WeakPass 4a Latin SHA1..."
               echo ""
               # Calcular espacio libre disponible antes de instalar la WordList
-                if fCalcularEspacioLibre 396; then
+                if fCalcularEspacioLibre 424.9; then
                   # Descargar archivo comprimido
                     sudo rm -f "$vCarpetaTemporal"/weakpass_4a.latin.txt.sha1.txt.7z 2> /dev/null
                     curl -L https://weakpass.com/pre-computed/download/weakpass_4a.latin.txt.sha1.txt.7z -o "$vCarpetaTemporal"/weakpass_4a.latin.txt.sha1.txt.7z
@@ -227,14 +227,13 @@
               echo "  Instalando la WordList WeakPass 4a Policy SHA1..."
               echo ""
               # Calcular espacio libre disponible antes de instalar la WordList
-                if fCalcularEspacioLibre 86; then
+                if fCalcularEspacioLibre 91.9; then
                   # Descargar archivo comprimido
                     sudo rm -f "$vCarpetaTemporal"/weakpass_4a.policy.txt.sha1.txt.7z 2> /dev/null
                     curl -L https://weakpass.com/pre-computed/download/weakpass_4a.policy.txt.sha1.txt.7z -o "$vCarpetaTemporal"/weakpass_4a.policy.txt.sha1.txt.7z
                   # Descomprimir archivo hacia la ubicación final
                     # Borrar la carpeta existente
                       rm -rf "$vCarpetaDeWordLists"/EnHashes/SHA1/WeakPass-4aPolicy/ 2> /dev/null
-                    # Asegurarse de que la carpeta final exista
                       mkdir -p "$vCarpetaDeWordLists"/EnHashes/SHA1/WeakPass-4aPolicy/ 2> /dev/null
                     # Descomprimir
                       7z x "$vCarpetaTemporal"/weakpass_4a.policy.txt.sha1.txt.7z -o"$vCarpetaDeWordLists"/EnHashes/SHA1/WeakPass-4aPolicy/ # No hay que dejar espacio entre -o y la ruta del directorio
@@ -256,7 +255,7 @@
               echo "  Instalando la WordList WeakPass All in One Policy SHA1..."
               echo ""
               # Calcular espacio libre disponible antes de instalar la WordList
-                if fCalcularEspacioLibre 182; then
+                if fCalcularEspacioLibre xxx; then
                   # Descargar archivo comprimido
                     sudo rm -f "$vCarpetaTemporal"/all_in_one.policy.txt.sha1.txt.7z 2> /dev/null
                     curl -L https://weakpass.com/pre-computed/download/all_in_one.policy.txt.sha1.txt.7z -o "$vCarpetaTemporal"/all_in_one.policy.txt.sha1.txt.7z
