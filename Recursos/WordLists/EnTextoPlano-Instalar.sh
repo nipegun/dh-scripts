@@ -67,7 +67,7 @@
       3 "  Descargar WordLists de CSL-LABS"                    on
       4 "  Descargar WordLists de CrackStation"                on
       5 "  Descargar WordList WeakPass 4a"                     on
-      6 "  Reservado"                                          off
+      6 "  Descargar RockYou"                                  on
       7 "    Eliminar caracteres de tabulación"                on
       8 "      Preparar WordLists de caracteres incrementales" on
     )
@@ -392,10 +392,15 @@
             6)
 
               echo ""
-              echo "  Reservado..."
+              echo "  Descargando RockYou..."
               echo ""
 
-              #
+              # Descargar archivo comprimido
+                curl -L http://downloads.skullsecurity.org/passwords/rockyou.txt.bz2 -o /tmp/rockyou.txt.bz2
+              # Asegurarse de que la carpeta final exista
+                mkdir -p "$vCarpetaDeWordLists"/EnTextoPlano/Packs/RockYou/ 2> /dev/null
+              # Descomprimir
+                bzip2 -dk /tmp/rockyou.txt.bz2 && mv /tmp/rockyou.txt "$vCarpetaDeWordLists"/EnTextoPlano/Packs/RockYou/
 
             ;;
 
