@@ -61,9 +61,96 @@
     echo -e "${cColorAzulClaro}  Iniciando el script de instalación de RustScan para Debian 13 (x)...${cFinColor}"
     echo ""
 
-    echo ""
-    echo -e "${cColorRojo}    Comandos para Debian 13 todavía no preparados. Prueba ejecutarlo en otra versión de Debian.${cFinColor}"
-    echo ""
+    # Obtener el número de la última versión
+      echo ""
+      echo "    Obteniendo el número de versión de la release latest..."
+      echo ""
+      # Comprobar si el paquete curl está instalado. Si no lo está, instalarlo.
+        if [[ $(dpkg-query -s curl 2>/dev/null | grep installed) == "" ]]; then
+          echo ""
+          echo -e "${cColorRojo}  El paquete curl no está instalado. Iniciando su instalación...${cFinColor}"
+          echo ""
+          sudo apt-get -y update
+          sudo apt-get -y install curl
+          echo ""
+        fi
+      # Comprobar si el paquete jq está instalado. Si no lo está, instalarlo.
+        if [[ $(dpkg-query -s jq 2>/dev/null | grep installed) == "" ]]; then
+          echo ""
+          echo -e "${cColorRojo}  El paquete jq no está instalado. Iniciando su instalación...${cFinColor}"
+          echo ""
+          sudo apt-get -y update
+          sudo apt-get -y install jq
+          echo ""
+        fi
+      vUltVersRustScan=$(curl -sL https://api.github.com/repos/bee-san/RustScan/releases/latest | jq -r '.tag_name')
+      echo ""
+      echo "      El número de versión es $vUltVersRustScan"
+      echo ""
+
+    # Obtener el número de la última versión
+      echo ""
+      echo "    Descargando el archivo zip de la última versión..."
+      echo ""
+      curl -L https://github.com/bee-san/RustScan/releases/download/$vUltVersRustScan/x86_64-linux-rustscan.tar.gz.zip -o /tmp/rustscan.zip
+
+    # Descomprimir el zip
+      echo ""
+      echo "    Descomprimiendo el zip..."
+      echo ""
+      # Comprobar si el paquete unzip está instalado. Si no lo está, instalarlo.
+        if [[ $(dpkg-query -s unzip 2>/dev/null | grep installed) == "" ]]; then
+          echo ""
+          echo -e "${cColorRojo}  El paquete unzip no está instalado. Iniciando su instalación...${cFinColor}"
+          echo ""
+          sudo apt-get -y update
+          sudo apt-get -y install unzip
+          echo ""
+        fi
+      unzip /tmp/rustscan.zip -d /tmp
+
+    # Descomprimir el tar.gz
+      echo ""
+      echo "    Descomprimiendo el tar.gz..."
+      echo ""
+      # Comprobar si el paquete tar está instalado. Si no lo está, instalarlo.
+        if [[ $(dpkg-query -s tar 2>/dev/null | grep installed) == "" ]]; then
+          echo ""
+          echo -e "${cColorRojo}  El paquete tar no está instalado. Iniciando su instalación...${cFinColor}"
+          echo ""
+          sudo apt-get -y update
+          sudo apt-get -y install tar
+          echo ""
+        fi
+      tar -xzvf /tmp/x86_64-linux-rustscan.tar.gz -C /tmp/
+
+    # Mover el binario a carpeta de binarios
+      echo ""
+      echo "    Moviendo el binario a /usr/bin/..."
+      echo ""
+      find /tmp/ -type f -name rustscan -exec sudo cp -v {} /usr/bin/ \;
+      # Darle permisos de ejecución
+        sudo chmod +x /usr/bin/rustscan
+
+    # Notificar fin de ejecución del script
+      echo ""
+      echo "    Ejecución del script, finalizada."
+      echo "      RustScan se ha instalado correctamente."
+      echo ""
+      echo "      Para ejecutar escaneos:"
+      echo ""
+      echo "        rustscan -a 172.16.0.0/24"
+      echo "        rustscan -a 192.168.1.10 -p 22,80,443"
+      echo "        rustscan -a 192.168.1.10 -b 1000             # Permite indicar la cantidad de hilos"
+      echo "        rustscan -a 192.168.1.10 -oG ~/Resultado.txt # Guardar los resultados a un archivo"
+      echo ""
+      echo "          Para escanear con RustScan y luego pasar los resultados a Nmap automáticamente:"
+      echo ""
+      echo "            rustscan -a 192.168.1.1 -- -sV # Para escanear y, lo que detecta, pasarlo a nmap para ver las versiones de servicios"
+      echo "            rustscan -a 192.168.1.1 -- -O  # Para escanear y, lo que detecta, pasarlo a nmap para ver cual es el sistema operativo"
+      echo ""
+      echo "             -- indica que los argumentos posteriores se enviarán a Nmap."
+      echo ""
 
   elif [ $cVerSO == "12" ]; then
 
