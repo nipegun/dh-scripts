@@ -6,4 +6,5 @@
 # Web
   sudo apt-get -y install nikto
   sudo apt-get -y install sqlmap
+  sudo apt-get -y install gobuster
 
