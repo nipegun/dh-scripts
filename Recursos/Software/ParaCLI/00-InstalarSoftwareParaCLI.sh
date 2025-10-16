@@ -17,4 +17,9 @@
 # Herramientas para el registro de windows
   sudo apt-get -y install regripper
   sudo apt-get -y install reglookup
+  # RegiPy
+    sudo apt-get -y install python3-click
+    sudo apt-get -y install python3-tabulate
+    sudo python3 -m pip install regipy --break-system-packages
+    # regipy-dump /home/usuario/Descargas/NTUSER.DAT
 
