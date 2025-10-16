@@ -14,3 +14,7 @@
 # Descompresión
   sudo apt-get -y install qpdf # zlib-deflate
   
+# Herramientas para el registro de windows
+  sudo apt-get -y install regripper
+  sudo apt-get -y install reglookup
+
