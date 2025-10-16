@@ -15,11 +15,15 @@
   sudo apt-get -y install qpdf # zlib-deflate
   
 # Herramientas para el registro de windows
-  sudo apt-get -y install regripper
-  sudo apt-get -y install reglookup
+  # RegRipper
+    sudo apt-get -y install regripper
+    rip.pl -r /ruta/al/NTUSER.DAT
+  # RegLookUp
+    sudo apt-get -y install reglookup
+    # reglookup /ruta/al/NTUSER.DAT
   # RegiPy
     sudo apt-get -y install python3-click
     sudo apt-get -y install python3-tabulate
     sudo python3 -m pip install regipy --break-system-packages
-    # regipy-dump /home/usuario/Descargas/NTUSER.DAT
+    # regipy-dump /ruta/al/NTUSER.DAT
 
