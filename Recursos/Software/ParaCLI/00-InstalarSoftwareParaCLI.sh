@@ -11,3 +11,6 @@
   sudo apt-get -y install sqlmap
   sudo apt-get -y install gobuster
 
+# Descompresión
+  sudo apt-get -y install qpdf # zlib-deflate
+  
