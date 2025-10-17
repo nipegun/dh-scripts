@@ -11,6 +11,7 @@
 # x
   apt-get -y update
   apt-get -y install libterm-readline-perl-perl
+  apt-get -y install dialog
 
 # Crear la carpeta termporal
   mkdir /mnt/host/tmp
