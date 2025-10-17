@@ -11,11 +11,11 @@
 
 # Crear, iniciar y destruir un sandbox Debian aislado para pruebas con strace
 cFechaDeEjec=$(date +a%Ym%md%d@%T)
-mkdir -p "$HOME"/SandBoxes/ 2> /dev/null
-vDirSandbox="$HOME/SandBoxes/$cFechaDeEjec"
+mkdir -p "$HOME"/SystemdSandBoxes/ 2> /dev/null
+vDirSandbox="$HOME/SystemdSandBoxes/$cFechaDeEjec"
 vMirrorDebian="http://deb.debian.org/debian"
 vRelease="stable"
-vNombreContenedor="Sandbox"
+vNombreContenedor="SystemdSandbox"
 vMountHost="$1"
 
 # Crear el sandbox si no existe
