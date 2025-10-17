@@ -10,7 +10,7 @@
 #  curl -sL https://raw.githubusercontent.com/nipegun/dh-scripts/refs/heads/main/Recursos/SystemdSandbox/SystemdSandbox-Crear.sh -o /tmp/sb.sh && chmod +x /tmp/sb.sh && sed -i 's-$HOME-/mnt/PartLocalBTRFS-g' /tmp/sb.sh  && sed -i 's-sudo--g' /tmp/sb.sh && /tmp/sb.sh  [CarpetaAMontar]
 
 # Crear, iniciar y destruir un sandbox Debian aislado para pruebas con strace
-cFechaDeEjec=$(date +a%Ym%md%d@%T)
+cFechaDeEjec=$(date +"a%Ym%md%dh%Hm%Ms%S")
 mkdir -p "$HOME"/SystemdSandBoxes/ 2> /dev/null
 vDirSandbox="$HOME/SystemdSandBoxes/$cFechaDeEjec"
 vMirrorDebian="http://deb.debian.org/debian"
