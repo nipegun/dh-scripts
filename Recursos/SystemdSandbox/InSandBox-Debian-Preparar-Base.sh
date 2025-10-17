@@ -8,6 +8,10 @@
   echo '127.0.0.1 Sandbox' | tee -a /etc/hosts
   echo '127.0.1.1 Sandbox' | tee -a /etc/hosts
 
+# x
+  apt-get -y update
+  apt-get -y install libterm-readline-perl-perl
+
 # Crear la carpeta termporal
   mkdir /mnt/host/tmp
   chmod 777 /mnt/host/tmp/
@@ -29,5 +33,3 @@
 
 # Entrar en la carpeta montada del host
   cd /mnt/host/
-
-
