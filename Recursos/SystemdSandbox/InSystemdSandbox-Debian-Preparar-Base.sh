@@ -4,9 +4,9 @@
 #  curl -sL https://raw.githubusercontent.com/nipegun/dh-scripts/refs/heads/main/Recursos/SystemdSandbox/InSystemdSandbox-Debian-Preparar-Base.sh | bash
 
 # Corregir hostnames
-  echo 'Sanbox'            | tee -a /etc/hostname
-  echo '127.0.0.1 Sandbox' | tee -a /etc/hosts
-  echo '127.0.1.1 Sandbox' | tee -a /etc/hosts
+  echo 'SystemdSandbox'           | tee -a /etc/hostname
+  echo '127.0.0.1 SystemdSandbox' | tee -a /etc/hosts
+  echo '127.0.1.1 SystemdSandbox' | tee -a /etc/hosts
 
 # Poner todos los repositorios
   curl -sL https://raw.githubusercontent.com/nipegun/d-scripts/refs/heads/master/PostInstDebian/CLI/Repositorios-Todos-Poner.sh | sed 's-sudo--g' | bash
