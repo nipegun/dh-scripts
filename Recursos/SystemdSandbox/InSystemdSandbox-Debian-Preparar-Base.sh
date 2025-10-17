@@ -17,8 +17,9 @@
   apt-get -y install dialog
 
 # Crear la carpeta termporal
-  mkdir /mnt/host/tmp
-  chmod 777 /mnt/host/tmp/
+  mkdir -p /mnt/host/tmp/ 2> /dev/null
+  chmod 777 /mnt/host/tmp/ -R 2> /dev/null
+  rm -rf /mnt/host/tmp/*
 
 # locales
   apt-get -y install locales
