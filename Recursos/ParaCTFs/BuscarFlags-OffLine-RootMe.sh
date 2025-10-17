@@ -9,13 +9,13 @@
 # Script de NiPeGun para buscar flags en CTFs de RootMe en la terminal de un Linux vivo
 #
 # Ejecución remota (puede requerir permisos sudo):
-#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/DFIRLinux/Artefactos-Vivos-Cadena-Buscar-EnSistema.sh | bash
+#   curl -sL https://raw.githubusercontent.com/nipegun/dh-scripts/refs/heads/main/Recursos/ParaCTFs/BuscarFlags-OffLine-RootMe.sh | bash
 #
 # Ejecución remota como root (para sistemas sin sudo):
-#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/DFIRLinux/Artefactos-Vivos-Cadena-Buscar-EnSistema.sh | sed 's-sudo--g' | bash
+#   curl -sL https://raw.githubusercontent.com/nipegun/dh-scripts/refs/heads/main/Recursos/ParaCTFs/BuscarFlags-OffLine-RootMe.sh | sed 's-sudo--g' | bash
 #
 # Bajar y editar directamente el archivo en nano
-#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/DFIRLinux/Artefactos-Vivos-Cadena-Buscar-EnSistema.sh | nano -
+#   curl -sL https://raw.githubusercontent.com/nipegun/dh-scripts/refs/heads/main/Recursos/ParaCTFs/BuscarFlags-OffLine-RootMe.sh | nano -
 # ----------
 
 # Definir constantes de color
