@@ -8,6 +8,9 @@
   echo '127.0.0.1 Sandbox' | tee -a /etc/hosts
   echo '127.0.1.1 Sandbox' | tee -a /etc/hosts
 
+# Poner todos los repositorios
+  curl -sL https://raw.githubusercontent.com/nipegun/d-scripts/refs/heads/master/PostInstDebian/CLI/Repositorios-Todos-Poner.sh | sed 's-sudo--g' | bash
+
 # x
   apt-get -y update
   apt-get -y install libterm-readline-perl-perl
@@ -31,6 +34,9 @@
   apt-get -y install sudo
   apt-get -y install nano
   apt-get -y install mc
+
+# Pasar idioma a todo español
+  curl -sL https://raw.githubusercontent.com/nipegun/d-scripts/refs/heads/master/PostInstDebian/CLI/Idioma-CambiarTodoAes-es.sh | sed 's-sudo--g' | bash
 
 # Entrar en la carpeta montada del host
   cd /mnt/host/
