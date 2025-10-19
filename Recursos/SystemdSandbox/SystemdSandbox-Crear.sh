@@ -33,7 +33,7 @@ vMountHost="$1"
       echo ""
       echo "  Creando sandbox/contenedor de systemd con Debian "$vRelease" en $vDirSandbox..."
       echo ""
-      sudo debootstrap --variant=minbase "$vRelease" "$vDirSandbox" "$vMirrorDebian"
+      sudo debootstrap "$vRelease" "$vDirSandbox" "$vMirrorDebian"
     fi
 
 # Iniciar el sandbox con aislamiento y carpeta compartida
