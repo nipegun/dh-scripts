@@ -90,12 +90,22 @@
         echo 'echo -e "\n  Activando el entorno virtual de Spiderfoot... \n"' >> ~/repos/python/spiderfoot/venv/bin/activate
       source ~/repos/python/spiderfoot/venv/bin/activate
 
+      # Puede que no hagan falta esoss en debiasn 12
+          sudo apt-get -y install libxml2-dev
+          sudo apt-get -y install libxslt-dev
+          sudo apt-get -y install python3-dev
+          sudo apt-get -y install zlib1g-dev
+          sudo apt-get -y install gcc
+          sudo apt-get -y install g++
+          sudo apt-get -y install make
+
       # Comprobar si el paquete python3-pip está instalado. Si no lo está, instalarlo.
         if [[ $(dpkg-query -s python3-pip 2>/dev/null | grep installed) == "" ]]; then
           echo ""
           echo -e "${cColorRojo}  El paquete python3-pip no está instalado. Iniciando su instalación...${cFinColor}"
           echo ""
-          sudo apt-get -y update && sudo apt-get -y install python3-pip
+          sudo apt-get -y update
+          sudo apt-get -y install python3-pip
           echo ""
         fi
       pip3 install -r requirements.txt
