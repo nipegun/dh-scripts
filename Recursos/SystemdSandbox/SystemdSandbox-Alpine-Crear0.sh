@@ -57,7 +57,7 @@
   echo ""
   echo "      apk update && apk add curl"
   echo ""
-  sudo systemd-nspawn -D "$vDirSandbox" --bind="$vMountHost:/mnt/host" --machine="$vNombreContenedor"
+  sudo systemd-nspawn -D "$vDirSandbox" --bind="$vMountHost:/mnt/host" --machine="$vNombreContenedor" --boot --init=/sbin/init
 
 # Notificar salida del contenedor
   echo ""
