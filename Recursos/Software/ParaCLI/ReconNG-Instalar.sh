@@ -47,16 +47,6 @@
     echo "Contenedor LXC detectado"
   fi
 
-# Comprobar si el paquete curl está instalado. Si no lo está, instalarlo.
-  if [[ $(dpkg-query -s curl 2>/dev/null | grep installed) == "" ]]; then
-    echo ""
-    echo -e "${cColorRojo}  El paquete curl no está instalado. Iniciando su instalación...${cFinColor}"
-    echo ""
-    sudo apt-get -y update
-    sudo apt-get -y install curl
-    echo ""
-  fi
-
 # Determinar la versión de Debian
   if [ -f /etc/os-release ]; then             # Para systemd y freedesktop.org.
     . /etc/os-release
@@ -85,9 +75,36 @@
     echo -e "${cColorAzulClaro}  Iniciando el script de instalación de recon-ng para Debian 13 (x)...${cFinColor}"
     echo ""
 
-    echo ""
-    echo -e "${cColorRojo}    Comandos para Debian 13 todavía no preparados. Prueba ejecutarlo en otra versión de Debian.${cFinColor}"
-    echo ""
+    # Descargar el repo
+      # Comprobar si el paquete git está instalado. Si no lo está, instalarlo.
+        if [[ $(dpkg-query -s git 2>/dev/null | grep installed) == "" ]]; then
+          echo ""
+          echo -e "${cColorRojo}  El paquete git no está instalado. Iniciando su instalación...${cFinColor}"
+          echo ""
+          sudo apt-get -y update
+          sudo apt-get -y install git
+          echo ""
+        fi
+      mkdir -p $HOME/HackingTools/OSINT/ 2> /dev/null
+      cd $HOME/HackingTools/OSINT/
+      git clone https://github.com/lanmaster53/recon-ng.git
+    # Instalar requisitos
+      cd recon-ng
+      python3 -m pip install -r REQUIREMENTS --break-system-packages
+    # Notificar fin de ejecución del script
+      echo ""
+      echo "  La instalación de recon-ng ha finalizado. Para ejecutarlo:"
+      echo ""
+      echo "    $HOME/HackingTools/OSINT/recon-ng/recon-ng"
+      echo ""
+      echo "  Una vez dentro, para listar los módulos que se pueden instalar:"
+      echo ""
+      echo "    marketplace search"
+      echo ""
+      echo "  Para instalar un módulo:"
+      echo ""
+      echo "    marketplace install NombreCompletoDelMódulo"
+      echo ""
 
   elif [ $cVerSO == "12" ]; then
 
