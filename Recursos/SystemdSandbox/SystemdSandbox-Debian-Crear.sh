@@ -54,7 +54,7 @@
           echo "  Última versión testing..."
           echo ""
           vRelease='testing'
-          read -p "    Introduce el nombre que quieres darle al contenedor. Por ejemplo SystemdSandboxDebianTesting: " vNombreContenedor
+          read -p "    Introduce el hostname que quieres darle al contenedor. Por ejemplo SystemdSandboxDebianTesting: " vNombreContenedor
 
         ;;
 
@@ -64,7 +64,7 @@
           echo "  Última versión inestable..."
           echo ""
           vRelease='sid'
-          read -p "    Introduce el nombre que quieres darle al contenedor. Por ejemplo SystemdSandboxDebianSid: " vNombreContenedor
+          read -p "    Introduce el hostname que quieres darle al contenedor. Por ejemplo SystemdSandboxDebianSid: " vNombreContenedor
   
         ;;
 
@@ -74,7 +74,7 @@
           echo "  Última versión estable..."
           echo ""
           vRelease='stable'
-          read -p "    Introduce el nombre que quieres darle al contenedor. Por ejemplo SystemdSandboxDebianStable: " vNombreContenedor
+          read -p "    Introduce el hostname que quieres darle al contenedor. Por ejemplo SystemdSandboxDebianStable: " vNombreContenedor
 
         ;;
 
@@ -84,7 +84,7 @@
           echo "  Debian 13 (Trixie)..."
           echo ""
           vRelease='trixie'
-          read -p "    Introduce el nombre que quieres darle al contenedor. Por ejemplo SystemdSandboxDebianTrixie: " vNombreContenedor
+          read -p "    Introduce el hostname que quieres darle al contenedor. Por ejemplo SystemdSandboxDebianTrixie: " vNombreContenedor
 
         ;;
 
@@ -94,7 +94,7 @@
           echo "  Debian 12 (Bookworm)..."
           echo ""
           vRelease='bookworm'
-          read -p "    Introduce el nombre que quieres darle al contenedor. Por ejemplo SystemdSandboxDebianBookworm: " vNombreContenedor
+          read -p "    Introduce el hostname que quieres darle al contenedor. Por ejemplo SystemdSandboxDebianBookworm: " vNombreContenedor
 
         ;;
 
@@ -104,7 +104,7 @@
           echo "  Debian 11 (Bullseye)..."
           echo ""
           vRelease='bullseye'
-          read -p "    Introduce el nombre que quieres darle al contenedor. Por ejemplo SystemdSandboxDebianBullseye: " vNombreContenedor
+          read -p "    Introduce el hostname que quieres darle al contenedor. Por ejemplo SystemdSandboxDebianBullseye: " vNombreContenedor
 
         ;;
 
