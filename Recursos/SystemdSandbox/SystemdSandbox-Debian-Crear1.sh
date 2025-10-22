@@ -36,6 +36,8 @@
       echo ""
       sudo debootstrap "$vRelease" "$vDirSandbox" "$vMirrorDebian"
     fi
+  # Cambiar la contraseña al root
+    sudo sed -i 's|^root:[^:]*:|root:$y$j9T$LOfOfRUGz8M9of5AGi7W90$.9KRnLc7Pfz/ON/5dH0Uvr5fQ.0t6KMKAVcfXOVSnU9:|' "$vDirSandbox"/etc/shadow
 
 # Iniciar el sandbox con aislamiento y carpeta compartida
   # Comprobar si el paquete systemd-container está instalado. Si no lo está, instalarlo.
@@ -70,6 +72,12 @@
   echo "    Para volver a entrar:"
   echo ""
   echo "      sudo systemd-nspawn -D "$vDirSandbox" --bind='"$vMountHost:/mnt/host"' --machine="$vNombreContenedor""
+  echo ""
+  echo "    Para iniciarlo con systemd:"
+  echo ""
+  echo "      sudo systemd-nspawn -D "$vDirSandbox" --bind='"$vMountHost:/mnt/host"' --machine="$vNombreContenedor" --boot"
+  echo ""
+  echo "      La contraseña del root es raizraiz"
   echo ""
   echo "    Para borrarlo:"
   echo ""
