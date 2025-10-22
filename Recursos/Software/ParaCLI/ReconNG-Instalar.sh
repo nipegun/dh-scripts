@@ -97,6 +97,10 @@
       echo ""
       echo "    marketplace install NombreCompletoDelMódulo"
       echo ""
+      echo "  Para instalar todos los módulos:"
+      echo ""
+      echo "    marketplace install all"
+      echo ""
 
   elif [ $cVerSO == "12" ]; then
 
