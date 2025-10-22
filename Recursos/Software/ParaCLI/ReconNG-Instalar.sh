@@ -71,9 +71,10 @@
           sudo apt-get -y install git
           echo ""
         fi
+      cd $HOME
+      rm -rf $HOME/HackingTools/OSINT/recon-ng
       mkdir -p $HOME/HackingTools/OSINT/ 2> /dev/null
       cd $HOME/HackingTools/OSINT/
-      rm -rf $HOME/HackingTools/OSINT/recon-ng/
       git clone https://github.com/lanmaster53/recon-ng.git
     # Instalar requisitos
       cd recon-ng
