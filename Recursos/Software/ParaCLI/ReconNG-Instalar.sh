@@ -73,6 +73,7 @@
         fi
       cd $HOME
       rm -rf $HOME/HackingTools/OSINT/recon-ng
+      rm -rf $HOME/.recon-ng
       mkdir -p $HOME/HackingTools/OSINT/ 2> /dev/null
       cd $HOME/HackingTools/OSINT/
       git clone https://github.com/lanmaster53/recon-ng.git
