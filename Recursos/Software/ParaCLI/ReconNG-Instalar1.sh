@@ -108,9 +108,47 @@
     echo -e "${cColorAzulClaro}  Iniciando el script de instalación de recon-ng para Debian 12 (Bookworm)...${cFinColor}"
     echo ""
 
-    echo ""
-    echo -e "${cColorRojo}    Comandos para Debian 12 todavía no preparados. Prueba ejecutarlo en otra versión de Debian.${cFinColor}"
-    echo ""
+
+    # Descargar el repo
+      # Comprobar si el paquete git está instalado. Si no lo está, instalarlo.
+        if [[ $(dpkg-query -s git 2>/dev/null | grep installed) == "" ]]; then
+          echo ""
+          echo -e "${cColorRojo}  El paquete git no está instalado. Iniciando su instalación...${cFinColor}"
+          echo ""
+          sudo apt-get -y update
+          sudo apt-get -y install git
+          echo ""
+        fi
+      cd $HOME
+      rm -rf $HOME/HackingTools/OSINT/recon-ng
+      rm -rf $HOME/.recon-ng
+      mkdir -p $HOME/HackingTools/OSINT/ 2> /dev/null
+      cd $HOME/HackingTools/OSINT/
+      git clone https://github.com/lanmaster53/recon-ng.git
+    # Instalar requisitos
+      cd recon-ng
+      python3 -m pip install -r REQUIREMENTS --break-system-packages
+      python3 -m pip install cryptography --break-system-packages
+      python3 -m pip install PyPDF3 --break-system-packages
+
+    # Notificar fin de ejecución del script
+      echo ""
+      echo "  La instalación de recon-ng ha finalizado. Para ejecutarlo:"
+      echo ""
+      echo "    $HOME/HackingTools/OSINT/recon-ng/recon-ng"
+      echo ""
+      echo "  Una vez dentro, para listar los módulos que se pueden instalar:"
+      echo ""
+      echo "    marketplace search"
+      echo ""
+      echo "  Para instalar un módulo:"
+      echo ""
+      echo "    marketplace install NombreCompletoDelMódulo"
+      echo ""
+      echo "  Para instalar todos los módulos:"
+      echo ""
+      echo "    marketplace install all"
+      echo ""
 
   elif [ $cVerSO == "11" ]; then
 
