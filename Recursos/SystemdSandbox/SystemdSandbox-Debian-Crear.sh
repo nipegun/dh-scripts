@@ -13,7 +13,6 @@
   cFechaDeEjec=$(date +"a%Ym%md%dh%Hm%Ms%S")
   vMirrorDebian="http://deb.debian.org/debian"
   vMountHost="${1:-/home}"
-  vNombreContenedor="SystemdSandboxDebian"
 
 # Definir constantes de color
   cColorAzul="\033[0;34m"
@@ -55,6 +54,7 @@
           echo "  Última versión testing..."
           echo ""
           vRelease='testing'
+          vNombreContenedor="SystemdSandboxDebianTesting"
 
         ;;
 
@@ -64,7 +64,8 @@
           echo "  Última versión inestable..."
           echo ""
           vRelease='sid'
-
+          vNombreContenedor="SystemdSandboxDebianSid"
+  
         ;;
 
         3)
@@ -73,6 +74,7 @@
           echo "  Última versión estable..."
           echo ""
           vRelease='stable'
+          vNombreContenedor="SystemdSandboxDebianStable"
 
         ;;
 
@@ -82,6 +84,7 @@
           echo "  Debian 13 (Trixie)..."
           echo ""
           vRelease='trixie'
+          vNombreContenedor="SystemdSandboxDebianTrixie"
 
         ;;
 
@@ -91,6 +94,7 @@
           echo "  Debian 12 (Bookworm)..."
           echo ""
           vRelease='bookworm'
+          vNombreContenedor="SystemdSandboxDebianBookworm"
 
         ;;
 
@@ -100,6 +104,7 @@
           echo "  Debian 11 (Bullseye)..."
           echo ""
           vRelease='bullseye'
+          vNombreContenedor="SystemdSandboxDebianBullseye"
 
         ;;
 
