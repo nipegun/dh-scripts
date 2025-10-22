@@ -11,13 +11,125 @@
 
 # Variables
   cFechaDeEjec=$(date +"a%Ym%md%dh%Hm%Ms%S")
-  vDirSandbox="/var/lib/machines/Debian-$cFechaDeEjec"
-  sudo mkdir -p "$vDirSandbox" 2> /dev/null
-  vNombreContenedor="SystemdSandboxDebian"
-  
   vMirrorDebian="http://deb.debian.org/debian"
-  vRelease="stable"
   vMountHost="${1:-/home}"
+  vNombreContenedor="SystemdSandboxDebian"
+
+# Definir constantes de color
+  cColorAzul="\033[0;34m"
+  cColorAzulClaro="\033[1;34m"
+  cColorVerde='\033[1;32m'
+  cColorRojo='\033[1;31m'
+  # Para el color rojo también:
+    #echo "$(tput setaf 1)Mensaje en color rojo. $(tput sgr 0)"
+  cFinColor='\033[0m'
+
+# Crear el menú
+  # Comprobar si el paquete dialog está instalado. Si no lo está, instalarlo.
+    if [[ $(dpkg-query -s dialog 2>/dev/null | grep installed) == "" ]]; then
+      echo ""
+      echo -e "${cColorRojo}  El paquete dialog no está instalado. Iniciando su instalación...${cFinColor}"
+      echo ""
+      sudo apt-get -y update
+      sudo apt-get -y install dialog
+      echo ""
+    fi
+  menu=(dialog --checklist "Marca las opciones que quieras instalar:" 22 96 16)
+    opciones=(
+      1 "Ultima versión testing"   off
+      2 "Ultima versión inestable" off
+      3 "Ultima versión estable"   off
+      4 "Debian 13 (Trixie)"       off
+      5 "Debian 12 (Bookworm)"     off
+      6 "Debian 11 (Bullseye)"     off
+      7 "Debian 10 (Buster)"       off
+      8 "Debian  9 (Stretch)"      off
+    )
+  choices=$("${menu[@]}" "${opciones[@]}" 2>&1 >/dev/tty)
+
+  for choice in $choices
+    do
+      case $choice in
+
+        1)
+
+          echo ""
+          echo "  Última versión testing..."
+          echo ""
+          vRelease='testing'
+
+        ;;
+
+        2)
+
+          echo ""
+          echo "  Última versión inestable..."
+          echo ""
+          vRelease='sid'
+
+        ;;
+
+        3)
+
+          echo ""
+          echo "  Última versión estable..."
+          echo ""
+          vRelease='stable'
+
+        ;;
+
+        4)
+
+          echo ""
+          echo "  Debian 13 (Trixie)..."
+          echo ""
+          vRelease='trixie'
+
+        ;;
+
+        5)
+
+          echo ""
+          echo "  Debian 12 (Bookworm)..."
+          echo ""
+          vRelease='bookworm'
+
+        ;;
+
+        6)
+
+          echo ""
+          echo "  Debian 11 (Bullseye)..."
+          echo ""
+          vRelease='bullseye'
+
+        ;;
+
+        7)
+
+          echo ""
+          echo "  Debian 10 (Buster)..."
+          echo ""
+          vRelease='buster'
+
+        ;;
+
+        8)
+
+          echo ""
+          echo "  Debian 9 (Stretch)..."
+          echo ""
+          vRelease='stretch'
+
+        ;;
+
+    esac
+
+  done
+
+# Nuevas variables
+  vDirSandbox="/var/lib/machines/Debian-$vRelease-$cFechaDeEjec"
+  sudo mkdir -p "$vDirSandbox" 2> /dev/null
 
 # Crear el sandbox si no existe
   # Comprobar si el paquete debootstrap está instalado. Si no lo está, instalarlo.
