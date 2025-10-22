@@ -149,7 +149,7 @@
   echo ""
   echo "  Iniciando sandbox/contenedor de systemd con Debian..."
   echo ""
-  echo "    Copia y poega estas dos líneas dentro del contenedor para preparar el sistema básico:"
+  echo "    Copia y ejecuta estas dos líneas dentro del contenedor para preparar el sistema básico:"
   echo ""
   echo "      apt-get -y update && apt-get -y install curl"
   echo "      curl -sL https://raw.githubusercontent.com/nipegun/dh-scripts/refs/heads/main/Recursos/SystemdSandbox/InSystemdSandbox-Debian-Preparar-Base.sh | bash"
