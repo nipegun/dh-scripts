@@ -31,7 +31,9 @@ aCarpetas=$(sudo find "$vCarpetaPorDefectoParaContenedores" -mindepth 1 -maxdept
 
 # Si no hay carpetas, salir
 if [ -z "$aCarpetas" ]; then
-  echo "No hay carpetas para borrar en $vCarpetaPorDefectoParaContenedores."
+  echo ""
+  echo "  No hay carpetas para borrar en $vCarpetaPorDefectoParaContenedores."
+  echo ""
   exit 0
 fi
 
@@ -40,6 +42,4 @@ for vCarpeta in $aCarpetas; do
   echo "Borrando $vCarpeta..."
   sudo rm -rf "$vCarpeta"
 done
-
-echo "Todas las carpetas dentro de $vCarpetaPorDefectoParaContenedores fueron borradas."
 
