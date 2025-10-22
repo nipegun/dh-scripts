@@ -54,7 +54,7 @@
           echo "  Última versión testing..."
           echo ""
           vRelease='testing'
-          vNombreContenedor="SystemdSandboxDebianTesting"
+          read -p "    Introduce el nombre que quieres darle al contenedor. Por ejemplo SystemdSandboxDebianTesting: " vNombreContenedor
 
         ;;
 
@@ -64,7 +64,7 @@
           echo "  Última versión inestable..."
           echo ""
           vRelease='sid'
-          vNombreContenedor="SystemdSandboxDebianSid"
+          read -p "    Introduce el nombre que quieres darle al contenedor. Por ejemplo SystemdSandboxDebianSid: " vNombreContenedor
   
         ;;
 
@@ -74,7 +74,7 @@
           echo "  Última versión estable..."
           echo ""
           vRelease='stable'
-          vNombreContenedor="SystemdSandboxDebianStable"
+          read -p "    Introduce el nombre que quieres darle al contenedor. Por ejemplo SystemdSandboxDebianStable: " vNombreContenedor
 
         ;;
 
@@ -84,7 +84,7 @@
           echo "  Debian 13 (Trixie)..."
           echo ""
           vRelease='trixie'
-          vNombreContenedor="SystemdSandboxDebianTrixie"
+          read -p "    Introduce el nombre que quieres darle al contenedor. Por ejemplo SystemdSandboxDebianTrixie: " vNombreContenedor
 
         ;;
 
@@ -94,7 +94,7 @@
           echo "  Debian 12 (Bookworm)..."
           echo ""
           vRelease='bookworm'
-          vNombreContenedor="SystemdSandboxDebianBookworm"
+          read -p "    Introduce el nombre que quieres darle al contenedor. Por ejemplo SystemdSandboxDebianBookworm: " vNombreContenedor
 
         ;;
 
@@ -104,7 +104,7 @@
           echo "  Debian 11 (Bullseye)..."
           echo ""
           vRelease='bullseye'
-          vNombreContenedor="SystemdSandboxDebianBullseye"
+          read -p "    Introduce el nombre que quieres darle al contenedor. Por ejemplo SystemdSandboxDebianBullseye: " vNombreContenedor
 
         ;;
 
