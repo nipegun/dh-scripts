@@ -9,14 +9,15 @@
 # Ejecución remota como root (para sistemas sin sudo) (modificando la carpeta donde crear el sandbox):
 #  curl -sL https://raw.githubusercontent.com/nipegun/dh-scripts/refs/heads/main/Recursos/SystemdSandbox/SystemdSandbox-Debian-Crear.sh -o /tmp/sb.sh && chmod +x /tmp/sb.sh && sed -i 's-$HOME-/mnt/PartLocalBTRFS-g' /tmp/sb.sh  && sed -i 's-sudo--g' /tmp/sb.sh && /tmp/sb.sh  [CarpetaAMontar]
 
-# Crear, iniciar y destruir un sandbox Debian aislado para pruebas con strace
-cFechaDeEjec=$(date +"a%Ym%md%dh%Hm%Ms%S")
-mkdir -p "$HOME"/SystemdSandboxes/ 2> /dev/null
-vDirSandbox="$HOME/SystemdSandboxes/$cFechaDeEjec"
-vMirrorDebian="http://deb.debian.org/debian"
-vRelease="stable"
-vNombreContenedor="SystemdSandbox"
-vMountHost="$1"
+# Variables
+  cFechaDeEjec=$(date +"a%Ym%md%dh%Hm%Ms%S")
+  vDirSandbox="/var/lib/machines/Debian-$cFechaDeEjec"
+  sudo mkdir -p "$vDirSandbox" 2> /dev/null
+  vNombreContenedor="SystemdSandboxDebian"
+  
+  vMirrorDebian="http://deb.debian.org/debian"
+  vRelease="stable"
+  vMountHost="${1:-/home}"
 
 # Crear el sandbox si no existe
   # Comprobar si el paquete debootstrap está instalado. Si no lo está, instalarlo.
@@ -47,7 +48,7 @@ vMountHost="$1"
       echo ""
     fi
   echo ""
-  echo "  Iniciando sandbox/contenedor de systemd..."
+  echo "  Iniciando sandbox/contenedor de systemd con Debian..."
   echo ""
   echo "    Dentro del contenedor pega y ejecuta los siguientes comandos para preparar el sistema básico:"
   echo ""
