@@ -81,8 +81,12 @@
       cd recon-ng
       sudo apt-get -y install python3-pip
       python3 -m pip install -r REQUIREMENTS --break-system-packages
-      python3 -m pip install cryptography --break-system-packages
-      python3 -m pip install PyPDF3 --break-system-packages
+      python3 -m pip install --break-system-packages cryptography
+      python3 -m pip install --break-system-packages PyPDF3
+      python3 -m pip install --break-system-packages censys
+      python3 -m pip install --break-system-packages shodan
+      python3 -m pip install --break-system-packages bs4
+      python3 -m pip install --break-system-packages olefile
 
     # Notificar fin de ejecución del script
       echo ""
@@ -130,8 +134,12 @@
       cd recon-ng
       sudo apt-get -y install python3-pip
       python3 -m pip install -r REQUIREMENTS --break-system-packages
-      python3 -m pip install cryptography --break-system-packages
-      python3 -m pip install PyPDF3 --break-system-packages
+      python3 -m pip install --break-system-packages cryptography
+      python3 -m pip install --break-system-packages PyPDF3
+      python3 -m pip install --break-system-packages censys
+      python3 -m pip install --break-system-packages shodan
+      python3 -m pip install --break-system-packages bs4
+      python3 -m pip install --break-system-packages olefile
 
     # Notificar fin de ejecución del script
       echo ""
