@@ -128,6 +128,7 @@
       git clone https://github.com/lanmaster53/recon-ng.git
     # Instalar requisitos
       cd recon-ng
+      sudo apt-get -y install python3-pip
       python3 -m pip install -r REQUIREMENTS --break-system-packages
       python3 -m pip install cryptography --break-system-packages
       python3 -m pip install PyPDF3 --break-system-packages
