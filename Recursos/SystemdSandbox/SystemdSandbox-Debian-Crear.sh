@@ -33,7 +33,7 @@
       sudo apt-get -y install dialog
       echo ""
     fi
-  menu=(dialog --checklist "Marca las opciones que quieras instalar:" 22 96 16)
+  menu=(dialog --checklist "Marca las opciones que quieras instalar:" 22 70 16)
     opciones=(
       1 "Última versión testing"   off
       2 "Última versión inestable" off
