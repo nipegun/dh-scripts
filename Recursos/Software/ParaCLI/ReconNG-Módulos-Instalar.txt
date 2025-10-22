@@ -12,7 +12,7 @@
   marketplace install recon/companies-domains/viewdns_reverse_whois
   marketplace install recon/companies-multi/whois_miner
   marketplace install recon/contacts-contacts/mailtester
-  marketplace install recon/contacts-contacts/mangle
+# marketplace install recon/contacts-contacts/mangle
   marketplace install recon/contacts-contacts/unmangle
   marketplace install recon/contacts-domains/migrate_contacts
   marketplace install recon/credentials-credentials/adobe
@@ -21,7 +21,7 @@
   marketplace install recon/domains-contacts/pen
   marketplace install recon/domains-contacts/pgp_search
   marketplace install recon/domains-contacts/whois_pocs
-  marketplace install recon/domains-contacts/wikileaker
+# marketplace install recon/domains-contacts/wikileaker
   marketplace install recon/domains-domains/brute_suffix
   marketplace install recon/domains-hosts/bing_domain_web
   marketplace install recon/domains-hosts/brute_hosts
