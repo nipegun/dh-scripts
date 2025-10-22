@@ -91,6 +91,10 @@
     # Instalar requisitos
       cd recon-ng
       python3 -m pip install -r REQUIREMENTS --break-system-packages
+      python3 -m pip install cryptography --break-system-packages
+      python3 -m pip install PyPDF3 --break-system-packages
+      sudo apt-get -y install python3-cryptography
+
     # Notificar fin de ejecución del script
       echo ""
       echo "  La instalación de recon-ng ha finalizado. Para ejecutarlo:"
