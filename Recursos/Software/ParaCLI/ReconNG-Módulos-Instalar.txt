@@ -1,0 +1,115 @@
+# Módulos que no necesitan ni dependencias ni API keys
+  marketplace install discovery/info_disclosure/cache_snoop
+  marketplace install discovery/info_disclosure/interesting_files
+  marketplace install exploitation/injection/command_injector
+  marketplace install exploitation/injection/xpath_bruter
+  marketplace install import/csv_file
+  marketplace install import/list
+  marketplace install import/masscan
+  marketplace install import/nmap
+  marketplace install recon/companies-contacts/pen
+  marketplace install recon/companies-domains/pen
+  marketplace install recon/companies-domains/viewdns_reverse_whois
+  marketplace install recon/companies-multi/whois_miner
+  marketplace install recon/contacts-contacts/mailtester
+  marketplace install recon/contacts-contacts/mangle
+  marketplace install recon/contacts-contacts/unmangle
+  marketplace install recon/contacts-domains/migrate_contacts
+  marketplace install recon/credentials-credentials/adobe
+  marketplace install recon/credentials-credentials/bozocrack
+  marketplace install recon/domains-companies/pen
+  marketplace install recon/domains-contacts/pen
+  marketplace install recon/domains-contacts/pgp_search
+  marketplace install recon/domains-contacts/whois_pocs
+  marketplace install recon/domains-contacts/wikileaker
+  marketplace install recon/domains-domains/brute_suffix
+  marketplace install recon/domains-hosts/bing_domain_web
+  marketplace install recon/domains-hosts/brute_hosts
+  marketplace install recon/domains-hosts/certificate_transparency
+  marketplace install recon/domains-hosts/google_site_web
+  marketplace install recon/domains-hosts/hackertarget
+  marketplace install recon/domains-hosts/mx_spf_ip
+  marketplace install recon/domains-hosts/netcraft
+  marketplace install recon/domains-hosts/ssl_san
+  marketplace install recon/domains-hosts/threatcrowd
+  marketplace install recon/domains-hosts/threatminer
+  marketplace install recon/domains-vulnerabilities/ghdb
+  marketplace install recon/domains-vulnerabilities/xssed
+  marketplace install recon/hosts-domains/migrate_hosts
+  marketplace install recon/hosts-hosts/resolve
+  marketplace install recon/hosts-hosts/reverse_resolve
+  marketplace install recon/hosts-hosts/ssltools
+  marketplace install recon/hosts-locations/migrate_hosts
+  marketplace install recon/netblocks-companies/whois_orgs
+  marketplace install recon/netblocks-hosts/reverse_resolve
+  marketplace install recon/netblocks-ports/census_2012
+  marketplace install recon/ports-hosts/migrate_ports
+  marketplace install recon/ports-hosts/ssl_scan
+  marketplace install recon/profiles-contacts/dev_diver
+  marketplace install recon/profiles-profiles/profiler
+  marketplace install recon/repositories-vulnerabilities/gists_search
+  marketplace install reporting/csv
+  marketplace install reporting/html
+  marketplace install reporting/json
+  marketplace install reporting/list
+  marketplace install reporting/proxifier
+  marketplace install reporting/xlsx
+  marketplace install reporting/xml
+
+# Módulos que sólo necesitan dependencias
+  marketplace install recon/contacts-contacts/abc
+  marketplace install recon/domains-contacts/metacrawler
+
+# Módulos que necesitan Api KEY
+  marketplace install recon/companies-contacts/bing_linkedin_cache
+  marketplace install recon/companies-contacts/censys_email_address
+  marketplace install recon/companies-domains/censys_subdomains         | 2.1     | not installed | 2022-01-31 | * | * |
+  marketplace install recon/companies-domains/whoxy_dns                 | 1.1     | not installed | 2020-06-17 |   | * |
+  marketplace install recon/companies-multi/censys_org                  | 2.1     | not installed | 2022-01-31 | * | * |
+  marketplace install recon/companies-multi/censys_tls_subjects         | 2.1     | not installed | 2022-01-31 | * | * |
+  marketplace install recon/companies-multi/github_miner                | 1.1     | not installed | 2020-05-15 |   | * |
+  marketplace install recon/companies-multi/shodan_org                  | 1.1     | not installed | 2020-07-01 | * | * |
+  marketplace install recon/contacts-credentials/hibp_breach            | 1.2     | not installed | 2019-09-10 |   | * |
+  marketplace install recon/contacts-credentials/hibp_paste             | 1.1     | not installed | 2019-09-10 |   | * |
+  marketplace install recon/contacts-domains/censys_email_to_domains    | 2.1     | not installed | 2022-01-31 | * | * |
+  marketplace install recon/contacts-profiles/fullcontact               | 1.1     | not installed | 2019-07-24 |   | * |
+  marketplace install recon/credentials-credentials/hashes_org          | 1.0     | not installed | 2019-06-24 |   | * |
+  marketplace install recon/domains-companies/censys_companies          | 2.1     | not installed | 2022-01-31 | * | * |
+  marketplace install recon/domains-companies/whoxy_whois               | 1.1     | not installed | 2020-06-24 |   | * |
+  marketplace install recon/domains-contacts/hunter_io                  | 1.3     | not installed | 2020-04-14 |   | * |
+  marketplace install recon/domains-hosts/binaryedge                    | 1.2     | not installed | 2020-06-18 |   | * |
+  marketplace install recon/domains-hosts/bing_domain_api               | 1.0     | not installed | 2019-06-24 |   | * |
+  marketplace install recon/domains-hosts/builtwith                     | 1.1     | not installed | 2021-08-24 |   | * |
+  marketplace install recon/domains-hosts/censys_domain                 | 2.1     | not installed | 2022-01-31 | * | * |
+  marketplace install recon/domains-hosts/shodan_hostname               | 1.1     | not installed | 2020-07-01 | * | * |
+  marketplace install recon/domains-hosts/spyse_subdomains              | 1.1     | not installed | 2021-08-24 |   | * |
+  marketplace install recon/hosts-hosts/bing_ip                         | 1.0     | not installed | 2019-06-24 |   | * |
+  marketplace install recon/hosts-hosts/censys_hostname                 | 2.1     | not installed | 2022-01-31 | * | * |
+  marketplace install recon/hosts-hosts/censys_ip                       | 2.1     | not installed | 2022-01-31 | * | * |
+  marketplace install recon/hosts-hosts/censys_query                    | 2.1     | not installed | 2022-01-31 | * | * |
+  marketplace install recon/hosts-hosts/ipinfodb                        | 1.2     | not installed | 2021-08-24 |   | * |
+  marketplace install recon/hosts-hosts/ipstack                         | 1.0     | not installed | 2019-06-24 |   | * |
+  marketplace install recon/hosts-hosts/virustotal                      | 1.0     | not installed | 2019-06-24 |   | * |
+  marketplace install recon/hosts-ports/binaryedge                      | 1.0     | not installed | 2019-06-24 |   | * |
+  marketplace install recon/hosts-ports/shodan_ip                       | 1.2     | not installed | 2020-07-01 | * | * |
+  marketplace install recon/locations-locations/geocode                 | 1.0     | not installed | 2019-06-24 |   | * |
+  marketplace install recon/locations-locations/reverse_geocode         | 1.0     | not installed | 2019-06-24 |   | * |
+  marketplace install recon/locations-pushpins/flickr                   | 1.0     | not installed | 2019-06-24 |   | * |
+  marketplace install recon/locations-pushpins/shodan                   | 1.1     | not installed | 2020-07-07 | * | * |
+  marketplace install recon/locations-pushpins/twitter                  | 1.1     | not installed | 2019-10-17 |   | * |
+  marketplace install recon/locations-pushpins/youtube                  | 1.2     | not installed | 2020-09-02 |   | * |
+  marketplace install recon/netblocks-companies/censys_netblock_company | 2.1     | not installed | 2022-01-31 | * | * |
+  marketplace install recon/netblocks-hosts/censys_netblock             | 2.1     | not installed | 2022-01-31 | * | * |
+  marketplace install recon/netblocks-hosts/shodan_net                  | 1.2     | not installed | 2020-07-21 | * | * |
+  marketplace install recon/netblocks-hosts/virustotal                  | 1.0     | not installed | 2019-06-24 |   | * |
+  marketplace install recon/netblocks-ports/censysio                    | 1.0     | not installed | 2019-06-24 |   | * |
+  marketplace install recon/profiles-contacts/bing_linkedin_contacts    | 1.2     | not installed | 2021-08-24 |   | * |
+  marketplace install recon/profiles-contacts/github_users              | 1.0     | not installed | 2019-06-24 |   | * |
+  marketplace install recon/profiles-profiles/namechk                   | 1.0     | not installed | 2019-06-24 |   | * |
+  marketplace install recon/profiles-profiles/twitter_mentioned         | 1.0     | not installed | 2019-06-24 |   | * |
+  marketplace install recon/profiles-profiles/twitter_mentions          | 1.0     | not installed | 2019-06-24 |   | * |
+  marketplace install recon/profiles-repositories/github_repos          | 1.1     | not installed | 2020-05-15 |   | * |
+  marketplace install recon/repositories-profiles/github_commits        | 1.0     | not installed | 2019-06-24 |   | * |
+  marketplace install recon/repositories-vulnerabilities/github_dorks   | 1.0     | not installed | 2019-06-24 |   | * |
+  marketplace install reporting/pushpin                                 | 1.0     | not installed | 2019-06-24 |   | * |
+
