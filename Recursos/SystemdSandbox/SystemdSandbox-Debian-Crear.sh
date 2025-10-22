@@ -42,8 +42,6 @@
       4 "Debian 13 (Trixie)"       off
       5 "Debian 12 (Bookworm)"     off
       6 "Debian 11 (Bullseye)"     off
-      7 "Debian 10 (Buster)"       off
-      8 "Debian  9 (Stretch)"      off
     )
   choices=$("${menu[@]}" "${opciones[@]}" 2>&1 >/dev/tty)
 
@@ -102,24 +100,6 @@
           echo "  Debian 11 (Bullseye)..."
           echo ""
           vRelease='bullseye'
-
-        ;;
-
-        7)
-
-          echo ""
-          echo "  Debian 10 (Buster)..."
-          echo ""
-          vRelease='buster'
-
-        ;;
-
-        8)
-
-          echo ""
-          echo "  Debian 9 (Stretch)..."
-          echo ""
-          vRelease='stretch'
 
         ;;
 
