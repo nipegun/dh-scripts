@@ -8,7 +8,10 @@
 # ----------
 # Script de NiPeGun para instalar y configurar Spiderfoot en Debian
 #
-# Ejecución remota :
+# Ejecución remota (puede requerir permisos sudo):
+#   curl -sL https://raw.githubusercontent.com/nipegun/dh-scripts/refs/heads/main/Recursos/Software/ServWeb/Spiderfoot-Instalar.sh | bash (No debería ejecutarse con sudo. Aunque luego pida permisos sudo)
+#
+# Ejecución remota como root (para sistemas sin sudo):
 #   curl -sL https://raw.githubusercontent.com/nipegun/dh-scripts/refs/heads/main/Recursos/Software/ServWeb/Spiderfoot-Instalar.sh | bash (No debería ejecutarse con sudo. Aunque luego pida permisos sudo)
 #
 # Bajar y editar directamente el archivo en nano
@@ -52,43 +55,35 @@
     echo -e "${cColorAzulClaro}  Iniciando el script de instalación de Spiderfoot para Debian 13 (x)...${cFinColor}"
     echo ""
 
-    echo ""
-    echo -e "${cColorRojo}    Comandos para Debian 13 todavía no preparados. Prueba ejecutarlo en otra versión de Debian.${cFinColor}"
-    echo ""
-
-  elif [ $cVerSO == "12" ]; then
-
-    echo ""
-    echo -e "${cColorAzulClaro}  Iniciando el script de instalación de Spiderfoot para Debian 12 (Bookworm)...${cFinColor}"
-    echo ""
-
     # Clonar el repo
-      mkdir -p ~/repos/python/
-      cd ~/repos/python/
+      mkdir -p $HOME/HackingTools/OSINT/
+      cd $HOME/HackingTools/OSINT/
       # Comprobar si el paquete git está instalado. Si no lo está, instalarlo.
         if [[ $(dpkg-query -s git 2>/dev/null | grep installed) == "" ]]; then
           echo ""
           echo -e "${cColorRojo}  El paquete git no está instalado. Iniciando su instalación...${cFinColor}"
           echo ""
-          sudo apt-get -y update && sudo apt-get -y install git
+          sudo apt-get -y update
+          sudo apt-get -y install git
           echo ""
         fi
       git clone https://github.com/smicallef/spiderfoot.git
 
     # Crear el virtual environment
-      cd ~/repos/python/spiderfoot/
+      cd $HOME/HackingTools/OSINT/spiderfoot/
       # Comprobar si el paquete python3-venv está instalado. Si no lo está, instalarlo.
         if [[ $(dpkg-query -s python3-venv 2>/dev/null | grep installed) == "" ]]; then
           echo ""
           echo -e "${cColorRojo}  El paquete python3-venv no está instalado. Iniciando su instalación...${cFinColor}"
           echo ""
-          sudo apt-get -y update && sudo apt-get -y install python3-venv
+          sudo apt-get -y update
+          sudo apt-get -y install python3-venv
           echo ""
         fi
       python3 -m venv venv
       # Crear el mensaje para mostrar cuando se entra al entorno virtual
-        echo 'echo -e "\n  Activando el entorno virtual de Spiderfoot... \n"' >> ~/repos/python/spiderfoot/venv/bin/activate
-      source ~/repos/python/spiderfoot/venv/bin/activate
+        echo 'echo -e "\n  Activando el entorno virtual de Spiderfoot... \n"' | tee -a $HOME/HackingTools/OSINT/spiderfoot/venv/bin/activate
+      source $HOME/HackingTools/OSINT/spiderfoot/venv/bin/activate
 
       # Puede que no hagan falta esoss en debiasn 12
           sudo apt-get -y install libxml2-dev
@@ -114,18 +109,92 @@
       deactivate
 
     # Crear el script de ejecución
-      mkdir -p ~/scripts/
-      echo '#!/bin/bash'                                                > ~/scripts/spiderfoot-iniciar.sh
-      echo "source ~/repos/python/spiderfoot/venv/bin/activate"        >> ~/scripts/spiderfoot-iniciar.sh
-      echo "python3 ~/repos/python/spiderfoot/sf.py -l 127.0.0.1:5001" >> ~/scripts/spiderfoot-iniciar.sh
-      echo "deactivate"                                                >> ~/scripts/spiderfoot-iniciar.sh
-      chmod +x                                                            ~/scripts/spiderfoot-iniciar.sh
+      mkdir -p $HOME/scripts/
+      echo '#!/bin/bash'                                                         | tee    $HOME/scripts/spiderfoot-iniciar.sh
+      echo "source $HOME/HackingTools/OSINT/spiderfoot/venv/bin/activate"        | tee -a $HOME/scripts/spiderfoot-iniciar.sh
+      echo "python3 $HOME/HackingTools/OSINT/spiderfoot/sf.py -l 127.0.0.1:5001" | tee -a $HOME/scripts/spiderfoot-iniciar.sh
+      echo "deactivate"                                                          | tee -a $HOME/scripts/spiderfoot-iniciar.sh
+      chmod +x                                                                            $HOME/scripts/spiderfoot-iniciar.sh
 
     # Notificar fin de ejecución del script
       echo ""
       echo "  Ejecución del script, finalizada.  Para ejecutar spiderfoot:"
       echo ""
-      echo "    ~/scripts/spiderfoot-iniciar.sh"
+      echo "    $HOME/scripts/spiderfoot-iniciar.sh"
+      echo ""
+
+  elif [ $cVerSO == "12" ]; then
+
+    echo ""
+    echo -e "${cColorAzulClaro}  Iniciando el script de instalación de Spiderfoot para Debian 12 (Bookworm)...${cFinColor}"
+    echo ""
+
+    # Clonar el repo
+      mkdir -p $HOME/HackingTools/OSINT/
+      cd $HOME/HackingTools/OSINT/
+      # Comprobar si el paquete git está instalado. Si no lo está, instalarlo.
+        if [[ $(dpkg-query -s git 2>/dev/null | grep installed) == "" ]]; then
+          echo ""
+          echo -e "${cColorRojo}  El paquete git no está instalado. Iniciando su instalación...${cFinColor}"
+          echo ""
+          sudo apt-get -y update
+          sudo apt-get -y install git
+          echo ""
+        fi
+      git clone https://github.com/smicallef/spiderfoot.git
+
+    # Crear el virtual environment
+      cd $HOME/HackingTools/OSINT/spiderfoot/
+      # Comprobar si el paquete python3-venv está instalado. Si no lo está, instalarlo.
+        if [[ $(dpkg-query -s python3-venv 2>/dev/null | grep installed) == "" ]]; then
+          echo ""
+          echo -e "${cColorRojo}  El paquete python3-venv no está instalado. Iniciando su instalación...${cFinColor}"
+          echo ""
+          sudo apt-get -y update
+          sudo apt-get -y install python3-venv
+          echo ""
+        fi
+      python3 -m venv venv
+      # Crear el mensaje para mostrar cuando se entra al entorno virtual
+        echo 'echo -e "\n  Activando el entorno virtual de Spiderfoot... \n"' | tee -a $HOME/HackingTools/OSINT/spiderfoot/venv/bin/activate
+      source $HOME/HackingTools/OSINT/spiderfoot/venv/bin/activate
+
+      # Puede que no hagan falta esoss en debiasn 12
+          sudo apt-get -y install libxml2-dev
+          sudo apt-get -y install libxslt-dev
+          sudo apt-get -y install python3-dev
+          sudo apt-get -y install zlib1g-dev
+          sudo apt-get -y install gcc
+          sudo apt-get -y install g++
+          sudo apt-get -y install make
+
+      # Comprobar si el paquete python3-pip está instalado. Si no lo está, instalarlo.
+        if [[ $(dpkg-query -s python3-pip 2>/dev/null | grep installed) == "" ]]; then
+          echo ""
+          echo -e "${cColorRojo}  El paquete python3-pip no está instalado. Iniciando su instalación...${cFinColor}"
+          echo ""
+          sudo apt-get -y update
+          sudo apt-get -y install python3-pip
+          echo ""
+        fi
+      pip3 install -r requirements.txt
+
+    # Desactivar el virtual environment
+      deactivate
+
+    # Crear el script de ejecución
+      mkdir -p $HOME/scripts/
+      echo '#!/bin/bash'                                                         | tee    $HOME/scripts/spiderfoot-iniciar.sh
+      echo "source $HOME/HackingTools/OSINT/spiderfoot/venv/bin/activate"        | tee -a $HOME/scripts/spiderfoot-iniciar.sh
+      echo "python3 $HOME/HackingTools/OSINT/spiderfoot/sf.py -l 127.0.0.1:5001" | tee -a $HOME/scripts/spiderfoot-iniciar.sh
+      echo "deactivate"                                                          | tee -a $HOME/scripts/spiderfoot-iniciar.sh
+      chmod +x                                                                            $HOME/scripts/spiderfoot-iniciar.sh
+
+    # Notificar fin de ejecución del script
+      echo ""
+      echo "  Ejecución del script, finalizada.  Para ejecutar spiderfoot:"
+      echo ""
+      echo "    $HOME/scripts/spiderfoot-iniciar.sh"
       echo ""
 
   elif [ $cVerSO == "11" ]; then
