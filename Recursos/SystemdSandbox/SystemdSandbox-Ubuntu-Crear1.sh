@@ -9,6 +9,9 @@
 # Ejecución remota como root (para sistemas sin sudo) (modificando la carpeta donde crear el sandbox):
 #  curl -sL https://raw.githubusercontent.com/nipegun/dh-scripts/refs/heads/main/Recursos/SystemdSandbox/SystemdSandbox-Ubuntu-Crear.sh -o /tmp/sb.sh && chmod +x /tmp/sb.sh && sed -i 's-$HOME-/mnt/PartLocalBTRFS-g' /tmp/sb.sh  && sed -i 's-sudo--g' /tmp/sb.sh && /tmp/sb.sh  [CarpetaAMontar]
 
+# Paquetes mínimos
+  vPaqMin="curl,mc"
+
 # Variables
   cFechaDeEjec=$(date +"a%Ym%md%dh%Hm%Ms%S")
   vMirrorUbuntu="http://archive.ubuntu.com/ubuntu"
@@ -153,7 +156,7 @@
       echo ""
       echo "  Creando sandbox/contenedor de systemd con Ubuntu "$vRelease" en $vDirSandbox..."
       echo ""
-      sudo debootstrap "$vRelease" "$vDirSandbox" "$vMirrorUbuntu" --include="curl,mc"
+      sudo debootstrap --include="$vPaqMin" "$vRelease" "$vDirSandbox" "$vMirrorUbuntu"
     fi
   # Cambiar la contraseña al root
     sudo sed -i 's|^root:[^:]*:|root:$y$j9T$LOfOfRUGz8M9of5AGi7W90$.9KRnLc7Pfz/ON/5dH0Uvr5fQ.0t6KMKAVcfXOVSnU9:|' "$vDirSandbox"/etc/shadow
