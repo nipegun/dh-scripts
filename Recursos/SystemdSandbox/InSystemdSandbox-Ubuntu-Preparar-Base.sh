@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Ejecución remota únicamente como root:
-#  curl -sL https://raw.githubusercontent.com/nipegun/dh-scripts/refs/heads/main/Recursos/SystemdSandbox/InSystemdSandbox-Debian-Preparar-Base.sh | bash
+#  curl -sL https://raw.githubusercontent.com/nipegun/dh-scripts/refs/heads/main/Recursos/SystemdSandbox/InSystemdSandbox-Ubuntu-Preparar-Base.sh | bash
 
 # Corregir hostnames
   echo 'SystemdSandbox'           | tee -a /etc/hostname
@@ -9,12 +9,12 @@
   echo '127.0.1.1 SystemdSandbox' | tee -a /etc/hosts
 
 # Poner todos los repositorios
-  #curl -sL https://raw.githubusercontent.com/nipegun/d-scripts/refs/heads/master/PostInstDebian/CLI/Repositorios-Todos-Poner.sh | sed 's-sudo--g' | bash
+  curl -sL https://raw.githubusercontent.com/nipegun/u-scripts/refs/heads/main/PostInst/CLI/Repositorios-Todos-Poner.sh | sed 's-sudo--g' | bash
 
 # x
-  apt-get -y update
-  apt-get -y install libterm-readline-perl-perl
-  apt-get -y install dialog
+  #apt-get -y update
+  #apt-get -y install libterm-readline-perl-perl
+  #apt-get -y install dialog
 
 # Crear la carpeta termporal
   mkdir -p /mnt/host/tmp/ 2> /dev/null
