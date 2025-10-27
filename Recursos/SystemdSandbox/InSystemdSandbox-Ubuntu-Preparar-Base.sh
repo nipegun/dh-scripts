@@ -32,12 +32,16 @@
   update-locale LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8 LANGUAGE=en_US.UTF-8
 
 # Instalar programás básicos
-  apt-get -y install sudo
   apt-get -y install nano
   apt-get -y install mc
 
 # Pasar idioma a todo español
   curl -sL https://raw.githubusercontent.com/nipegun/d-scripts/refs/heads/master/PostInstDebian/CLI/Idioma-CambiarTodoAes-es.sh | sed 's-sudo--g' | bash
+
+# Actualizar el sistema
+  sudo apt-get -y dist-upgrade
+  sudo apt-get -y autoremove
+  sudo apt-get -y autoclean
 
 # Entrar en la carpeta montada del host
   cd /mnt/host/
