@@ -176,7 +176,7 @@
   echo ""
   echo "    Copia y ejecuta estas dos líneas dentro del contenedor para preparar el sistema básico:"
   echo ""
-  echo "      echo 'nameserver 9.9.9.9' > /etc/resolv.conf"
+  echo "      rm -f /etc/resolv.conf && echo 'nameserver 9.9.9.9' > /etc/resolv.conf"
   echo "      curl -sL https://raw.githubusercontent.com/nipegun/dh-scripts/refs/heads/main/Recursos/SystemdSandbox/InSystemdSandbox-Ubuntu-Preparar-Base.sh | sed 's-SystemdSandbox-'"$vNombreDelContenedor"'-g' | bash"
   echo ""
   sudo systemd-nspawn -D "$vDirSandbox" --bind="$vMountHost:/mnt/host" --machine="$vNombreDelContenedor"
