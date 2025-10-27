@@ -153,7 +153,7 @@
       echo ""
       echo "  Creando sandbox/contenedor de systemd con Ubuntu "$vRelease" en $vDirSandbox..."
       echo ""
-      sudo debootstrap "$vRelease" "$vDirSandbox" "$vMirrorUbuntu"
+      sudo debootstrap "$vRelease" "$vDirSandbox" "$vMirrorUbuntu" --include="curl,mc"
     fi
   # Cambiar la contraseña al root
     sudo sed -i 's|^root:[^:]*:|root:$y$j9T$LOfOfRUGz8M9of5AGi7W90$.9KRnLc7Pfz/ON/5dH0Uvr5fQ.0t6KMKAVcfXOVSnU9:|' "$vDirSandbox"/etc/shadow
