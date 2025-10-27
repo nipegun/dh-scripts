@@ -59,7 +59,7 @@
           echo "  Ubuntu 25.10 (Oracular)..."
           echo ""
           vRelease='oracular'
-          read -p "    Introduce el hostname que quieras darle al contenedor. Por ejemplo SystemdSandboxUbuntu2510: " vNombreContenedor
+          read -p "    Introduce el hostname que quieras darle al contenedor. Por ejemplo SystemdSandboxUbuntu2510: " vNombreDelContenedor
 
         ;;
 
@@ -69,7 +69,7 @@
           echo "  Ubuntu 24.04 LTS (Noble)..."
           echo ""
           vRelease='noble'
-          read -p "    Introduce el hostname que quieras darle al contenedor. Por ejemplo SystemdSandboxUbuntu2404LTS: " vNombreContenedor
+          read -p "    Introduce el hostname que quieras darle al contenedor. Por ejemplo SystemdSandboxUbuntu2404LTS: " vNombreDelContenedor
   
         ;;
 
@@ -79,7 +79,7 @@
           echo "  Ubuntu 23.10 (Mantic)..."
           echo ""
           vRelease='mantic'
-          read -p "    Introduce el hostname que quieras darle al contenedor. Por ejemplo SystemdSandboxUbuntu2310: " vNombreContenedor
+          read -p "    Introduce el hostname que quieras darle al contenedor. Por ejemplo SystemdSandboxUbuntu2310: " vNombreDelContenedor
 
         ;;
 
@@ -89,7 +89,7 @@
           echo "  Ubuntu 23.04 (Lunar)..."
           echo ""
           vRelease='lunar'
-          read -p "    Introduce el hostname que quieras darle al contenedor. Por ejemplo SystemdSandboxUbuntu2304: " vNombreContenedor
+          read -p "    Introduce el hostname que quieras darle al contenedor. Por ejemplo SystemdSandboxUbuntu2304: " vNombreDelContenedor
 
         ;;
 
@@ -99,7 +99,7 @@
           echo "  Ubuntu 22.10 (Kinetic)..."
           echo ""
           vRelease='kinetic'
-          read -p "    Introduce el hostname que quieras darle al contenedor. Por ejemplo SystemdSandboxUbuntu2210: " vNombreContenedor
+          read -p "    Introduce el hostname que quieras darle al contenedor. Por ejemplo SystemdSandboxUbuntu2210: " vNombreDelContenedor
 
         ;;
 
@@ -109,7 +109,7 @@
           echo "  Ubuntu 22.04 LTS (Jammy)..."
           echo ""
           vRelease='jammy'
-          read -p "    Introduce el hostname que quieras darle al contenedor. Por ejemplo SystemdSandboxUbuntu2204LTS: " vNombreContenedor
+          read -p "    Introduce el hostname que quieras darle al contenedor. Por ejemplo SystemdSandboxUbuntu2204LTS: " vNombreDelContenedor
 
         ;;
 
@@ -119,7 +119,7 @@
           echo "  Ubuntu 20.04 LTS (Focal)..."
           echo ""
           vRelease='focal'
-          read -p "    Introduce el hostname que quieras darle al contenedor. Por ejemplo SystemdSandboxUbuntu2004LTS: " vNombreContenedor
+          read -p "    Introduce el hostname que quieras darle al contenedor. Por ejemplo SystemdSandboxUbuntu2004LTS: " vNombreDelContenedor
 
         ;;
 
@@ -129,7 +129,7 @@
           echo "  Ubuntu 18.04 LTS (Bionic)..."
           echo ""
           vRelease='bionic'
-          read -p "    Introduce el hostname que quieras darle al contenedor. Por ejemplo SystemdSandboxUbuntu1804LTS: " vNombreContenedor
+          read -p "    Introduce el hostname que quieras darle al contenedor. Por ejemplo SystemdSandboxUbuntu1804LTS: " vNombreDelContenedor
 
         ;;
 
@@ -177,9 +177,9 @@
   echo "    Copia y ejecuta estas dos líneas dentro del contenedor para preparar el sistema básico:"
   echo ""
   echo "      echo 'nameserver 9.9.9.9' > /etc/resolv.conf"
-  echo "      curl -sL https://raw.githubusercontent.com/nipegun/dh-scripts/refs/heads/main/Recursos/SystemdSandbox/InSystemdSandbox-Ubuntu-Preparar-Base.sh | bash"
+  echo "      curl -sL https://raw.githubusercontent.com/nipegun/dh-scripts/refs/heads/main/Recursos/SystemdSandbox/InSystemdSandbox-Ubuntu-Preparar-Base.sh | sed 's-SystemdSandbox-'"$vNombreDelContenedor"'-g' | bash"
   echo ""
-  sudo systemd-nspawn -D "$vDirSandbox" --bind="$vMountHost:/mnt/host" --machine="$vNombreContenedor"
+  sudo systemd-nspawn -D "$vDirSandbox" --bind="$vMountHost:/mnt/host" --machine="$vNombreDelContenedor"
 
 # Notificar salida del contenedor
   echo ""
@@ -187,11 +187,11 @@
   echo ""
   echo "    Para volver a entrar:"
   echo ""
-  echo "      sudo systemd-nspawn -D "$vDirSandbox" --bind='"$vMountHost:/mnt/host"' --machine="$vNombreContenedor""
+  echo "      sudo systemd-nspawn -D "$vDirSandbox" --bind='"$vMountHost:/mnt/host"' --machine="$vNombreDelContenedor""
   echo ""
   echo "    Para iniciarlo con systemd:"
   echo ""
-  echo "      sudo systemd-nspawn -D "$vDirSandbox" --bind='"$vMountHost:/mnt/host"' --machine="$vNombreContenedor" --boot"
+  echo "      sudo systemd-nspawn -D "$vDirSandbox" --bind='"$vMountHost:/mnt/host"' --machine="$vNombreDelContenedor" --boot"
   echo ""
   echo "      La contraseña del root es raizraiz"
   echo ""
