@@ -4,7 +4,8 @@
 #  curl -sL https://raw.githubusercontent.com/nipegun/dh-scripts/refs/heads/main/Recursos/SystemdSandbox/InSystemdSandbox-Debian-Preparar-Base.sh | bash
 
 # Corregir hostnames
-  echo 'SystemdSandbox'           | tee -a /etc/hostname
+  echo 'SystemdSandbox'           | tee /etc/hostname
+# Corregir hosts
   echo '127.0.0.1 SystemdSandbox' | tee -a /etc/hosts
   echo '127.0.1.1 SystemdSandbox' | tee -a /etc/hosts
 
