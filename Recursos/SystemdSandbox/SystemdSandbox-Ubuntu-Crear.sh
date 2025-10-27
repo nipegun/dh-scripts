@@ -1,0 +1,205 @@
+#!/bin/bash
+
+# Ejecución remota (puede requerir permisos sudo):
+#  curl -sL https://raw.githubusercontent.com/nipegun/dh-scripts/refs/heads/main/Recursos/SystemdSandbox/SystemdSandbox-Ubuntu-Crear.sh -o /tmp/sb.sh && chmod +x /tmp/sb.sh && /tmp/sb.sh [CarpetaAMontar]
+#
+# Ejecución remota como root (para sistemas sin sudo):
+#  curl -sL https://raw.githubusercontent.com/nipegun/dh-scripts/refs/heads/main/Recursos/SystemdSandbox/SystemdSandbox-Ubuntu-Crear.sh -o /tmp/sb.sh && chmod +x /tmp/sb.sh && sed -i 's-sudo--g' /tmp/sb.sh && /tmp/sb.sh [CarpetaAMontar]
+#
+# Ejecución remota como root (para sistemas sin sudo) (modificando la carpeta donde crear el sandbox):
+#  curl -sL https://raw.githubusercontent.com/nipegun/dh-scripts/refs/heads/main/Recursos/SystemdSandbox/SystemdSandbox-Ubuntu-Crear.sh -o /tmp/sb.sh && chmod +x /tmp/sb.sh && sed -i 's-$HOME-/mnt/PartLocalBTRFS-g' /tmp/sb.sh  && sed -i 's-sudo--g' /tmp/sb.sh && /tmp/sb.sh  [CarpetaAMontar]
+
+# Variables
+  cFechaDeEjec=$(date +"a%Ym%md%dh%Hm%Ms%S")
+  vMirrorUbuntu="http://archive.ubuntu.com/ubuntu"
+  vMountHost="${1:-/home}"
+
+# Definir constantes de color
+  cColorAzul="\033[0;34m"
+  cColorAzulClaro="\033[1;34m"
+  cColorVerde='\033[1;32m'
+  cColorRojo='\033[1;31m'
+  # Para el color rojo también:
+    #echo "$(tput setaf 1)Mensaje en color rojo. $(tput sgr 0)"
+  cFinColor='\033[0m'
+
+# Crear el menú
+  # Comprobar si el paquete dialog está instalado. Si no lo está, instalarlo.
+    if [[ $(dpkg-query -s dialog 2>/dev/null | grep installed) == "" ]]; then
+      echo ""
+      echo -e "${cColorRojo}  El paquete dialog no está instalado. Iniciando su instalación...${cFinColor}"
+      echo ""
+      sudo apt-get -y update
+      sudo apt-get -y install dialog
+      echo ""
+    fi
+  menu=(dialog --checklist "Marca la versión del Ubuntu del contenedor y presiona Enter:" 22 70 16)
+    opciones=(
+      1 "Ubuntu 25.10     (Oracular)" off
+      2 "Ubuntu 24.04 LTS (Noble)"    off
+      3 "Ubuntu 23.10     (Mantic)"   off
+      4 "Ubuntu 23.04     (Lunar)"    off
+      5 "Ubuntu 22.10     (Kinetic)"  off
+      6 "Ubuntu 22.04 LTS (Jammy)"    off
+      7 "Ubuntu 20.04 LTS (Focal)"    off
+      8 "Ubuntu 18.04 LTS (Bionic)"   off
+    )
+  choices=$("${menu[@]}" "${opciones[@]}" 2>&1 >/dev/tty)
+
+  for choice in $choices
+    do
+      case $choice in
+
+        1)
+
+          echo ""
+          echo "  Ubuntu 25.10 (Oracular)..."
+          echo ""
+          vRelease='oracular'
+          read -p "    Introduce el hostname que quieras darle al contenedor. Por ejemplo SystemdSandboxUbuntu2510: " vNombreContenedor
+
+        ;;
+
+        2)
+
+          echo ""
+          echo "  Ubuntu 24.04 LTS (Noble)..."
+          echo ""
+          vRelease='noble'
+          read -p "    Introduce el hostname que quieras darle al contenedor. Por ejemplo SystemdSandboxUbuntu2404LTS: " vNombreContenedor
+  
+        ;;
+
+        3)
+
+          echo ""
+          echo "  Ubuntu 23.10 (Mantic)..."
+          echo ""
+          vRelease='mantic'
+          read -p "    Introduce el hostname que quieras darle al contenedor. Por ejemplo SystemdSandboxUbuntu2310: " vNombreContenedor
+
+        ;;
+
+        4)
+
+          echo ""
+          echo "  Ubuntu 23.04 (Lunar)..."
+          echo ""
+          vRelease='lunar'
+          read -p "    Introduce el hostname que quieras darle al contenedor. Por ejemplo SystemdSandboxUbuntu2304: " vNombreContenedor
+
+        ;;
+
+        5)
+
+          echo ""
+          echo "  Ubuntu 22.10 (Kinetic)..."
+          echo ""
+          vRelease='kinetic'
+          read -p "    Introduce el hostname que quieras darle al contenedor. Por ejemplo SystemdSandboxUbuntu2210: " vNombreContenedor
+
+        ;;
+
+        6)
+
+          echo ""
+          echo "  Ubuntu 22.04 LTS (Jammy)..."
+          echo ""
+          vRelease='jammy'
+          read -p "    Introduce el hostname que quieras darle al contenedor. Por ejemplo SystemdSandboxUbuntu2204LTS: " vNombreContenedor
+
+        ;;
+
+        7)
+
+          echo ""
+          echo "  Ubuntu 20.04 LTS (Focal)..."
+          echo ""
+          vRelease='focal'
+          read -p "    Introduce el hostname que quieras darle al contenedor. Por ejemplo SystemdSandboxUbuntu2004LTS: " vNombreContenedor
+
+        ;;
+
+        8)
+
+          echo ""
+          echo "  Ubuntu 18.04 LTS (Bionic)..."
+          echo ""
+          vRelease='bionic'
+          read -p "    Introduce el hostname que quieras darle al contenedor. Por ejemplo SystemdSandboxUbuntu1804LTS: " vNombreContenedor
+
+        ;;
+
+    esac
+
+  done
+
+# Nuevas variables
+  vDirSandbox="/var/lib/machines/Ubuntu-$vRelease-$cFechaDeEjec"
+  sudo mkdir -p "$vDirSandbox" 2> /dev/null
+
+# Crear el sandbox si no existe
+  # Comprobar si el paquete debootstrap está instalado. Si no lo está, instalarlo.
+    if [[ $(dpkg-query -s debootstrap 2>/dev/null | grep installed) == "" ]]; then
+      echo ""
+      echo -e "${cColorRojo}  El paquete debootstrap no está instalado. Iniciando su instalación...${cFinColor}"
+      echo ""
+      sudo apt-get -y update
+      sudo apt-get -y install debootstrap
+      echo ""
+    fi
+  # Comprobar si existe o no antes de crearlo
+    if [ ! -d "$vDirSandbox" ]; then
+      echo ""
+      echo "  Creando sandbox/contenedor de systemd con Ubuntu "$vRelease" en $vDirSandbox..."
+      echo ""
+      sudo debootstrap "$vRelease" "$vDirSandbox" "$vMirrorUbuntu"
+    fi
+  # Cambiar la contraseña al root
+    sudo sed -i 's|^root:[^:]*:|root:$y$j9T$LOfOfRUGz8M9of5AGi7W90$.9KRnLc7Pfz/ON/5dH0Uvr5fQ.0t6KMKAVcfXOVSnU9:|' "$vDirSandbox"/etc/shadow
+
+# Iniciar el sandbox con aislamiento y carpeta compartida
+  # Comprobar si el paquete systemd-container está instalado. Si no lo está, instalarlo.
+    if [[ $(dpkg-query -s systemd-container 2>/dev/null | grep installed) == "" ]]; then
+      echo ""
+      echo -e "${cColorRojo}  El paquete systemd-container no está instalado. Iniciando su instalación...${cFinColor}"
+      echo ""
+      sudo apt-get -y update
+      sudo apt-get -y install systemd-container
+      echo ""
+    fi
+  echo ""
+  echo "  Iniciando sandbox/contenedor de systemd con Ubuntu..."
+  echo ""
+  echo "    Copia y ejecuta estas dos líneas dentro del contenedor para preparar el sistema básico:"
+  echo ""
+  echo "      apt-get -y update && apt-get -y install curl"
+  echo "      curl -sL https://raw.githubusercontent.com/nipegun/dh-scripts/refs/heads/main/Recursos/SystemdSandbox/InSystemdSandbox-Debian-Preparar-Base.sh | bash"
+  echo ""
+  sudo systemd-nspawn -D "$vDirSandbox" --bind="$vMountHost:/mnt/host" --machine="$vNombreContenedor"
+
+# Notificar salida del contenedor
+  echo ""
+  echo "  Saliendo del contenedor..."
+  echo ""
+  echo "    Para volver a entrar:"
+  echo ""
+  echo "      sudo systemd-nspawn -D "$vDirSandbox" --bind='"$vMountHost:/mnt/host"' --machine="$vNombreContenedor""
+  echo ""
+  echo "    Para iniciarlo con systemd:"
+  echo ""
+  echo "      sudo systemd-nspawn -D "$vDirSandbox" --bind='"$vMountHost:/mnt/host"' --machine="$vNombreContenedor" --boot"
+  echo ""
+  echo "      La contraseña del root es raizraiz"
+  echo ""
+  echo "    Para borrarlo:"
+  echo ""
+  echo "      sudo rm -rf "$vDirSandbox""
+  echo ""
+
+# Al salir del contenedor, destruirlo
+  #echo ""
+  #echo "  Destruyendo el sandbox/contenedor de la carpeta "$vDirSandbox"..."
+  #echo ""
+  #sudo rm -rf "$vDirSandbox"
+
