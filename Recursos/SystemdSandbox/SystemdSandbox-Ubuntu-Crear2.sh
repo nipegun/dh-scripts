@@ -10,7 +10,7 @@
 #  curl -sL https://raw.githubusercontent.com/nipegun/dh-scripts/refs/heads/main/Recursos/SystemdSandbox/SystemdSandbox-Ubuntu-Crear.sh -o /tmp/sb.sh && chmod +x /tmp/sb.sh && sed -i 's-$HOME-/mnt/PartLocalBTRFS-g' /tmp/sb.sh  && sed -i 's-sudo--g' /tmp/sb.sh && /tmp/sb.sh  [CarpetaAMontar]
 
 # Paquetes mínimos
-  vPaqMin="curl,mc"
+  vPaqMin="curl"
 
 # Variables
   cFechaDeEjec=$(date +"a%Ym%md%dh%Hm%Ms%S")
