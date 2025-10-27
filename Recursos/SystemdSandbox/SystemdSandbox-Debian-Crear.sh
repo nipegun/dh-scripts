@@ -9,6 +9,9 @@
 # Ejecución remota como root (para sistemas sin sudo) (modificando la carpeta donde crear el sandbox):
 #  curl -sL https://raw.githubusercontent.com/nipegun/dh-scripts/refs/heads/main/Recursos/SystemdSandbox/SystemdSandbox-Debian-Crear.sh -o /tmp/sb.sh && chmod +x /tmp/sb.sh && sed -i 's-$HOME-/mnt/PartLocalBTRFS-g' /tmp/sb.sh  && sed -i 's-sudo--g' /tmp/sb.sh && /tmp/sb.sh  [CarpetaAMontar]
 
+# Paquetes mínimos
+  vPaqMin="curl"
+
 # Variables
   cFechaDeEjec=$(date +"a%Ym%md%dh%Hm%Ms%S")
   vMirrorDebian="http://deb.debian.org/debian"
@@ -131,7 +134,7 @@
       echo ""
       echo "  Creando sandbox/contenedor de systemd con Debian "$vRelease" en $vDirSandbox..."
       echo ""
-      sudo debootstrap "$vRelease" "$vDirSandbox" "$vMirrorDebian"
+      sudo debootstrap --include="$vPaqMin" "$vRelease" "$vDirSandbox" "$vMirrorDebian"
     fi
   # Cambiar la contraseña al root
     sudo sed -i 's|^root:[^:]*:|root:$y$j9T$LOfOfRUGz8M9of5AGi7W90$.9KRnLc7Pfz/ON/5dH0Uvr5fQ.0t6KMKAVcfXOVSnU9:|' "$vDirSandbox"/etc/shadow
@@ -149,9 +152,8 @@
   echo ""
   echo "  Iniciando sandbox/contenedor de systemd con Debian..."
   echo ""
-  echo "    Copia y ejecuta estas dos líneas dentro del contenedor para preparar el sistema básico:"
+  echo "    Copia y ejecuta esta línea dentro del contenedor para preparar el sistema básico:"
   echo ""
-  echo "      apt-get -y update && apt-get -y install curl"
   echo "      curl -sL https://raw.githubusercontent.com/nipegun/dh-scripts/refs/heads/main/Recursos/SystemdSandbox/InSystemdSandbox-Debian-Preparar-Base.sh | bash"
   echo ""
   sudo systemd-nspawn -D "$vDirSandbox" --bind="$vMountHost:/mnt/host" --machine="$vNombreContenedor"
