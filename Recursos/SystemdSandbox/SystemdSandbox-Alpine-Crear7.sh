@@ -76,7 +76,7 @@
       echo ""
       sudo mkdir -p "$vDirSandbox"
       vURLArchivoComprimido=$(curl -sL "$vURLDownloadsAlpine" | grep minirootfs | grep x86_64 | sed 's->->\n-g' | sed 's|&#x2F;|/|g' | grep href | grep -v sha256 | grep -v asc | cut -d'"' -f2)
-      curl -sL "$vURLArchivoComprimido" -o /tmp/alpine.tar.gz
+      curl -L "$vURLArchivoComprimido" -o /tmp/alpine.tar.gz
       sudo tar -xzf /tmp/alpine.tar.gz -C "$vDirSandbox"
     else
       echo ""
