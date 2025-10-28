@@ -19,9 +19,62 @@
       echo ""
     fi
 
+# Crear el menú
+  # Comprobar si el paquete dialog está instalado. Si no lo está, instalarlo.
+    if [[ $(dpkg-query -s dialog 2>/dev/null | grep installed) == "" ]]; then
+      echo ""
+      echo -e "${cColorRojo}  El paquete dialog no está instalado. Iniciando su instalación...${cFinColor}"
+      echo ""
+      sudo apt-get -y update
+      sudo apt-get -y install dialog
+      echo ""
+    fi
+  menu=(dialog --checklist "En que carpeta ráiz quieres crear el contenedor:" 22 70 16)
+    opciones=(
+      1 "/var/lib/machines"             off
+      2 "/tmp"                          off
+      3 "Otra (introducir manualmente)" off
+    )
+  choices=$("${menu[@]}" "${opciones[@]}" 2>&1 >/dev/tty)
+
+  for choice in $choices
+    do
+      case $choice in
+
+        1)
+
+          echo ""
+          echo "  Creando en /var/lib/machines..."
+          echo ""
+          vCarpetaBase='/var/lib/machines'
+
+        ;;
+
+        2)
+
+          echo ""
+          echo "  Creando en /tmp..."
+          echo ""
+          vCarpetaBase='/tmp'
+  
+        ;;
+
+        3)
+
+          echo ""
+          echo "  Creando en carpeta personalizada..."
+          echo ""
+          read -p "    Introduce la ruta absoluta donde quieras crear en contenedor (sin / final): " vCarpetaBase
+
+        ;;
+
+    esac
+
+  done
+
 # Variables
   cFechaDeEjec=$(date +"a%Ym%md%dh%Hm%Ms%S")
-  vDirSandbox="/var/lib/machines/Alpine-$cFechaDeEjec"
+  vDirSandbox=""$vCarpetaBase"/Alpine-$vRelease-$cFechaDeEjec"
   sudo mkdir -p "$vDirSandbox" 2> /dev/null
   vNombreContenedor="SystemdSandboxAlpine"
   
