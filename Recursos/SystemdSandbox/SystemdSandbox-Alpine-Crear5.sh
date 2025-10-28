@@ -29,7 +29,7 @@
       sudo apt-get -y install dialog
       echo ""
     fi
-  menu=(dialog --checklist "En que carpeta ráiz quieres crear el contenedor:" 22 60 16)
+  menu=(dialog --radiolist "En que carpeta ráiz quieres crear el contenedor:" 22 60 16)
     opciones=(
       1 "/var/lib/machines"             on
       2 "/tmp"                          off
@@ -75,7 +75,7 @@
 # Variables
   vURLDownloadsAlpine="https://www.alpinelinux.org/downloads/"
   vRelease=$(curl -sL "$vURLDownloadsAlpine" | grep -i current | grep -oP '(?<=<strong>).*?(?=</strong>)')
-  vMountHost="${1:-/home}"
+  vMountHost="$(readlink -f "${1:-/home}")"
   cFechaDeEjec=$(date +"a%Ym%md%dh%Hm%Ms%S")
   vDirSandbox=""$vCarpetaBase"/Alpine-$vRelease-$cFechaDeEjec"
   #echo "  Creando la carpeta $vDirSandbox..."
