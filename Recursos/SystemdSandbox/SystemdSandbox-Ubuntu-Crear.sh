@@ -168,8 +168,6 @@
 
 # Nuevas variables
   vDirSandbox=""$vCarpetaBase"/Ubuntu-$vRelease-$cFechaDeEjec"
-  #echo "  Creando la carpeta $vDirSandbox..."
-  #sudo mkdir -p "$vDirSandbox"
 
 # Crear el sistema de archivos de Ubuntu
   # Comprobar si el paquete debootstrap está instalado. Si no lo está, instalarlo.
