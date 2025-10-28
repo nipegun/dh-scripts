@@ -183,7 +183,7 @@
 
 # Nuevas variables
   vDirSandbox=""$vCarpetaBase"/Ubuntu-$vRelease-$cFechaDeEjec"
-  echo "  Creando la carpeta $$vDirSandbox..."
+  echo "  Creando la carpeta $vDirSandbox..."
   sudo mkdir -p "$vDirSandbox"
 
 # Crear el sandbox si no existe
