@@ -75,7 +75,8 @@
 # Variables
   cFechaDeEjec=$(date +"a%Ym%md%dh%Hm%Ms%S")
   vDirSandbox=""$vCarpetaBase"/Alpine-$vRelease-$cFechaDeEjec"
-  sudo mkdir -p "$vDirSandbox" 2> /dev/null
+  echo "  Creando la carpeta $$vDirSandbox..."
+  sudo mkdir -p "$vDirSandbox"
   vNombreContenedor="SystemdSandboxAlpine"
   
   vURLDownloadsAlpine="https://www.alpinelinux.org/downloads/"
