@@ -47,22 +47,24 @@
 
         2)
           vCarpetaBase='/tmp'
+          echo "$vCarpetaBase"
         ;;
 
         3)
           read -p "    Introduce la ruta absoluta donde quieras crear en contenedor (sin / final): " vCarpetaBase
         ;;
 
-    esac
+      esac
 
-  done
+    done
 
 # Variables
+echo "$vCarpetaBase"
   vURLDownloadsAlpine="https://www.alpinelinux.org/downloads/"
   vRelease=$(curl -sL "$vURLDownloadsAlpine" | grep -i current | grep -oP '(?<=<strong>).*?(?=</strong>)')
   vMountHost="$(readlink -f "${1:-/home}")"
   cFechaDeEjec=$(date +"a%Ym%md%dh%Hm%Ms%S")
-  vDirSandbox=""$vCarpetaBase"/Alpine-$vRelease-$cFechaDeEjec"
+  vDirSandbox="$vCarpetaBase/Alpine-$vRelease-$cFechaDeEjec"
   #echo "  Creando la carpeta $vDirSandbox..."
   #sudo mkdir -p "$vDirSandbox"
   vNombreContenedor="SystemdSandboxAlpine"
