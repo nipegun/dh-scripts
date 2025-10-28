@@ -145,9 +145,7 @@ vMountHost="$(readlink -f "${1:-/home}")"
   done
 
 # Nuevas variables
-  vDirSandbox=""$vCarpetaBase"/Ubuntu-$vRelease-$cFechaDeEjec"
-  #echo "  Creando la carpeta $vDirSandbox..."
-  #sudo mkdir -p "$vDirSandbox"
+  vDirSandbox=""$vCarpetaBase"/Debian-$vRelease-$cFechaDeEjec"
 
 # Crear el sistema de archivos de Debian
   # Comprobar si el paquete debootstrap está instalado. Si no lo está, instalarlo.
