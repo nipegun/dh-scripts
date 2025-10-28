@@ -15,7 +15,7 @@
 # Variables
   cFechaDeEjec=$(date +"a%Ym%md%dh%Hm%Ms%S")
   vMirrorDebian="http://deb.debian.org/debian"
-vMountHost="$(readlink -f "${1:-/home}")"
+  vMountHost="$(readlink -f "${1:-/home}")"
 
 # Definir constantes de color
   cColorAzul="\033[0;34m"
