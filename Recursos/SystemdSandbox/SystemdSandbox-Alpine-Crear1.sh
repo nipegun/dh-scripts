@@ -75,16 +75,16 @@
 # Variables
   cFechaDeEjec=$(date +"a%Ym%md%dh%Hm%Ms%S")
   vDirSandbox=""$vCarpetaBase"/Alpine-$vRelease-$cFechaDeEjec"
-  echo "  Creando la carpeta $$vDirSandbox..."
-  sudo mkdir -p "$vDirSandbox"
+  #echo "  Creando la carpeta $vDirSandbox..."
+  #sudo mkdir -p "$vDirSandbox"
   vNombreContenedor="SystemdSandboxAlpine"
   
   vURLDownloadsAlpine="https://www.alpinelinux.org/downloads/"
   vRelease=$(curl -sL "$vURLDownloadsAlpine" | grep -i current | grep -oP '(?<=<strong>).*?(?=</strong>)')
   vMountHost="${1:-/home}"
 
-# Crear el sandbox si no existe
-  # Comprobar si existe o no antes de crearlo
+# Crear el sistema de archivos de Alpine
+  # Sólo proceder si la carpeta no existe previamente
     if [ ! -d "$vDirSandbox" ]; then
       echo ""
       echo "  Creando sandbox/contenedor de systemd con Alpine "$vRelease" en $vDirSandbox..."
@@ -92,6 +92,11 @@
       vURLArchivoComprimido=$(curl -sL "$vURLDownloadsAlpine" | grep minirootfs | grep x86_64 | sed 's->->\n-g' | sed 's|&#x2F;|/|g' | grep href | grep -v sha256 | grep -v asc | cut -d'"' -f2)
       curl -sL "$vURLArchivoComprimido" -o /tmp/alpine.tar.gz
       sudo tar -xzf /tmp/alpine.tar.gz -C "$vDirSandbox"
+    else
+      echo ""
+      echo "  La carpeta $vDirSandbox ya existe. Abortando..."
+      echo ""
+      exit
     fi
 
 # Iniciar el sandbox con aislamiento y carpeta compartida
