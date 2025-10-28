@@ -36,6 +36,50 @@
       sudo apt-get -y install dialog
       echo ""
     fi
+  menu=(dialog --checklist "En que carpeta ráiz quieres crear el contenedor:" 22 70 16)
+    opciones=(
+      1 "/var/lib/machines"             off
+      2 "/tmp"                          off
+      3 "Otra (introducir manualmente)" off
+    )
+  choices=$("${menu[@]}" "${opciones[@]}" 2>&1 >/dev/tty)
+
+  for choice in $choices
+    do
+      case $choice in
+
+        1)
+
+          echo ""
+          echo "  Creando en /var/lib/machines..."
+          echo ""
+          vCarpetaBase='/var/lib/machines'
+
+        ;;
+
+        2)
+
+          echo ""
+          echo "  Creando en /tmp..."
+          echo ""
+          vCarpetaBase='/tmp'
+  
+        ;;
+
+        3)
+
+          echo ""
+          echo "  Creando en carpeta personalizada..."
+          echo ""
+          read -p "    Introduce la ruta absoluta donde quieras crear en contenedor (sin / final): " vCarpetaBase
+
+        ;;
+
+    esac
+
+  done
+
+# Crear el menú
   menu=(dialog --checklist "Marca la versión del Debian del contenedor y presiona Enter:" 22 70 16)
     opciones=(
       1 "Última versión testing"   off
@@ -116,7 +160,7 @@
   done
 
 # Nuevas variables
-  vDirSandbox="/var/lib/machines/Debian-$vRelease-$cFechaDeEjec"
+  vDirSandbox=""$vCarpetaBase"/Ubuntu-$vRelease-$cFechaDeEjec"
   sudo mkdir -p "$vDirSandbox" 2> /dev/null
 
 # Crear el sandbox si no existe
