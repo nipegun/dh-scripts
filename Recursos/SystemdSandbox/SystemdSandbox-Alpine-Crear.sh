@@ -19,7 +19,7 @@
       echo ""
     fi
 
-# Crear el menú
+# Crear el menú para la elección de la carpeta raíz
   # Comprobar si el paquete dialog está instalado. Si no lo está, instalarlo.
     if [[ $(dpkg-query -s dialog 2>/dev/null | grep installed) == "" ]]; then
       echo ""
@@ -31,7 +31,7 @@
     fi
   menu=(dialog --checklist "En que carpeta ráiz quieres crear el contenedor:" 22 70 16)
     opciones=(
-      1 "/var/lib/machines"             off
+      1 "/var/lib/machines"             on
       2 "/tmp"                          off
       3 "Otra (introducir manualmente)" off
     )
