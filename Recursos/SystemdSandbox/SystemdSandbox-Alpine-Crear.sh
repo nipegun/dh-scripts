@@ -29,7 +29,7 @@
       sudo apt-get -y install dialog
       echo ""
     fi
-  menu=(dialog --radiolist "En que carpeta ráiz quieres crear el contenedor:" 22 60 16)
+  menu=(dialog --radiolist "En que carpeta raiz quieres crear el contenedor:" 22 60 16)
     opciones=(
       1 "/var/lib/machines"             on
       2 "/tmp"                          off
