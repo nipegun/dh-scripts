@@ -47,7 +47,6 @@
 
         2)
           vCarpetaBase='/tmp'
-          echo "$vCarpetaBase"
         ;;
 
         3)
@@ -59,12 +58,12 @@
     done
 
 # Variables
-echo "$vCarpetaBase"
   vURLDownloadsAlpine="https://www.alpinelinux.org/downloads/"
   vRelease=$(curl -sL "$vURLDownloadsAlpine" | grep -i current | grep -oP '(?<=<strong>).*?(?=</strong>)')
   vMountHost="$(readlink -f "${1:-/home}")"
   cFechaDeEjec=$(date +"a%Ym%md%dh%Hm%Ms%S")
   vDirSandbox="$vCarpetaBase/Alpine-$vRelease-$cFechaDeEjec"
+  echo "$vDirSandbox"
   #echo "  Creando la carpeta $vDirSandbox..."
   #sudo mkdir -p "$vDirSandbox"
   vNombreContenedor="SystemdSandboxAlpine"
@@ -75,6 +74,7 @@ echo "$vCarpetaBase"
       echo ""
       echo "  Creando sandbox/contenedor de systemd con Alpine "$vRelease" en $vDirSandbox..."
       echo ""
+      sudo mkdir -p "$vDirSandbox"
       vURLArchivoComprimido=$(curl -sL "$vURLDownloadsAlpine" | grep minirootfs | grep x86_64 | sed 's->->\n-g' | sed 's|&#x2F;|/|g' | grep href | grep -v sha256 | grep -v asc | cut -d'"' -f2)
       curl -sL "$vURLArchivoComprimido" -o /tmp/alpine.tar.gz
       sudo tar -xzf /tmp/alpine.tar.gz -C "$vDirSandbox"
