@@ -42,30 +42,15 @@
       case $choice in
 
         1)
-
-          echo ""
-          echo "  Creando en /var/lib/machines..."
-          echo ""
           vCarpetaBase='/var/lib/machines'
-
         ;;
 
         2)
-
-          echo ""
-          echo "  Creando en /tmp..."
-          echo ""
           vCarpetaBase='/tmp'
-  
         ;;
 
         3)
-
-          echo ""
-          echo "  Creando en carpeta personalizada..."
-          echo ""
           read -p "    Introduce la ruta absoluta donde quieras crear en contenedor (sin / final): " vCarpetaBase
-
         ;;
 
     esac
