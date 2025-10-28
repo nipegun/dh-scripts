@@ -161,10 +161,10 @@
 
 # Nuevas variables
   vDirSandbox=""$vCarpetaBase"/Ubuntu-$vRelease-$cFechaDeEjec"
-  echo "  Creando la carpeta $$vDirSandbox..."
-  sudo mkdir -p "$vDirSandbox"
+  #echo "  Creando la carpeta $vDirSandbox..."
+  #sudo mkdir -p "$vDirSandbox"
 
-# Crear el sandbox si no existe
+# Crear el sistema de archivos de Debian
   # Comprobar si el paquete debootstrap está instalado. Si no lo está, instalarlo.
     if [[ $(dpkg-query -s debootstrap 2>/dev/null | grep installed) == "" ]]; then
       echo ""
@@ -174,12 +174,17 @@
       sudo apt-get -y install debootstrap
       echo ""
     fi
-  # Comprobar si existe o no antes de crearlo
+  # Sólo proceder si la carpeta no existe previamente
     if [ ! -d "$vDirSandbox" ]; then
       echo ""
       echo "  Creando sandbox/contenedor de systemd con Debian "$vRelease" en $vDirSandbox..."
       echo ""
       sudo debootstrap --include="$vPaqMin" "$vRelease" "$vDirSandbox" "$vMirrorDebian"
+    else
+      echo ""
+      echo "  La carpeta $vDirSandbox ya existe. Abortando..."
+      echo ""
+      exit
     fi
   # Cambiar la contraseña al root
     sudo sed -i 's|^root:[^:]*:|root:$y$j9T$LOfOfRUGz8M9of5AGi7W90$.9KRnLc7Pfz/ON/5dH0Uvr5fQ.0t6KMKAVcfXOVSnU9:|' "$vDirSandbox"/etc/shadow
