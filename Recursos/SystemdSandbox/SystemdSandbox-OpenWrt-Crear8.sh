@@ -77,7 +77,7 @@
       vURLArchivoComprimido="https://downloads.openwrt.org/releases/"$vUltVersOpenWrt"/targets/x86/64/openwrt-"$vUltVersOpenWrt"-x86-64-rootfs.tar.gz"
       curl -L "$vURLArchivoComprimido" -o /tmp/OpenWrtRootFS.tar.gz
       sudo tar -xzf /tmp/OpenWrtRootFS.tar.gz -C "$vDirSandbox"
-      # Recrear /var
+      # Crear el script de preparación
         echo '#/bin/sh'                                   | sudo tee    "$vDirSandbox"/root/Preparar.sh
         echo ''                                           | sudo tee -a "$vDirSandbox"/root/Preparar.sh
         echo 'mkdir -p /var/log/'                         | sudo tee -a "$vDirSandbox"/root/Preparar.sh
@@ -85,6 +85,10 @@
         echo 'mkdir -p /var/lock/'                        | sudo tee -a "$vDirSandbox"/root/Preparar.sh
         echo 'mkdir -p /var/tmp/'                         | sudo tee -a "$vDirSandbox"/root/Preparar.sh
         echo 'echo nameserver 9.9.9.9 > /tmp/resolv.conf' | sudo tee -a "$vDirSandbox"/root/Preparar.sh
+        echo 'opkg update'                                | sudo tee -a "$vDirSandbox"/root/Preparar.sh
+        echo 'opkg install nano'                          | sudo tee -a "$vDirSandbox"/root/Preparar.sh
+        echo 'opkg install mc'                            | sudo tee -a "$vDirSandbox"/root/Preparar.sh
+        echo 'opkg install curl'                          | sudo tee -a "$vDirSandbox"/root/Preparar.sh
         sudo chmod +x "$vDirSandbox"/root/Preparar.sh
       # Crear resolv.conf
       
