@@ -37,7 +37,7 @@
   apt-get -y install mc
 
 # Pasar idioma a todo español
-  curl -sL https://raw.githubusercontent.com/nipegun/d-scripts/refs/heads/master/PostInstDebian/CLI/Idioma-CambiarTodoAes-es.sh | sed 's-sudo--g' | bash
+  curl -sLk https://raw.githubusercontent.com/nipegun/d-scripts/refs/heads/master/PostInstDebian/CLI/Idioma-CambiarTodoAes-es.sh | sed 's-sudo--g' | bash
 
 # Entrar en la carpeta montada del host
   cd /mnt/host/
