@@ -67,7 +67,7 @@
   #sudo mkdir -p "$vDirSandbox"
   vNombreContenedor="SystemdSandboxOpenWrt"
 
-# Crear el sistema de archivos de Alpine
+# Crear el sistema de archivos de OpenWrt
   # Sólo proceder si la carpeta no existe previamente
     if [ ! -d "$vDirSandbox" ]; then
       echo ""
@@ -78,11 +78,16 @@
       curl -L "$vURLArchivoComprimido" -o /tmp/OpenWrtRootFS.tar.gz
       sudo tar -xzf /tmp/OpenWrtRootFS.tar.gz -C "$vDirSandbox"
       # Recrear /var
-        sudo rm -rfv "$vDirSandbox"/var/
-        sudo mkdir -pv "$vDirSandbox"/var/log/
-        sudo mkdir -pv "$vDirSandbox"/var/run/
-        sudo mkdir -pv "$vDirSandbox"/var/lock/
-        sudo mkdir -pv "$vDirSandbox"/var/tmp/
+        echo '#/bin/sh'                               | sudo tee    "$vDirSandbox"/root/Preparar.sh
+        echo ''                                       | sudo tee -a "$vDirSandbox"/root/Preparar.sh
+        echo 'mkdir -p /var/log/'                     | sudo tee -a "$vDirSandbox"/root/Preparar.sh
+        echo 'mkdir -p /var/run/'                     | sudo tee -a "$vDirSandbox"/root/Preparar.sh
+        echo 'mkdir -p /var/lock/'                    | sudo tee -a "$vDirSandbox"/root/Preparar.sh
+        echo 'mkdir -p /var/tmp/'                     | sudo tee -a "$vDirSandbox"/root/Preparar.sh
+        echo 'nameserver 9.9.9.9 > /tmp/resolv.conf'  | sudo tee -a "$vDirSandbox"/root/Preparar.sh
+        sudo chmod +x "$vDirSandbox"/root/Preparar.sh
+      # Crear resolv.conf
+      
     else
       echo ""
       echo "  La carpeta $vDirSandbox ya existe. Abortando..."
@@ -105,7 +110,7 @@
   echo ""
   echo "    Dentro del contenedor pega y ejecuta los siguientes comandos para preparar el sistema básico:"
   echo ""
-  echo "      apk update && apk add curl"
+  echo "      opkg update && opkg install curl"
   echo ""
   sudo systemd-nspawn -D "$vDirSandbox" --bind="$vMountHost:/mnt/host" --machine="$vNombreContenedor"
 
