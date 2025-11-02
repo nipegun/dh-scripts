@@ -89,6 +89,8 @@
         echo 'opkg install nano'                          | sudo tee -a "$vDirSandbox"/root/Preparar.sh
         echo 'opkg install mc'                            | sudo tee -a "$vDirSandbox"/root/Preparar.sh
         echo 'opkg install curl'                          | sudo tee -a "$vDirSandbox"/root/Preparar.sh
+        echo 'opkg install nmap'                          | sudo tee -a "$vDirSandbox"/root/Preparar.sh
+        echo 'opkg install luci-i18n-base-es'             | sudo tee -a "$vDirSandbox"/root/Preparar.sh
         sudo chmod +x "$vDirSandbox"/root/Preparar.sh
       # Crear resolv.conf
       
