@@ -58,8 +58,7 @@
     done
 
 # Variables
-    vUltVersOpenWrt=$(curl -sL https://downloads.openwrt.org | grep eleases | grep -v rchive | grep -v rc | head -n1 | cut -d'"' -f2 | cut -d'/' -f2)
-
+  vUltVersOpenWrt=$(curl -sL https://downloads.openwrt.org | grep eleases | grep -v rchive | grep -v rc | head -n1 | cut -d'"' -f2 | cut -d'/' -f2)
   vMountHost="$(readlink -f "${1:-/home}")"
   cFechaDeEjec=$(date +"a%Ym%md%dh%Hm%Ms%S")
   vDirSandbox="$vCarpetaBase/OpenWrt-$vUltVersOpenWrt-$cFechaDeEjec"
@@ -75,9 +74,9 @@
       echo "  Creando sandbox/contenedor de systemd con OpenWrt "$vUltVersOpenWrt" en $vDirSandbox..."
       echo ""
       sudo mkdir -p "$vDirSandbox"
-      vURLArchivoComprimido="https://downloads.openwrt.org/releases/$vUltVersOpenWrt/targets/x86/64/openwrt-$vUltVersOpenWrt-x86-64-generic-ext4-combined-efi.img.gz"
-      curl -L "$vURLArchivoComprimido" -o /tmp/OpenWrtCombinedEFI.img.gz
-      sudo tar -xzf /tmp/alpine.tar.gz -C "$vDirSandbox"
+      vURLArchivoComprimido="https://downloads.openwrt.org/releases/"$vUltVersOpenWrt"/targets/x86/64/openwrt-"$vUltVersOpenWrt"-x86-64-generic-rootfs.tar.gz"
+      curl -L "$vURLArchivoComprimido" -o /tmp/OpenWrtRootFS.tar.gz
+      sudo tar -xzf /tmp/OpenWrtRootFS.tar.gz -C "$vDirSandbox"
     else
       echo ""
       echo "  La carpeta $vDirSandbox ya existe. Abortando..."
