@@ -86,7 +86,7 @@
           echo "  Última versión testing..."
           echo ""
           vRelease='testing'
-          read -p "    Introduce el hostname que quieras darle al contenedor. Por ejemplo SystemdSandboxDebianTesting: " vNombreContenedor
+          read -p "    Introduce el hostname que quieras darle al contenedor. Por ejemplo SystemdSandboxDebianTesting: " vNombreDelContenedor
 
         ;;
 
@@ -96,7 +96,7 @@
           echo "  Última versión inestable..."
           echo ""
           vRelease='sid'
-          read -p "    Introduce el hostname que quieras darle al contenedor. Por ejemplo SystemdSandboxDebianSid: " vNombreContenedor
+          read -p "    Introduce el hostname que quieras darle al contenedor. Por ejemplo SystemdSandboxDebianSid: " vNombreDelContenedor
   
         ;;
 
@@ -106,7 +106,7 @@
           echo "  Última versión estable..."
           echo ""
           vRelease='stable'
-          read -p "    Introduce el hostname que quieras darle al contenedor. Por ejemplo SystemdSandboxDebianStable: " vNombreContenedor
+          read -p "    Introduce el hostname que quieras darle al contenedor. Por ejemplo SystemdSandboxDebianStable: " vNombreDelContenedor
 
         ;;
 
@@ -116,7 +116,7 @@
           echo "  Debian 13 (Trixie)..."
           echo ""
           vRelease='trixie'
-          read -p "    Introduce el hostname que quieras darle al contenedor. Por ejemplo SystemdSandboxDebianTrixie: " vNombreContenedor
+          read -p "    Introduce el hostname que quieras darle al contenedor. Por ejemplo SystemdSandboxDebianTrixie: " vNombreDelContenedor
 
         ;;
 
@@ -126,7 +126,7 @@
           echo "  Debian 12 (Bookworm)..."
           echo ""
           vRelease='bookworm'
-          read -p "    Introduce el hostname que quieras darle al contenedor. Por ejemplo SystemdSandboxDebianBookworm: " vNombreContenedor
+          read -p "    Introduce el hostname que quieras darle al contenedor. Por ejemplo SystemdSandboxDebianBookworm: " vNombreDelContenedor
 
         ;;
 
@@ -136,7 +136,7 @@
           echo "  Debian 11 (Bullseye)..."
           echo ""
           vRelease='bullseye'
-          read -p "    Introduce el hostname que quieras darle al contenedor. Por ejemplo SystemdSandboxDebianBullseye: " vNombreContenedor
+          read -p "    Introduce el hostname que quieras darle al contenedor. Por ejemplo SystemdSandboxDebianBullseye: " vNombreDelContenedor
 
         ;;
 
@@ -187,9 +187,9 @@
   echo ""
   echo "    Copia y ejecuta esta línea dentro del contenedor para preparar el sistema básico:"
   echo ""
-  echo "      curl -sLk https://raw.githubusercontent.com/nipegun/dh-scripts/refs/heads/main/Recursos/SystemdSandbox/InSystemdSandbox-Debian-Preparar-Base.sh | bash"
+  echo "      curl -sLk https://raw.githubusercontent.com/nipegun/dh-scripts/refs/heads/main/Recursos/SystemdSandbox/InSystemdSandbox-Debian-Preparar-Base.sh | sed 's-SystemdSandbox-'"$vNombreDelContenedor"'-g' | bash""
   echo ""
-  sudo systemd-nspawn -D "$vDirSandbox" --bind="$vMountHost:/mnt/host" --machine="$vNombreContenedor"
+  sudo systemd-nspawn -D "$vDirSandbox" --bind="$vMountHost:/mnt/host" --machine="$vNombreDelContenedor"
 
 # Notificar salida del contenedor
   echo ""
@@ -197,11 +197,11 @@
   echo ""
   echo "    Para volver a entrar:"
   echo ""
-  echo "      sudo systemd-nspawn -D "$vDirSandbox" --bind='"$vMountHost:/mnt/host"' --machine="$vNombreContenedor""
+  echo "      sudo systemd-nspawn -D "$vDirSandbox" --bind='"$vMountHost:/mnt/host"' --machine="$vNombreDelContenedor""
   echo ""
   echo "    Para iniciarlo con systemd:"
   echo ""
-  echo "      sudo systemd-nspawn -D "$vDirSandbox" --bind='"$vMountHost:/mnt/host"' --machine="$vNombreContenedor" --boot"
+  echo "      sudo systemd-nspawn -D "$vDirSandbox" --bind='"$vMountHost:/mnt/host"' --machine="$vNombreDelContenedor" --boot"
   echo ""
   echo "      La contraseña del root es raizraiz"
   echo ""
