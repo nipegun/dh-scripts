@@ -126,8 +126,8 @@
 
   sudo systemd-nspawn -D "$vDirSandbox" \
     --bind="$vMountHost:/mnt/host"      \
-    --machine="$vNombreContenedor"      #\
-    #--network-veth-extra=wan:devbrwan --network-veth-extra=lan:devbrlan
+    --machine="$vNombreContenedor"      \
+    --network-veth-extra=wan:devbrwan --network-veth-extra=lan:devbrlan
 
 # Notificar salida del contenedor
   echo ""
