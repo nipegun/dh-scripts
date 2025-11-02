@@ -74,7 +74,7 @@
       echo "  Creando sandbox/contenedor de systemd con OpenWrt "$vUltVersOpenWrt" en $vDirSandbox..."
       echo ""
       sudo mkdir -p "$vDirSandbox"
-      vURLArchivoComprimido="https://downloads.openwrt.org/releases/"$vUltVersOpenWrt"/targets/x86/64/openwrt-"$vUltVersOpenWrt"-x86-64-generic-rootfs.tar.gz"
+      vURLArchivoComprimido="https://downloads.openwrt.org/releases/"$vUltVersOpenWrt"/targets/x86/64/openwrt-"$vUltVersOpenWrt"-x86-64-rootfs.tar.gz"
       curl -L "$vURLArchivoComprimido" -o /tmp/OpenWrtRootFS.tar.gz
       sudo tar -xzf /tmp/OpenWrtRootFS.tar.gz -C "$vDirSandbox"
     else
