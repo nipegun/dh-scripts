@@ -69,7 +69,7 @@
     opciones=(
       1 "Última versión testing"   off
       2 "Última versión inestable" off
-      3 "Última versión estable"   off
+      3 "Última versión estable"   on
       4 "Debian 13 (Trixie)"       off
       5 "Debian 12 (Bookworm)"     off
       6 "Debian 11 (Bullseye)"     off
