@@ -118,7 +118,16 @@
   echo ""
   echo "      opkg update && opkg install curl"
   echo ""
-  sudo systemd-nspawn -D "$vDirSandbox" --bind="$vMountHost:/mnt/host" --machine="$vNombreContenedor"
+  # Crear y levantar los puentes
+    sudo ip link add name devbrwan type bridge
+    sudo ip link add name devbrlan type bridge
+    sudo ip link set devbrwan up
+    sudo ip link set devbrlan up
+
+  sudo systemd-nspawn -D "$vDirSandbox" \
+    --bind="$vMountHost:/mnt/host"      \
+    --machine="$vNombreContenedor"      #\
+    #--network-veth-extra=wan:devbrwan --network-veth-extra=lan:devbrlan
 
 # Notificar salida del contenedor
   echo ""
