@@ -78,13 +78,13 @@
       curl -L "$vURLArchivoComprimido" -o /tmp/OpenWrtRootFS.tar.gz
       sudo tar -xzf /tmp/OpenWrtRootFS.tar.gz -C "$vDirSandbox"
       # Recrear /var
-        echo '#/bin/sh'                               | sudo tee    "$vDirSandbox"/root/Preparar.sh
-        echo ''                                       | sudo tee -a "$vDirSandbox"/root/Preparar.sh
-        echo 'mkdir -p /var/log/'                     | sudo tee -a "$vDirSandbox"/root/Preparar.sh
-        echo 'mkdir -p /var/run/'                     | sudo tee -a "$vDirSandbox"/root/Preparar.sh
-        echo 'mkdir -p /var/lock/'                    | sudo tee -a "$vDirSandbox"/root/Preparar.sh
-        echo 'mkdir -p /var/tmp/'                     | sudo tee -a "$vDirSandbox"/root/Preparar.sh
-        echo 'nameserver 9.9.9.9 > /tmp/resolv.conf'  | sudo tee -a "$vDirSandbox"/root/Preparar.sh
+        echo '#/bin/sh'                                   | sudo tee    "$vDirSandbox"/root/Preparar.sh
+        echo ''                                           | sudo tee -a "$vDirSandbox"/root/Preparar.sh
+        echo 'mkdir -p /var/log/'                         | sudo tee -a "$vDirSandbox"/root/Preparar.sh
+        echo 'mkdir -p /var/run/'                         | sudo tee -a "$vDirSandbox"/root/Preparar.sh
+        echo 'mkdir -p /var/lock/'                        | sudo tee -a "$vDirSandbox"/root/Preparar.sh
+        echo 'mkdir -p /var/tmp/'                         | sudo tee -a "$vDirSandbox"/root/Preparar.sh
+        echo 'echo nameserver 9.9.9.9 > /tmp/resolv.conf' | sudo tee -a "$vDirSandbox"/root/Preparar.sh
         sudo chmod +x "$vDirSandbox"/root/Preparar.sh
       # Crear resolv.conf
       
