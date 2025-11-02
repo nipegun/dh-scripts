@@ -78,11 +78,11 @@
       curl -L "$vURLArchivoComprimido" -o /tmp/OpenWrtRootFS.tar.gz
       sudo tar -xzf /tmp/OpenWrtRootFS.tar.gz -C "$vDirSandbox"
       # Recrear /var
-        rm -rf "$vDirSandbox"/var
-        sudo mkdir -p "$vDirSandbox"/var/log
-        sudo mkdir -p "$vDirSandbox"/var/run
-        sudo mkdir -p "$vDirSandbox"/var/lock
-        sudo mkdir -p "$vDirSandbox"/var/tmp
+        sudo rm -rf "$vDirSandbox"/var/
+        sudo mkdir -p "$vDirSandbox"/var/log/
+        sudo mkdir -p "$vDirSandbox"/var/run/
+        sudo mkdir -p "$vDirSandbox"/var/lock/
+        sudo mkdir -p "$vDirSandbox"/var/tmp/
     else
       echo ""
       echo "  La carpeta $vDirSandbox ya existe. Abortando..."
