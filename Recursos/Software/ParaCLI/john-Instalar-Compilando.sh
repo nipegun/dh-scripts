@@ -52,7 +52,7 @@
   if [ $cVerSO == "13" ]; then
 
     echo ""
-    echo -e "${cColorAzulClaro}  Iniciando el script de instalación de pdf2john para Debian 13 (x)...${cFinColor}"
+    echo -e "${cColorAzulClaro}  Iniciando el script de instalación de john para Debian 13 (Trixie)...${cFinColor}"
     echo ""
 
     vCarpetaDeUsuario="$HOME"
@@ -102,7 +102,7 @@
   elif [ $cVerSO == "12" ]; then
 
     echo ""
-    echo -e "${cColorAzulClaro}  Iniciando el script de instalación de pdf2john para Debian 12 (Bookworm)...${cFinColor}"
+    echo -e "${cColorAzulClaro}  Iniciando el script de instalación de john para Debian 12 (Bookworm)...${cFinColor}"
     echo ""
 
     vCarpetaDeUsuario="$HOME"
@@ -152,7 +152,7 @@
   elif [ $cVerSO == "11" ]; then
 
     echo ""
-    echo -e "${cColorAzulClaro}  Iniciando el script de instalación de pdf2john para Debian 11 (Bullseye)...${cFinColor}"
+    echo -e "${cColorAzulClaro}  Iniciando el script de instalación de john para Debian 11 (Bullseye)...${cFinColor}"
     echo ""
 
     echo ""
@@ -162,7 +162,7 @@
   elif [ $cVerSO == "10" ]; then
 
     echo ""
-    echo -e "${cColorAzulClaro}  Iniciando el script de instalación de pdf2john para Debian 10 (Buster)...${cFinColor}"
+    echo -e "${cColorAzulClaro}  Iniciando el script de instalación de john para Debian 10 (Buster)...${cFinColor}"
     echo ""
 
     echo ""
@@ -172,7 +172,7 @@
   elif [ $cVerSO == "9" ]; then
 
     echo ""
-    echo -e "${cColorAzulClaro}  Iniciando el script de instalación de pdf2john para Debian 9 (Stretch)...${cFinColor}"
+    echo -e "${cColorAzulClaro}  Iniciando el script de instalación de john para Debian 9 (Stretch)...${cFinColor}"
     echo ""
 
     echo ""
@@ -182,7 +182,7 @@
   elif [ $cVerSO == "8" ]; then
 
     echo ""
-    echo -e "${cColorAzulClaro}  Iniciando el script de instalación de pdf2john para Debian 8 (Jessie)...${cFinColor}"
+    echo -e "${cColorAzulClaro}  Iniciando el script de instalación de john para Debian 8 (Jessie)...${cFinColor}"
     echo ""
 
     echo ""
@@ -192,7 +192,7 @@
   elif [ $cVerSO == "7" ]; then
 
     echo ""
-    echo -e "${cColorAzulClaro}  Iniciando el script de instalación de pdf2john para Debian 7 (Wheezy)...${cFinColor}"
+    echo -e "${cColorAzulClaro}  Iniciando el script de instalación de john para Debian 7 (Wheezy)...${cFinColor}"
     echo ""
 
     echo ""
