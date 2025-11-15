@@ -38,8 +38,6 @@
   apt-get -y install nano
   apt-get -y install mc
 
-
-
 # Pasar idioma a todo español
   curl -sLk https://raw.githubusercontent.com/nipegun/d-scripts/refs/heads/master/PostInstDebian/CLI/Idioma-CambiarTodoAes-es.sh | sed 's-sudo--g' | bash
 
