@@ -81,7 +81,9 @@
       dotnet tool install --global haveibeenpwned-downloader
 
     # Descargar WordLists
+      #$HOME/.dotnet/tools/haveibeenpwned-downloader download -o --format sha1 --output $HOME/HackingTools/WordLists/EnHashes/HIBP/hibp-hashes-sha1.txt -p 8   # -p8 es usar 8 hilos
       $HOME/.dotnet/tools/haveibeenpwned-downloader download -o --format sha1 --output $HOME/HackingTools/WordLists/EnHashes/HIBP/hibp-hashes-sha1.txt
+      #$HOME/.dotnet/tools/haveibeenpwned-downloader download -o --format ntlm --output $HOME/HackingTools/WordLists/EnHashes/HIBP/hibp-hashes-ntlm.txt -p 8   # -p8 es usar 8 hilos
       $HOME/.dotnet/tools/haveibeenpwned-downloader download -o --format ntlm --output $HOME/HackingTools/WordLists/EnHashes/HIBP/hibp-hashes-ntlm.txt
 
   elif [ $cVerSO == "11" ]; then
