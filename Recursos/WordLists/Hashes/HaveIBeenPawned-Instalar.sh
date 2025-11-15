@@ -9,19 +9,19 @@
 # Script de NiPeGun para instalar las WrdLists de Hashes de HaveIBeenPawnet en Debian
 #
 # Ejecución remota (puede requerir permisos sudo):
-#   curl -sL x | bash
+#   curl -sL https://raw.githubusercontent.com/nipegun/dh-scripts/refs/heads/main/Recursos/WordLists/Hashes/HaveIBeenPawned-Instalar.sh | bash
 #
 # Ejecución remota como root (para sistemas sin sudo):
-#   curl -sL x | sed 's-sudo--g' | bash
+#   curl -sL https://raw.githubusercontent.com/nipegun/dh-scripts/refs/heads/main/Recursos/WordLists/Hashes/HaveIBeenPawned-Instalar.sh | sed 's-sudo--g' | bash
 #
 # Ejecución remota sin caché:
-#   curl -sL -H 'Cache-Control: no-cache, no-store' x | bash
+#   curl -sL -H 'Cache-Control: no-cache, no-store' https://raw.githubusercontent.com/nipegun/dh-scripts/refs/heads/main/Recursos/WordLists/Hashes/HaveIBeenPawned-Instalar.sh | bash
 #
 # Ejecución remota con parámetros:
-#   curl -sL x | bash -s Parámetro1 Parámetro2
+#   curl -sL https://raw.githubusercontent.com/nipegun/dh-scripts/refs/heads/main/Recursos/WordLists/Hashes/HaveIBeenPawned-Instalar.sh | bash -s Parámetro1 Parámetro2
 #
 # Bajar y editar directamente el archivo en nano
-#   curl -sL x | nano -
+#   curl -sL https://raw.githubusercontent.com/nipegun/dh-scripts/refs/heads/main/Recursos/WordLists/Hashes/HaveIBeenPawned-Instalar.sh | nano -
 # ----------
 
 # Definir constantes de color
@@ -71,9 +71,18 @@
     echo -e "${cColorAzulClaro}  Iniciando el script de instalación de xxxxxxxxx para Debian 12 (Bookworm)...${cFinColor}"
     echo ""
 
-    echo ""
-    echo -e "${cColorRojo}    Comandos para Debian 12 todavía no preparados. Prueba ejecutarlo en otra versión de Debian.${cFinColor}"
-    echo ""
+    # Instalar .NET 9
+        curl -L https://packages.microsoft.com/config/debian/12/packages-microsoft-prod.deb -o /tmp/packages-microsoft-prod.deb
+        sudo apt -y install /tmp/packages-microsoft-prod.deb
+        sudo apt-get -y update
+        sudo apt-get -y install dotnet-sdk-9.0
+
+    # Instalar la herramienta para descargar los certificados
+      dotnet tool install --global haveibeenpwned-downloader
+
+    # Descargar WordLists
+      $HOME/.dotnet/tools/haveibeenpwned-downloader download -o --format sha1 --output $HOME/HackingTools/WordLists/EnHashes/HIBP/hibp-hashes-sha1.txt
+      $HOME/.dotnet/tools/haveibeenpwned-downloader download -o --format ntlm --output $HOME/HackingTools/WordLists/EnHashes/HIBP/hibp-hashes-ntlm.txt
 
   elif [ $cVerSO == "11" ]; then
 
@@ -127,7 +136,3 @@
 
   fi
 
-dotnet tool install --global haveibeenpwned-downloader
-
-$HOME/.dotnet/tools/haveibeenpwned-downloader download -o --format sha1 --output sha1
-$HOME/.dotnet/tools/haveibeenpwned-downloader download -o --format ntlm --output ntlm
