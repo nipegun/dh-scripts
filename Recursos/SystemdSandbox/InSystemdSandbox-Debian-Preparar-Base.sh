@@ -15,7 +15,9 @@
   apt-get -y update
   apt-get -y install libterm-readline-perl-perl
   apt-get -y install dialog
-
+  # Instalar CA para que curl no de errores con certificados
+    apt-get -y install ca-certificates
+  
 # Crear la carpeta termporal
   mkdir -p /mnt/host/tmp/ 2> /dev/null
   chmod 777 /mnt/host/tmp/ -R 2> /dev/null
@@ -36,8 +38,7 @@
   apt-get -y install nano
   apt-get -y install mc
 
-# Instalar CA para que curl no de errores con certificados
-  apt-get -y install ca-certificates
+
 
 # Pasar idioma a todo español
   curl -sLk https://raw.githubusercontent.com/nipegun/d-scripts/refs/heads/master/PostInstDebian/CLI/Idioma-CambiarTodoAes-es.sh | sed 's-sudo--g' | bash
