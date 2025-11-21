@@ -1,19 +1,23 @@
 #!/bin/bash
 
-mkdir ~/Pruebas
-cd ~/Pruebas
-python3 -m venv cai_env
+mkdir ~/Pruebas/CaiFramework/ 2> /dev/null
+cd ~/Pruebas/CaiFramework/
+python3 -m venv venv
 
 # Entrar en el entorno virtual
-  source ~/Pruebas/cai_env/bin/activate
+  source ~/Pruebas/CaiFramework/venv/bin/activate
 
+# Determinar la última versión
+  vVersCAIF=$(pip index versions cai-framework | grep cai-framework)
 
-vVersCAIF=$(pip index versions cai-framework | grep cai-framework)
-echo ""
-echo "  Se descargará $vVersCAIF..."
-echo ""
-pip download cai-framework --no-deps --no-binary :all: --only-binary :none:
-tar -xvf cai_framework-*.tar.gz
+# Descargar
+  echo ""
+  echo "  Se descargará $vVersCAIF..."
+  echo ""
+  pip download cai-framework --no-deps --no-binary :all: --only-binary :none:
+
+# Descomprimir
+  tar -xvf cai_framework-*.tar.gz
 
 # Convertir en un repo independiente
   cd cai_framework-0.5.5
