@@ -20,3 +20,31 @@ tar -xvf cai_framework-*.tar.gz
   git init
   git add .
   git commit -m "Importación inicial del código open-source de CAI Framework"
+
+# Instalar en el venv
+  python3 -m pip install -e . --break-system-packages
+
+# Comprobar que se ha instalado
+  python3 - << 'EOF'
+import cai
+import os
+print("CAI cargado desde:", os.path.dirname(cai.__file__))
+EOF
+
+# Prueba mínima para ver si inicia el agente
+  echo '#!/usr/bin/env python3'                                                    | tee -a PruebaAgente.py
+  echo 'from cai.sdk.agents import Agent, Runner'                                  | tee -a PruebaAgente.py
+  echo 'from cai.tools.reconnaissance.exec_code import execute_code'               | tee -a PruebaAgente.py
+  echo ''                                                                          | tee -a PruebaAgente.py
+  echo 'agent = Agent('                                                            | tee -a PruebaAgente.py
+  echo '  name="AgenteLocal",'                                                     | tee -a PruebaAgente.py
+  echo '  instructions="Eres un agente de test",'                                  | tee -a PruebaAgente.py
+  echo '  tools=[execute_code]'                                                    | tee -a PruebaAgente.py
+  echo ')'                                                                         | tee -a PruebaAgente.py
+  echo ''                                                                          | tee -a PruebaAgente.py
+  echo 'resultado = Runner.run_sync(agent, "print("'Hola desde mi repo local'")")' | tee -a PruebaAgente.py
+  echo 'print(resultado.output)'                                                   | tee -a PruebaAgente.py
+  chmod +x PruebaAgente.py
+
+# Probarlo
+  python3 PruebaAgente.py
