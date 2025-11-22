@@ -1,29 +1,63 @@
 #!/bin/bash
 
-mkdir ~/Pruebas/CaiFramework/ 2> /dev/null
-cd ~/Pruebas/CaiFramework/
-python3 -m venv venv
+# Definir constantes
+  vNomRepoGithub='Pruebas'
+  vNomNuevaCarpeta='CaiFramework'
 
-# Entrar en el entorno virtual
-  source ~/Pruebas/CaiFramework/venv/bin/activate
+# Clonar el repo de pruebas
+  cd ~
+  mkdir ~/Git/ 2> /dev/null
+  rm -rf ~/Git/"$vNomRepoGithub"/ 2> /dev/null
+  cd ~/Git/
+  git clone https://github.com/nipegun/"$vNomRepoGithub".git
+  mkdir ~/Git/"$vNomRepoGithub"/"$vNomNuevaCarpeta"/
 
-# Determinar la última versión
-  vVersCAIF=$(pip index versions cai-framework | grep cai-framework)
+# Crear entorno virtual de python y descargar dentro
+  rm -rf /tmp/"$vNomNuevaCarpeta"/ 2> /dev/null
+  mkdir /tmp/"$vNomNuevaCarpeta"/
+  cd /tmp/"$vNomNuevaCarpeta"/
+  python3 -m venv venv
+  # Entrar en el entorno virtual
+    source /tmp/"$vNomNuevaCarpeta"/venv/bin/activate
+  # Determinar la última versión
+    vVersCAIF=$(pip index versions cai-framework | grep cai-framework | cut -d'(' -f2 | cut -d')' -f1)
+  # Descargar
+    echo ""
+    echo "  Se descargará la versión $vVersCAIF..."
+    echo ""
+    pip download cai-framework --no-deps --no-binary :all: --only-binary :none:
+  # Descomprimir
+    tar -xvf cai_framework-*.tar.gz -C /tmp/"$vNomNuevaCarpeta"/
+  # Desactivar entorno virtual
+    deactivate
 
-# Descargar
-  echo ""
-  echo "  Se descargará $vVersCAIF..."
-  echo ""
-  pip download cai-framework --no-deps --no-binary :all: --only-binary :none:
+  # Copiar a la home del usuario
+    cp -Rv /tmp/"$vNomNuevaCarpeta"/cai_framework-"$vVersCAIF"/* ~/Git/"$vNomRepoGithub"/"$vNomNuevaCarpeta"/
 
-# Descomprimir
-  tar -xvf cai_framework-*.tar.gz
+# Entrar al repo local
+  cd ~/Git/"$vNomRepoGithub"/
+
+# Añadir los cambios
+  git add .
+  git commit -m "  Agrego mi fork de CaiFramework en carpeta propia."
+  git push
+  
+
+
+
 
 # Convertir en un repo independiente
   cd cai_framework-0.5.5
+  python3 -m pip install -e . --break-system-packages
+
+  
   git init
   git add .
   git commit -m "Importación inicial del código open-source de CAI Framework"
+
+
+
+mkdir ~/Pruebas/CaiFramework
 
 # Crear el provider para Ollama
   cat > src/cai/sdk/agents/models/ollama_provider.py <<< '
