@@ -33,17 +33,18 @@
     deactivate
 
   # Copiar a la home del usuario
-    cp -Rv /tmp/"$vNomNuevaCarpeta"/cai_framework-"$vVersCAIF"/* ~/Git/"$vNomRepoGithub"/"$vNomNuevaCarpeta"/
+    cp -Rv /tmp/"$vNomNuevaCarpeta"/cai_framework-"$vVersCAIF"/src/cai/* ~/Git/"$vNomRepoGithub"/"$vNomNuevaCarpeta"/
 
 # Borrar archivos irrelevantes para la ejecución del código
-  rm -rf ~/Git/"$vNomRepoGithub"/"$vNomNuevaCarpeta"/docs/
-  rm -rf ~/Git/"$vNomRepoGithub"/"$vNomNuevaCarpeta"/examples/
-  rm -rf ~/Git/"$vNomRepoGithub"/"$vNomNuevaCarpeta"/fluency/
-  rm -rf ~/Git/"$vNomRepoGithub"/"$vNomNuevaCarpeta"/media/
-  rm -f  ~/Git/"$vNomRepoGithub"/"$vNomNuevaCarpeta"/CITATION.cff
-  rm -f  ~/Git/"$vNomRepoGithub"/"$vNomNuevaCarpeta"/DISCLAIMER
-  rm -f  ~/Git/"$vNomRepoGithub"/"$vNomNuevaCarpeta"/LICENSE
-  rm -f  ~/Git/"$vNomRepoGithub"/"$vNomNuevaCarpeta"/LICENSE-MIT
+  #rm -rf ~/Git/"$vNomRepoGithub"/"$vNomNuevaCarpeta"/docs/
+  #rm -rf ~/Git/"$vNomRepoGithub"/"$vNomNuevaCarpeta"/examples/
+  #rm -rf ~/Git/"$vNomRepoGithub"/"$vNomNuevaCarpeta"/fluency/
+  #rm -rf ~/Git/"$vNomRepoGithub"/"$vNomNuevaCarpeta"/media/
+  #rm -rf ~/Git/"$vNomRepoGithub"/"$vNomNuevaCarpeta"/tests/
+  #rm -f  ~/Git/"$vNomRepoGithub"/"$vNomNuevaCarpeta"/CITATION.cff
+  #rm -f  ~/Git/"$vNomRepoGithub"/"$vNomNuevaCarpeta"/DISCLAIMER
+  #rm -f  ~/Git/"$vNomRepoGithub"/"$vNomNuevaCarpeta"/LICENSE
+  #rm -f  ~/Git/"$vNomRepoGithub"/"$vNomNuevaCarpeta"/LICENSE-MIT
 
 # Entrar al repo local
   cd ~/Git/"$vNomRepoGithub"/
