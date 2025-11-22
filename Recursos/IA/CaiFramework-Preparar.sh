@@ -10,7 +10,8 @@
   rm -rf ~/Git/"$vNomRepoGithub"/ 2> /dev/null
   cd ~/Git/
   git clone https://github.com/nipegun/"$vNomRepoGithub".git
-  mkdir ~/Git/"$vNomRepoGithub"/"$vNomNuevaCarpeta"/
+  rm -rf ~/Git/"$vNomRepoGithub"/"$vNomNuevaCarpeta"/* 2> /dev/null
+  mkdir ~/Git/"$vNomRepoGithub"/"$vNomNuevaCarpeta"/ 2> /dev/null
 
 # Crear entorno virtual de python y descargar dentro
   rm -rf /tmp/"$vNomNuevaCarpeta"/ 2> /dev/null
@@ -33,6 +34,16 @@
 
   # Copiar a la home del usuario
     cp -Rv /tmp/"$vNomNuevaCarpeta"/cai_framework-"$vVersCAIF"/* ~/Git/"$vNomRepoGithub"/"$vNomNuevaCarpeta"/
+
+# Borrar archivos irrelevantes para la ejecución del código
+  rm -rf ~/Git/"$vNomRepoGithub"/"$vNomNuevaCarpeta"/docs/
+  rm -rf ~/Git/"$vNomRepoGithub"/"$vNomNuevaCarpeta"/examples/
+  rm -rf ~/Git/"$vNomRepoGithub"/"$vNomNuevaCarpeta"/fluency/
+  rm -rf ~/Git/"$vNomRepoGithub"/"$vNomNuevaCarpeta"/media/
+  rm -f  ~/Git/"$vNomRepoGithub"/"$vNomNuevaCarpeta"/CITATION.cff
+  rm -f  ~/Git/"$vNomRepoGithub"/"$vNomNuevaCarpeta"/DISCLAIMER
+  rm -f  ~/Git/"$vNomRepoGithub"/"$vNomNuevaCarpeta"/LICENSE
+  rm -f  ~/Git/"$vNomRepoGithub"/"$vNomNuevaCarpeta"/LICENSE-MIT
 
 # Entrar al repo local
   cd ~/Git/"$vNomRepoGithub"/
