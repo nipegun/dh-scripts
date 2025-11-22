@@ -1,17 +1,18 @@
 #!/bin/bash
 
 # Definir constantes
+  vCarpetaGit="$HOME/Git2"
   vNomRepoGithub='pruebas'
   vNomNuevaCarpeta='CaiFramework'
 
 # Clonar el repo de pruebas
   cd ~
-  mkdir ~/Git/ 2> /dev/null
-  rm -rf ~/Git/"$vNomRepoGithub"/ 2> /dev/null
-  cd ~/Git/
+  mkdir "$vCarpetaGit"/ 2> /dev/null
+  rm -rf "$vCarpetaGit"/"$vNomRepoGithub"/ 2> /dev/null
+  cd "$vCarpetaGit"/
   git clone https://github.com/nipegun/"$vNomRepoGithub".git
-  rm -rf ~/Git/"$vNomRepoGithub"/"$vNomNuevaCarpeta"/* 2> /dev/null
-  mkdir ~/Git/"$vNomRepoGithub"/"$vNomNuevaCarpeta"/ 2> /dev/null
+  rm -rf "$vCarpetaGit"/"$vNomRepoGithub"/"$vNomNuevaCarpeta"/* 2> /dev/null
+  mkdir "$vCarpetaGit"/"$vNomRepoGithub"/"$vNomNuevaCarpeta"/ 2> /dev/null
 
 # Crear entorno virtual de python y descargar dentro
   rm -rf /tmp/"$vNomNuevaCarpeta"/ 2> /dev/null
@@ -33,30 +34,30 @@
     deactivate
 
   # Copiar a la home del usuario
-    rm -rf ~/Git/"$vNomRepoGithub"/"$vNomNuevaCarpeta"/* 2> /dev/null
-    cp -Rv /tmp/"$vNomNuevaCarpeta"/cai_framework-"$vVersCAIF"/src/cai/* ~/Git/"$vNomRepoGithub"/"$vNomNuevaCarpeta"/
+    rm -rf "$vCarpetaGit"/"$vNomRepoGithub"/"$vNomNuevaCarpeta"/* 2> /dev/null
+    cp -Rv /tmp/"$vNomNuevaCarpeta"/cai_framework-"$vVersCAIF"/src/cai/* "$vCarpetaGit"/"$vNomRepoGithub"/"$vNomNuevaCarpeta"/
 
   # Crear el archivo de requirements.txt
-    echo 'python-dotenv' | tee -a ~/Git/"$vNomRepoGithub"/"$vNomNuevaCarpeta"/requirements.txt
-    echo 'openai'        | tee -a ~/Git/"$vNomRepoGithub"/"$vNomNuevaCarpeta"/requirements.txt
-    echo 'rich'          | tee -a ~/Git/"$vNomRepoGithub"/"$vNomNuevaCarpeta"/requirements.txt
-    echo 'mako'          | tee -a ~/Git/"$vNomRepoGithub"/"$vNomNuevaCarpeta"/requirements.txt
-    echo 'wasabi'        | tee -a ~/Git/"$vNomRepoGithub"/"$vNomNuevaCarpeta"/requirements.txt
-    echo 'cai-framework' | tee -a ~/Git/"$vNomRepoGithub"/"$vNomNuevaCarpeta"/requirements.txt
+    echo 'python-dotenv' | tee -a "$vCarpetaGit"/"$vNomRepoGithub"/"$vNomNuevaCarpeta"/requirements.txt
+    echo 'openai'        | tee -a "$vCarpetaGit"/"$vNomRepoGithub"/"$vNomNuevaCarpeta"/requirements.txt
+    echo 'rich'          | tee -a "$vCarpetaGit"/"$vNomRepoGithub"/"$vNomNuevaCarpeta"/requirements.txt
+    echo 'mako'          | tee -a "$vCarpetaGit"/"$vNomRepoGithub"/"$vNomNuevaCarpeta"/requirements.txt
+    echo 'wasabi'        | tee -a "$vCarpetaGit"/"$vNomRepoGithub"/"$vNomNuevaCarpeta"/requirements.txt
+    echo 'cai-framework' | tee -a "$vCarpetaGit"/"$vNomRepoGithub"/"$vNomNuevaCarpeta"/requirements.txt
 
 # Borrar archivos irrelevantes para la ejecución del código
-  #rm -rf ~/Git/"$vNomRepoGithub"/"$vNomNuevaCarpeta"/docs/
-  #rm -rf ~/Git/"$vNomRepoGithub"/"$vNomNuevaCarpeta"/examples/
-  #rm -rf ~/Git/"$vNomRepoGithub"/"$vNomNuevaCarpeta"/fluency/
-  #rm -rf ~/Git/"$vNomRepoGithub"/"$vNomNuevaCarpeta"/media/
-  #rm -rf ~/Git/"$vNomRepoGithub"/"$vNomNuevaCarpeta"/tests/
-  #rm -f  ~/Git/"$vNomRepoGithub"/"$vNomNuevaCarpeta"/CITATION.cff
-  #rm -f  ~/Git/"$vNomRepoGithub"/"$vNomNuevaCarpeta"/DISCLAIMER
-  #rm -f  ~/Git/"$vNomRepoGithub"/"$vNomNuevaCarpeta"/LICENSE
-  #rm -f  ~/Git/"$vNomRepoGithub"/"$vNomNuevaCarpeta"/LICENSE-MIT
+  #rm -rf "$vCarpetaGit"/"$vNomRepoGithub"/"$vNomNuevaCarpeta"/docs/
+  #rm -rf "$vCarpetaGit"/"$vNomRepoGithub"/"$vNomNuevaCarpeta"/examples/
+  #rm -rf "$vCarpetaGit"/"$vNomRepoGithub"/"$vNomNuevaCarpeta"/fluency/
+  #rm -rf "$vCarpetaGit"/"$vNomRepoGithub"/"$vNomNuevaCarpeta"/media/
+  #rm -rf "$vCarpetaGit"/"$vNomRepoGithub"/"$vNomNuevaCarpeta"/tests/
+  #rm -f  "$vCarpetaGit"/"$vNomRepoGithub"/"$vNomNuevaCarpeta"/CITATION.cff
+  #rm -f  "$vCarpetaGit"/"$vNomRepoGithub"/"$vNomNuevaCarpeta"/DISCLAIMER
+  #rm -f  "$vCarpetaGit"/"$vNomRepoGithub"/"$vNomNuevaCarpeta"/LICENSE
+  #rm -f  "$vCarpetaGit"/"$vNomRepoGithub"/"$vNomNuevaCarpeta"/LICENSE-MIT
 
 # Entrar al repo local
-  cd ~/Git/"$vNomRepoGithub"/
+  cd "$vCarpetaGit"/"$vNomRepoGithub"/
 
 # Crear el provider para ollama
   
