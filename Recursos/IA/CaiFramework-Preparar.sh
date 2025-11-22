@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Definir constantes
-  vNomRepoGithub='Pruebas'
+  vNomRepoGithub='pruebas'
   vNomNuevaCarpeta='CaiFramework'
 
 # Clonar el repo de pruebas
@@ -37,27 +37,31 @@
 # Entrar al repo local
   cd ~/Git/"$vNomRepoGithub"/
 
+# Crear el provider para ollama
+  
+
 # Añadir los cambios
   git add .
   git commit -m "  Agrego mi fork de CaiFramework en carpeta propia."
   git push
   
 
+# Re-descargar el repo
+  cd /tmp
+  git clone https://github.com/nipegun/"$vNomRepoGithub".git
+  cd /tmp/"$vNomRepoGithub"/"$vNomNuevaCarpeta"/
 
+# Re-crear el entorno virtual
+  python3 -m venv venv
 
-
-# Convertir en un repo independiente
-  cd cai_framework-0.5.5
-  python3 -m pip install -e . --break-system-packages
-
+# Entrar en el entorno virtual e instalar
+  source /tmp/"$vNomRepoGithub"/"$vNomNuevaCarpeta"//venv/bin/activate
+  python3 -m pip install -e .
   
-  git init
-  git add .
-  git commit -m "Importación inicial del código open-source de CAI Framework"
 
 
 
-mkdir ~/Pruebas/CaiFramework
+
 
 # Crear el provider para Ollama
   cat > src/cai/sdk/agents/models/ollama_provider.py <<< '
