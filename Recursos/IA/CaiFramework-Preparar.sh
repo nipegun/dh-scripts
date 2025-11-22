@@ -33,7 +33,16 @@
     deactivate
 
   # Copiar a la home del usuario
+    rm -rf ~/Git/"$vNomRepoGithub"/"$vNomNuevaCarpeta"/* 2> /dev/null
     cp -Rv /tmp/"$vNomNuevaCarpeta"/cai_framework-"$vVersCAIF"/src/cai/* ~/Git/"$vNomRepoGithub"/"$vNomNuevaCarpeta"/
+
+  # Crear el archivo de requirements.txt
+    echo 'python-dotenv' | tee -a ~/Git/"$vNomRepoGithub"/"$vNomNuevaCarpeta"/requirements.txt
+    echo 'openai'        | tee -a ~/Git/"$vNomRepoGithub"/"$vNomNuevaCarpeta"/requirements.txt
+    echo 'rich'          | tee -a ~/Git/"$vNomRepoGithub"/"$vNomNuevaCarpeta"/requirements.txt
+    echo 'mako'          | tee -a ~/Git/"$vNomRepoGithub"/"$vNomNuevaCarpeta"/requirements.txt
+    echo 'wasabi'        | tee -a ~/Git/"$vNomRepoGithub"/"$vNomNuevaCarpeta"/requirements.txt
+    echo 'cai-framework' | tee -a ~/Git/"$vNomRepoGithub"/"$vNomNuevaCarpeta"/requirements.txt
 
 # Borrar archivos irrelevantes para la ejecución del código
   #rm -rf ~/Git/"$vNomRepoGithub"/"$vNomNuevaCarpeta"/docs/
