@@ -64,7 +64,7 @@
 
 # Añadir los cambios
   git add .
-  git commit -m "  Agrego mi fork de CaiFramework en carpeta propia."
+  git commit -m "x"
   git push
   
 
