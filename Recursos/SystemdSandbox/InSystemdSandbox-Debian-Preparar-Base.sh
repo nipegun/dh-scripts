@@ -38,17 +38,8 @@
   apt-get -y install nano
   apt-get -y install mc
 
-# Pasar idioma a todo español
-  curl -sLk https://raw.githubusercontent.com/nipegun/d-scripts/refs/heads/master/PostInstDebian/CLI/Idioma-CambiarTodoAes-es.sh | sed 's-sudo--g' | bash
-
-# Modificar .bashrc a nivel de sistema
-  curl -sLk https://raw.githubusercontent.com/nipegun/d-scripts/refs/heads/master/PostInstDebian/CLI/ModificarElBashRCPorDefecto.sh | sed 's-sudo--g' | bash
-
-# Instalar d-scripts
-  apt-get -y update
-  apt-get -y install curl
-  curl -s https://raw.githubusercontent.com/nipegun/d-scripts/refs/heads/master/DScripts-Sincronizar.sh | bash
-  sh -c "echo 'export PATH=$PATH:~/scripts/d-scripts/Alias/' >> ~/.bashrc"
+# Preparar debian CLI
+  curl -sLk https://raw.githubusercontent.com/nipegun/d-scripts/refs/heads/master/PostInstDebian/CLI/0-PrepararDebianCLI.sh | bash
 
 # Entrar en la carpeta montada del host
   cd /mnt/host/
