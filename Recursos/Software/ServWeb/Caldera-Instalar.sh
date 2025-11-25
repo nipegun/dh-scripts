@@ -168,6 +168,7 @@
         echo ""
         echo "        Las credenciales por defecto son:"
         echo ""
+        echo "          admin:admin"
         echo "          red:admin"
         echo "          blue:admin"
         echo ""
