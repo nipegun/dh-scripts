@@ -58,11 +58,14 @@
   if [ $cVerSO == "13" ]; then
 
     echo ""
-    echo -e "${cColorAzulClaro}  Iniciando el script de instalación de Caldera para Debian 13 (x)...${cFinColor}"
+    echo -e "${cColorAzulClaro}  Iniciando el script de instalación de Caldera para Debian 13 (Trixie)...${cFinColor}"
     echo ""
 
+    # Definir la versión máxima de python que soporta caldera
+      vVerMaxPython='3.11'
+
     echo ""
-    echo -e "${cColorRojo}    Comandos para Debian 13 todavía no preparados. Prueba ejecutarlo en otra versión de Debian.${cFinColor}"
+    echo -e "${cColorRojo}    Comandos para Debian 13 todavía no preparados porque Caldera soporta, como máximo, Python $vVerMaxPython .${cFinColor}"
     echo ""
 
   elif [ $cVerSO == "12" ]; then
@@ -71,9 +74,95 @@
     echo -e "${cColorAzulClaro}  Iniciando el script de instalación de Caldera para Debian 12 (Bookworm)...${cFinColor}"
     echo ""
 
-    echo ""
-    echo -e "${cColorRojo}    Comandos para Debian 12 todavía no preparados. Prueba ejecutarlo en otra versión de Debian.${cFinColor}"
-    echo ""
+    # Instalar paquetes necesarios de Debian
+      sudo apt-get -y update
+      sudo apt-get -y install git
+      sudo apt-get -y install libxml2-dev
+      sudo apt-get -y install libxslt1-dev
+      sudo apt-get -y install zlib1g-dev
+      sudo apt-get -y install build-essential
+      sudo apt-get -y install python3-dev
+      sudo apt-get -y install npm
+      # Instalar NodeJS 22
+        curl -fsSL https://deb.nodesource.com/setup_22.x | sudo -E bash -
+        sudo apt-get -y install nodejs
+        # Para evitar módulos instalados con Node 18
+          rm -rf plugins/magma/node_modules
+      # Instalar Go
+        sudo apt-get -y install golang
+      # Descargar e instalar UPX
+        cd /usr/local/bin
+        wget https://github.com/upx/upx/releases/download/v4.2.4/upx-4.2.4-amd64_linux.tar.xz
+        tar xf upx-4.2.4-amd64_linux.tar.xz
+        mv upx-4.2.4-amd64_linux/upx .
+        rm -r upx-4.2.4-amd64_linux*
+        chmod +x upx
+      # Donut
+        #cd /opt
+        #git clone https://github.com/TheWover/donut
+        #cd donut
+        #make
+        #cp donut /usr/local/bin/
+        #chmod +x /usr/local/bin/donut
+
+    # Crear la carpeta HackingTools
+      echo ""
+      echo "    Creando la carpeta HackingTools..."
+      echo ""
+      cd ~
+      mkdir -p $HOME/HackingTools/ 2> /dev//null
+      rm -rf $HOME/HackingTools/Caldera/ 2> /dev/null
+
+    # Clonar el repositorio de caldera
+      echo ""
+      echo "    Clonando el repositorio de caldera..."
+      echo ""
+      # Comprobar si el paquete git está instalado. Si no lo está, instalarlo.
+        if [[ $(dpkg-query -s git 2>/dev/null | grep installed) == "" ]]; then
+          echo ""
+          echo -e "${cColorRojo}  El paquete git no está instalado. Iniciando su instalación...${cFinColor}"
+          echo ""
+          sudo apt-get -y update
+          sudo apt-get -y install git
+          echo ""
+        fi
+      cd $HOME/HackingTools/
+      git clone https://github.com/mitre/caldera.git --recursive
+      mv caldera Caldera
+
+    # Crear el entorno virtual de python
+      echo ""
+      echo "    Creando el entorno virtual de python..."
+      echo ""
+      # Comprobar si el paquete python3-venv está instalado. Si no lo está, instalarlo.
+        if [[ $(dpkg-query -s python3-venv 2>/dev/null | grep installed) == "" ]]; then
+          echo ""
+          echo -e "${cColorRojo}  El paquete python3-venv no está instalado. Iniciando su instalación...${cFinColor}"
+          echo ""
+          sudo apt-get -y update
+          sudo apt-get -y install python3-venv
+          echo ""
+        fi
+      cd $HOME/HackingTools/Caldera/
+      python3 -m venv venv
+
+    # Activar el entorno virtual e instalar dentro
+      source $HOME/HackingTools/Caldera/venv/bin/activate
+
+      # Instalar requerimientos
+        pip install -r requirements.txt
+        pip install docker
+        pip install donut-shellcode
+        #pip install sphinx
+        #pip install sphinx-rtd-theme
+
+      # Desinstalar paquetes innecesarios
+        sudo apt-get -y autoremove
+        sudo apt-get -y autoclean
+
+      # Lanzar servidor
+        cd $HOME/HackingTools/Caldera/
+        python3 server.py --insecure --build
 
   elif [ $cVerSO == "11" ]; then
 
