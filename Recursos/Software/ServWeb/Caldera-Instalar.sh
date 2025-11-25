@@ -154,6 +154,19 @@
         sudo apt-get -y autoremove
         sudo apt-get -y autoclean
 
+      # Notificar fin de ejecución del script
+        vDirIPLocal=$(hostname -I | cut -d' ' -f1)
+        echo ""
+        echo "    La instalación de caldera ha concluido. Se procederá a lanzar el servidor."
+        echo "    Una vez que el servidor esté en ejecución, conéctate a la web de administración en:"
+        echo ""
+        echo "      http://localhost:8888"
+        echo ""
+        echo "        o"
+        echo ""
+        echo "      http://$vDirIPLocal:8888"
+        echo ""
+
       # Lanzar servidor
         cd $HOME/HackingTools/Caldera/
         python3 server.py --insecure --build
