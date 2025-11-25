@@ -166,6 +166,11 @@
         echo ""
         echo "      http://$vDirIPLocal:8888"
         echo ""
+        echo "        Las credenciales por defecto son:"
+        echo ""
+        echo "          red:admin"
+        echo "          blue:admin"
+        echo ""
 
       # Lanzar servidor
         cd $HOME/HackingTools/Caldera/
