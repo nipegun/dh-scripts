@@ -132,6 +132,12 @@
       # Darle permisos de ejecución
         sudo chmod +x /usr/bin/rustscan
 
+    # Crear el alias en .bashrc
+      echo ""
+      echo "    Creando alias en el -bashrc del usuario..."
+      echo ""
+      echo "alias rs='rustscan --accessible -g --ulimit 5000 -a '" | tee -a $HOME/.bashrc
+
     # Notificar fin de ejecución del script
       echo ""
       echo "    Ejecución del script, finalizada."
@@ -228,6 +234,12 @@
       find /tmp/ -type f -name rustscan -exec sudo cp -v {} /usr/bin/ \;
       # Darle permisos de ejecución
         sudo chmod +x /usr/bin/rustscan
+
+    # Crear el alias en .bashrc
+      echo ""
+      echo "    Creando alias en el -bashrc del usuario..."
+      echo ""
+      echo "alias rs='rustscan --accessible -g --ulimit 5000 -a '" | tee -a $HOME/.bashrc
 
     # Notificar fin de ejecución del script
       echo ""
