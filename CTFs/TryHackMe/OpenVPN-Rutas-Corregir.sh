@@ -14,7 +14,7 @@
 #
 #
 # Ejecución remota (puede requerir permisos sudo):
-#   curl -sL https://raw.githubusercontent.com/nipegun/dh-scripts/refs/heads/main/CTFs/TryHackMe/OpenVPN-Rutas-Corregir.sh | bash -s [DirecciónDeSubredDeCasa] [IPDeLaMVDeTH]
+#   cd /tmp && wget https://raw.githubusercontent.com/nipegun/dh-scripts/refs/heads/main/CTFs/TryHackMe/OpenVPN-Rutas-Corregir.sh && | bash /tmp/OpenVPN-Rutas-Corregir.sh [DirecciónDeSubredDeCasa] [IPDeLaMVDeTH]
 #
 # Ejecución remota como root (para sistemas sin sudo):
 #   curl -sL https://raw.githubusercontent.com/nipegun/dh-scripts/refs/heads/main/CTFs/TryHackMe/OpenVPN-Rutas-Corregir.sh | sed 's-sudo--g' | bash -s [DirecciónDeSubredDeCasa] [IPDeLaMVDeTH]
