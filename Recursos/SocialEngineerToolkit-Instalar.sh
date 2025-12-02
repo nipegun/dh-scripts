@@ -61,9 +61,54 @@
     echo -e "${cColorAzulClaro}  Iniciando el script de instalación de Social Engineering Toolkit para Debian 13 (x)...${cFinColor}"
     echo ""
 
-    echo ""
-    echo -e "${cColorRojo}    Comandos para Debian 13 todavía no preparados. Prueba ejecutarlo en otra versión de Debian.${cFinColor}"
-    echo ""
+    # Instalar dependencias del sistema
+      sudo apt-get -y update
+      sudo apt-get -y install build-essential
+      sudo apt-get -y install python3-venv
+      sudo apt-get -y install python3-dev
+      sudo apt-get -y install curl
+      sudo apt-get -y install wget
+      sudo apt-get -y install gnupg2
+
+    # Instalar metasploit
+      # Descargar el script de instalación
+        curl https://raw.githubusercontent.com/rapid7/metasploit-omnibus/master/config/templates/metasploit-framework-wrappers/msfupdate.erb -o /tmp/msfinstall
+      # Hacer el script ejecutable
+        chmod +x /tmp/msfinstall
+      # Instalar
+        sudo apt-get -y update
+        sudo /tmp/msfinstall
+      # Crear la base de datos
+        msfdb init
+
+    # Descargar el repositorio
+      mkdir $HOME/Git/ 2> /dev/null
+      cd $HOME/Git/
+      git clone --depth 1 https://github.com/trustedsec/social-engineer-toolkit.git
+
+    # Crear la carpeta en home e instalar dentro
+      mkdir $HOME/HackingTools/ 2> /dev/null
+      cp -rv $HOME/Git/social-engineer-toolkit/ $HOME/HackingTools/
+      mv $HOME/HackingTools/social-engineer-toolkit/ $HOME/HackingTools/SocialEngineerToolkit/
+
+    # Crear el entorno virtual
+      cd $HOME/HackingTools/SocialEngineerToolkit/
+      python3 -m venv venv
+
+    # Entrar al entorno virtual e instalar dependencias
+      source $HOME/HackingTools/SocialEngineerToolkit/venv/bin/activate
+      pip install -r requirements.txt
+      python3 setup.py
+
+    # Notificar fin de ejecución del script
+      echo ""
+      echo "  Script de instalación de SocialEngineerToolkit, finalizado."
+      echo ""
+      echo "    Para lanzar SET, ejecuta:"
+      echo ""
+      echo "      setoolkit"
+      echo ""
+      #/etc/setoolkit/set.config
 
   elif [ $cVerSO == "12" ]; then
 
@@ -71,9 +116,54 @@
     echo -e "${cColorAzulClaro}  Iniciando el script de instalación de Social Engineering Toolkit para Debian 12 (Bookworm)...${cFinColor}"
     echo ""
 
-    echo ""
-    echo -e "${cColorRojo}    Comandos para Debian 12 todavía no preparados. Prueba ejecutarlo en otra versión de Debian.${cFinColor}"
-    echo ""
+    # Instalar dependencias del sistema
+      sudo apt-get -y update
+      sudo apt-get -y install build-essential
+      sudo apt-get -y install python3-venv
+      sudo apt-get -y install python3-dev
+      sudo apt-get -y install curl
+      sudo apt-get -y install wget
+      sudo apt-get -y install gnupg2
+
+    # Instalar metasploit
+      # Descargar el script de instalación
+        curl https://raw.githubusercontent.com/rapid7/metasploit-omnibus/master/config/templates/metasploit-framework-wrappers/msfupdate.erb -o /tmp/msfinstall
+      # Hacer el script ejecutable
+        chmod +x /tmp/msfinstall
+      # Instalar
+        sudo apt-get -y update
+        sudo /tmp/msfinstall
+      # Crear la base de datos
+        msfdb init
+
+    # Descargar el repositorio
+      mkdir $HOME/Git/ 2> /dev/null
+      cd $HOME/Git/
+      git clone --depth 1 https://github.com/trustedsec/social-engineer-toolkit.git
+
+    # Crear la carpeta en home e instalar dentro
+      mkdir $HOME/HackingTools/ 2> /dev/null
+      cp -rv $HOME/Git/social-engineer-toolkit/ $HOME/HackingTools/
+      mv $HOME/HackingTools/social-engineer-toolkit/ $HOME/HackingTools/SocialEngineerToolkit/
+
+    # Crear el entorno virtual
+      cd $HOME/HackingTools/SocialEngineerToolkit/
+      python3 -m venv venv
+
+    # Entrar al entorno virtual e instalar dependencias
+      source $HOME/HackingTools/SocialEngineerToolkit/venv/bin/activate
+      pip install -r requirements.txt
+      python3 setup.py
+
+    # Notificar fin de ejecución del script
+      echo ""
+      echo "  Script de instalación de SocialEngineerToolkit, finalizado."
+      echo ""
+      echo "    Para lanzar SET, ejecuta:"
+      echo ""
+      echo "      setoolkit"
+      echo ""
+      #/etc/setoolkit/set.config
 
   elif [ $cVerSO == "11" ]; then
 
