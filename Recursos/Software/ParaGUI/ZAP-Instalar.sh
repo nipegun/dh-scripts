@@ -55,9 +55,79 @@
     echo -e "${cColorAzulClaro}  Iniciando el script de instalación de ZAP para Debian 13 (x)...${cFinColor}"
     echo ""
 
-    echo ""
-    echo -e "${cColorRojo}    Comandos para Debian 13 todavía no preparados. Prueba ejecutarlo en otra versión de Debian.${cFinColor}"
-    echo ""
+    # Crear el menú
+      # Comprobar si el paquete dialog está instalado. Si no lo está, instalarlo.
+        if [[ $(dpkg-query -s dialog 2>/dev/null | grep installed) == "" ]]; then
+          echo ""
+          echo -e "${cColorRojo}    El paquete dialog no está instalado. Iniciando su instalación...${cFinColor}"
+          echo ""
+          sudo apt-get -y update
+          sudo apt-get -y install dialog
+          echo ""
+        fi
+      menu=(dialog --checklist "Marca las opciones que quieras instalar:" 22 96 16)
+        opciones=(
+          1 "Instalar con el script oficial"      on
+          2 "Descargar y descomprimir el paquete" off
+        )
+      choices=$("${menu[@]}" "${opciones[@]}" 2>&1 >/dev/tty)
+
+      for choice in $choices
+        do
+          case $choice in
+
+            1)
+
+              echo ""
+              echo "  Instalando desde el script oficial..."
+              echo ""
+
+              # Obtener el enlace del instalador en .sh
+                # Comprobar si el paquete curl está instalado. Si no lo está, instalarlo.
+                  if [[ $(dpkg-query -s curl 2>/dev/null | grep installed) == "" ]]; then
+                    echo ""
+                    echo -e "${cColorRojo}  El paquete curl no está instalado. Iniciando su instalación...${cFinColor}"
+                    echo ""
+                    sudo apt-get -y update
+                    sudo apt-get -y install curl
+                    echo ""
+                  fi
+                vEnlaceInstSH=$(curl -sL https://www.zaproxy.org/download/ | sed 's->->\n-g'| grep href | grep unix | sed 's-href-\n-g' | grep ^'=' | cut -d'"' -f2)
+              # Descargar el archivo .sh
+                curl -L $vEnlaceInstSH -o /tmp/ZAPInstall.sh
+              # Ejecutar el instalador
+                chmod +x /tmp/ZAPInstall.sh
+                sudo apt-get -y update
+                sudo apt-get -y install libcanberra-gtk3-module
+                sudo /tmp/ZAPInstall.sh
+
+            ;;
+
+            2)
+
+              echo ""
+              echo "  Descargando y descomprimiendo el paquete..."
+              echo ""
+              # Obtener el enlace del paquete
+                # Comprobar si el paquete curl está instalado. Si no lo está, instalarlo.
+                  if [[ $(dpkg-query -s curl 2>/dev/null | grep installed) == "" ]]; then
+                    echo ""
+                    echo -e "${cColorRojo}  El paquete curl no está instalado. Iniciando su instalación...${cFinColor}"
+                    echo ""
+                    sudo apt-get -y update
+                    sudo apt-get -y install curl
+                    echo ""
+                  fi
+                vEnlaceInstSH=$(curl -sL https://www.zaproxy.org/download/ | sed 's->->\n-g'| grep href | grep .tar | sed 's-href-\n-g' | grep ^'=' | cut -d'"' -f2)
+              # Descargar el archivo tar con el nombre original 
+                cd /tmp/
+                curl -L $vEnlaceInstSH -O
+
+            ;;
+
+        esac
+
+    done
 
   elif [ $cVerSO == "12" ]; then
 
