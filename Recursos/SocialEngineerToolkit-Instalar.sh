@@ -84,16 +84,22 @@
     # Descargar el repositorio
       mkdir $HOME/Git/ 2> /dev/null
       cd $HOME/Git/
+      rm -rf $HOME/Git/social-engineer-toolkit/
       git clone --depth 1 https://github.com/trustedsec/social-engineer-toolkit.git
 
-    # Crear la carpeta en home e instalar dentro
+    # Crear la carpeta en home y copiar dentro
       mkdir $HOME/HackingTools/ 2> /dev/null
+      rm -rf $HOME/HackingTools/SocialEngineerToolkit/
       cp -rv $HOME/Git/social-engineer-toolkit/ $HOME/HackingTools/
       mv $HOME/HackingTools/social-engineer-toolkit/ $HOME/HackingTools/SocialEngineerToolkit/
 
     # Crear el entorno virtual
       cd $HOME/HackingTools/SocialEngineerToolkit/
       python3 -m venv venv
+
+    # Borrar carpetas de instalaciones anteriores
+      rm -rf /usr/local/share/setoolkit/
+      rm -rf /etc/setoolkit/
 
     # Entrar al entorno virtual e instalar dependencias
       source $HOME/HackingTools/SocialEngineerToolkit/venv/bin/activate
@@ -139,16 +145,22 @@
     # Descargar el repositorio
       mkdir $HOME/Git/ 2> /dev/null
       cd $HOME/Git/
+      rm -rf $HOME/Git/social-engineer-toolkit/
       git clone --depth 1 https://github.com/trustedsec/social-engineer-toolkit.git
 
-    # Crear la carpeta en home e instalar dentro
+    # Crear la carpeta en home y copiar dentro
       mkdir $HOME/HackingTools/ 2> /dev/null
+      rm -rf $HOME/HackingTools/SocialEngineerToolkit/
       cp -rv $HOME/Git/social-engineer-toolkit/ $HOME/HackingTools/
       mv $HOME/HackingTools/social-engineer-toolkit/ $HOME/HackingTools/SocialEngineerToolkit/
 
     # Crear el entorno virtual
       cd $HOME/HackingTools/SocialEngineerToolkit/
       python3 -m venv venv
+
+    # Borrar carpetas de instalaciones anteriores
+      rm -rf /usr/local/share/setoolkit/
+      rm -rf /etc/setoolkit/
 
     # Entrar al entorno virtual e instalar dependencias
       source $HOME/HackingTools/SocialEngineerToolkit/venv/bin/activate
