@@ -482,7 +482,7 @@
           echo ""
           echo "  Construyendo la imagen de nginx (nginx-parsing-vulnerability)..."
           echo ""
-          cd /tmp/vulhub-master/nginx/nginx-parsing-vulnerability/
+          cd /tmp/vulhub-master/nginx/nginx_parsing_vulnerability/
           sudo docker compose build
           sudo docker compose up -d
 
