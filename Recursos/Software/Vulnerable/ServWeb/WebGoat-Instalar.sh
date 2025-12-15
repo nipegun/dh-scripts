@@ -84,8 +84,9 @@
               echo "  Instalando OpenJDK..."
               echo ""
               sudo apt-get -y update
-              sudo apt-get -y install default-jre
-      
+              sudo apt-get -y autoremove --purge default-jre
+              sudo apt-get -y install openjdk-25-jre-headless
+
             ;;
 
             2)
