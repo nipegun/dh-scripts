@@ -103,9 +103,11 @@
       sudo apt-get -y install php-zip
       sudo apt-get -y install php-bcmath
 
-      # Determinar la versión de php instalada
+      # Determinar la versión de php instalada y modificar php.ini
         vVersPHP=$(php -r 'echo PHP_MAJOR_VERSION.".".PHP_MINOR_VERSION;')
-        sudo sed -i -e 's|allow_url_include = Off|allow_url_include = On|g' /etc/php/"$vVersPHP"/apache2/php.ini
+        sudo sed -i -e 's|allow_url_include = Off|allow_url_include = On|g'           /etc/php/"$vVersPHP"/apache2/php.ini
+        sudo sed -i -e 's|display_errors = Off|display_errors = On|g'                 /etc/php/"$vVersPHP"/apache2/php.ini
+        sudo sed -i -e 's|display_startup_errors = Off|display_startup_errors = On|g' /etc/php/"$vVersPHP"/apache2/php.ini
 
     # Clonar el repo
       # Comprobar si el paquete git está instalado. Si no lo está, instalarlo.
@@ -137,6 +139,20 @@
 
     # Iniciar apache
       sudo systemctl enable apache2 --now
+      sudo a2enmod rewrite
+      sudo systemctl restart apache2
+
+    # Notificar fin de ejecución del script
+      echo ""
+      echo "  Script de instalación de DVWA, finalizado."
+      echo ""
+      echo "    La configuración de seguridad se ha configurado como low."
+      echo "    Si la quieres cambiar, modifica el archivo /var/www/html/config/config.inc.php"
+      echo ""
+      vIPLocal=$(hostname -I | sed 's- --g')
+      echo "    Puedes ingresar en la web de DVWA entrando en http://$vIPLocal "
+      echo ""
+      echo ""
 
   elif [ $cVerSO == "12" ]; then
 
