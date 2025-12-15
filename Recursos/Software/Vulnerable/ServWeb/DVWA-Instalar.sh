@@ -69,21 +69,32 @@
       sudo apt-get -y update
       sudo apt-get -y install mariadb-server
       sudo systemctl start mariadb --now
-      # Emular el viejo mysql_secure_installation
+
+      sudo mariadb -u root -e "
+        ALTER USER 'root'@'localhost' IDENTIFIED VIA unix_socket;
+        FLUSH PRIVILEGES;
+      "
+      
+      sudo mariadb -e "
+        DELETE FROM mysql.user WHERE User='';
+        DELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('localhost');
+        DROP DATABASE IF EXISTS test;
+        DELETE FROM mysql.db WHERE Db='test' OR Db='test\\_%';
+        FLUSH PRIVILEGES;
+      "
+
+      # Crear el usuario y la base de datos
         sudo mariadb -e "
-          DELETE FROM mysql.user WHERE User='';
-          DELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('localhost');
-          DROP DATABASE IF EXISTS test;
-          DELETE FROM mysql.db WHERE Db='test' OR Db='test\\_%';
+          CREATE DATABASE IF NOT EXISTS dvwa;
+          CREATE USER IF NOT EXISTS 'dvwa'@'localhost' IDENTIFIED BY 'p@ssw0rd';
+          GRANT ALL PRIVILEGES ON dvwa.* TO 'dvwa'@'localhost';
           FLUSH PRIVILEGES;
-        "
-      # Crear la base de datos
-        sudo mariadb -e "
-          create user 'dvwa'@'127.0.0.1' identified by 'p@ssw0rd';
         "
 
     # Instalar php
       sudo apt-get -y install php
+      sudo apt-get -y install php-mysqli
+      sudo apt-get -y install php-gd
       # Determinar la versión de php instalada
       vVersPHP=$(ls /etc/php/ | tail -n1)
       sudo sed -i -e 's|allow_url_include = Off|allow_url_include = On|g' /etc/php/"$vVersPHP"/apache2/php.ini
