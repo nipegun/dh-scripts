@@ -91,10 +91,14 @@
           FLUSH PRIVILEGES;
         "
 
-    # Instalar php
+    # Instalar apache2 y php
+      sudo apt-get -y install apache2
       sudo apt-get -y install php
+      sudo apt-get -y install libapache2-mod-php
       sudo apt-get -y install php-mysqli
       sudo apt-get -y install php-gd
+      sudo apt-get -y install php-mbstring
+      sudo apt-get -y install php-xml
       # Determinar la versión de php instalada
       vVersPHP=$(ls /etc/php/ | tail -n1)
       sudo sed -i -e 's|allow_url_include = Off|allow_url_include = On|g' /etc/php/"$vVersPHP"/apache2/php.ini
@@ -118,6 +122,7 @@
 
     # Configurar usuario
       sudo cp /var/www/html/config/config.inc.php.dist /var/www/html/config/config.inc.php
+      sudo sed -i "s/127.0.0.1/localhost/"             /var/www/html/config/config.inc.php
 
     # Reparar permisos
       sudo chown www-data:www-data /var/www/html/* -Rv
