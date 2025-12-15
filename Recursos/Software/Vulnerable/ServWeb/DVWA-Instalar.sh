@@ -112,7 +112,7 @@
       sudo chown www-data:www-data /var/www/html/* -Rv
 
     # Iniciar apache
-      sudo systemctl apache2 start
+      sudo systemctl enable apache2 --now
 
   elif [ $cVerSO == "12" ]; then
 
@@ -120,17 +120,9 @@
     echo -e "${cColorAzulClaro}  Iniciando el script de instalación de DVWA para Debian 12 (Bookworm)...${cFinColor}"
     echo ""
 
-
-    # Comprobar si el paquete curl está instalado. Si no lo está, instalarlo.
-      if [[ $(dpkg-query -s curl 2>/dev/null | grep installed) == "" ]]; then
-        echo ""
-        echo -e "${cColorRojo}  El paquete curl no está instalado. Iniciando su instalación...${cFinColor}"
-        echo ""
-        sudo apt-get -y update
-        sudo apt-get -y install curl
-        echo ""
-      fi
-    git clone https://github.com/digininja/DVWA.git
+    echo ""
+    echo -e "${cColorRojo}    Comandos para Debian 12 todavía no preparados. Prueba ejecutarlo en otra versión de Debian.${cFinColor}"
+    echo ""
 
   elif [ $cVerSO == "11" ]; then
 
