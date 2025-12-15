@@ -104,7 +104,7 @@
       sudo apt-get -y install php-bcmath
 
       # Determinar la versión de php instalada
-        vVersPHP=$(ls /etc/php/ | tail -n1)
+        vVersPHP=$(php -r 'echo PHP_MAJOR_VERSION.".".PHP_MINOR_VERSION;')
         sudo sed -i -e 's|allow_url_include = Off|allow_url_include = On|g' /etc/php/"$vVersPHP"/apache2/php.ini
 
     # Clonar el repo
@@ -126,10 +126,14 @@
 
     # Configurar usuario
       sudo cp /var/www/html/config/config.inc.php.dist /var/www/html/config/config.inc.php
-      sudo sed -i "s/127.0.0.1/localhost/"             /var/www/html/config/config.inc.php
+      sudo sed -i 's/127.0.0.1/localhost/g' /var/www/html/config/config.inc.php
+      sudo sed -i 's/impossible/low/g'      /var/www/html/config/config.inc.php
 
     # Reparar permisos
       sudo chown www-data:www-data /var/www/html/* -Rv
+      sudo chmod -R 755 /var/www/html
+      sudo chmod -R 777 /var/www/html/config
+      sudo chmod -R 777 /var/www/html/hackable/uploads
 
     # Iniciar apache
       sudo systemctl enable apache2 --now
