@@ -68,7 +68,7 @@
     # Crear la base de datos
       sudo apt-get -y update
       sudo apt-get -y install mariadb-server
-      sudo systemctl start mariadb --now
+      sudo systemctl enable mariadb --now
 
       sudo mariadb -u root -e "
         ALTER USER 'root'@'localhost' IDENTIFIED VIA unix_socket;
@@ -99,9 +99,13 @@
       sudo apt-get -y install php-gd
       sudo apt-get -y install php-mbstring
       sudo apt-get -y install php-xml
+      sudo apt-get -y install php-curl
+      sudo apt-get -y install php-zip
+      sudo apt-get -y install php-bcmath
+
       # Determinar la versión de php instalada
-      vVersPHP=$(ls /etc/php/ | tail -n1)
-      sudo sed -i -e 's|allow_url_include = Off|allow_url_include = On|g' /etc/php/"$vVersPHP"/apache2/php.ini
+        vVersPHP=$(ls /etc/php/ | tail -n1)
+        sudo sed -i -e 's|allow_url_include = Off|allow_url_include = On|g' /etc/php/"$vVersPHP"/apache2/php.ini
 
     # Clonar el repo
       # Comprobar si el paquete git está instalado. Si no lo está, instalarlo.
