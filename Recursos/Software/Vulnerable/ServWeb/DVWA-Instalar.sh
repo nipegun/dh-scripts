@@ -59,16 +59,60 @@
   fi
 
 # Ejecutar comandos dependiendo de la versión de Debian detectada
-
   if [ $cVerSO == "13" ]; then
 
     echo ""
     echo -e "${cColorAzulClaro}  Iniciando el script de instalación de DVWA para Debian 13 (x)...${cFinColor}"
     echo ""
 
-    echo ""
-    echo -e "${cColorRojo}    Comandos para Debian 13 todavía no preparados. Prueba ejecutarlo en otra versión de Debian.${cFinColor}"
-    echo ""
+    # Crear la base de datos
+      sudo apt-get -y update
+      sudo apt-get -y install mariadb-server
+      sudo systemctl start mariadb --now
+      # Emular el viejo mysql_secure_installation
+        sudo mariadb -e "
+          DELETE FROM mysql.user WHERE User='';
+          DELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('localhost');
+          DROP DATABASE IF EXISTS test;
+          DELETE FROM mysql.db WHERE Db='test' OR Db='test\\_%';
+          FLUSH PRIVILEGES;
+        "
+      # Crear la base de datos
+        sudo mariadb -e "
+          create user 'dvwa'@'127.0.0.1' identified by 'p@ssw0rd';
+        "
+
+    # Instalar php
+      sudo apt-get -y install php
+      # Determinar la versión de php instalada
+      vVersPHP=$(ls /etc/php/ | tail -n1)
+      sudo sed -i -e 's|allow_url_include = Off|allow_url_include = On|g' /etc/php/"$vVersPHP"/apache2/php.ini
+
+    # Clonar el repo
+      # Comprobar si el paquete git está instalado. Si no lo está, instalarlo.
+        if [[ $(dpkg-query -s git 2>/dev/null | grep installed) == "" ]]; then
+          echo ""
+          echo -e "${cColorRojo}    El paquete git no está instalado. Iniciando su instalación...${cFinColor}"
+          echo ""
+          sudo apt-get -y update
+          sudo apt-get -y install git
+          echo ""
+        fi
+      cd /tmp/
+      git clone https://github.com/digininja/DVWA.git
+
+    # Mover archivos a /var/www/html/
+      sudo rm -rf /var/www/html/*
+      sudo cp -R /tmp/DVWA/* /var/www/html/
+
+    # Configurar usuario
+      sudo cp /var/www/html/config/config.inc.php.dist /var/www/html/config/config.inc.php
+
+    # Reparar permisos
+      sudo chown www-data:www-data /var/www/html/* -Rv
+
+    # Iniciar apache
+      sudo systemctl apache2 start
 
   elif [ $cVerSO == "12" ]; then
 
