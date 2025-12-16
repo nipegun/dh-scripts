@@ -131,8 +131,13 @@
       sudo sed -i 's/127.0.0.1/localhost/g' /var/www/html/config/config.inc.php
       sudo sed -i 's/impossible/low/g'      /var/www/html/config/config.inc.php
 
+    # Instalar composer y dependencias
+      sudo apt-get -y install composer
+      cd /var/www/html/vulnerabilities/api
+      sudo -u www-data composer install --no-interaction
+
     # Reparar permisos
-      sudo chown www-data:www-data /var/www/html/* -Rv
+      sudo chown www-data:www-data /var/www/html/* -R
       sudo chmod -R 755 /var/www/html
       sudo chmod -R 777 /var/www/html/config
       sudo chmod -R 777 /var/www/html/hackable/uploads
@@ -152,6 +157,7 @@
       vIPLocal=$(hostname -I | sed 's- --g')
       echo "    Puedes ingresar en la web de DVWA entrando en http://$vIPLocal "
       echo ""
+      echo "    El nombre de usuario por defecto es admin y la contraseña es password"
       echo ""
 
   elif [ $cVerSO == "12" ]; then
