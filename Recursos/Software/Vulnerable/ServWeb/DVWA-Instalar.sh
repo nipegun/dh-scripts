@@ -129,7 +129,6 @@
     # Configurar usuario
       sudo cp /var/www/html/config/config.inc.php.dist /var/www/html/config/config.inc.php
       sudo sed -i 's/127.0.0.1/localhost/g' /var/www/html/config/config.inc.php
-      sudo sed -i 's/impossible/low/g'      /var/www/html/config/config.inc.php
 
     # Instalar composer y dependencias
       sudo apt-get -y install composer
