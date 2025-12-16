@@ -130,11 +130,6 @@
       sudo cp /var/www/html/config/config.inc.php.dist /var/www/html/config/config.inc.php
       sudo sed -i 's/127.0.0.1/localhost/g' /var/www/html/config/config.inc.php
 
-    # Instalar composer y dependencias
-      sudo apt-get -y install composer
-      cd /var/www/html/vulnerabilities/api
-      sudo -u www-data composer install --no-interaction
-
     # Reparar permisos
       sudo chown www-data:www-data /var/www/html/* -R
       sudo chmod -R 755 /var/www/html
@@ -144,6 +139,25 @@
     # Iniciar apache
       sudo systemctl enable apache2 --now
       sudo a2enmod rewrite
+      sudo systemctl restart apache2
+
+    # Instalar composer y dependencias
+      sudo apt-get -y install composer
+      cd /var/www/html/vulnerabilities/api/
+      # Determinar si se ejecuta como root o como usuario con permisos sudo
+        if [ "$(id -u)" -eq 0 ]; then
+          su -s /bin/bash www-data -c "composer install --no-interaction"
+        else
+          sudo -u www-data composer install --no-interaction
+        fi
+
+    # Reparar permisos
+      sudo chown www-data:www-data /var/www/html/* -R
+      sudo chmod -R 755 /var/www/html
+      sudo chmod -R 777 /var/www/html/config
+      sudo chmod -R 777 /var/www/html/hackable/uploads
+
+    # Reiniciar apache2
       sudo systemctl restart apache2
 
     # Notificar fin de ejecución del script
