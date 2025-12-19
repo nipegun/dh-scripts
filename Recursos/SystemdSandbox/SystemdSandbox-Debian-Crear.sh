@@ -1,5 +1,13 @@
 #!/bin/bash
 
+# Pongo a disposición pública este script bajo el término de "software de dominio público".
+# Puedes hacer lo que quieras con él porque es libre de verdad; no libre con condiciones como las licencias GNU y otras patrañas similares.
+# Si se te llena la boca hablando de libertad entonces hazlo realmente libre.
+# No tienes que aceptar ningún tipo de términos de uso o licencia para utilizarlo o modificarlo porque va sin CopyLeft.
+
+# ----------
+# Script de NiPeGun para crear un contenedor de systemd de Debian dentro del propio Debian
+#
 # Ejecución remota (puede requerir permisos sudo):
 #   curl -sLk https://raw.githubusercontent.com/nipegun/dh-scripts/refs/heads/main/Recursos/SystemdSandbox/SystemdSandbox-Debian-Crear.sh -o /tmp/sb.sh && chmod +x /tmp/sb.sh && sudo /tmp/sb.sh [CarpetaAMontar]
 #
@@ -8,6 +16,10 @@
 #
 # Ejecución remota como root (para sistemas sin sudo) (modificando la carpeta donde crear el sandbox):
 #   curl -sLk https://raw.githubusercontent.com/nipegun/dh-scripts/refs/heads/main/Recursos/SystemdSandbox/SystemdSandbox-Debian-Crear.sh -o /tmp/sb.sh && chmod +x /tmp/sb.sh && sed -i 's-$HOME-/mnt/PartLocalBTRFS-g' /tmp/sb.sh  && sed -i 's-sudo--g' /tmp/sb.sh && /tmp/sb.sh  [CarpetaAMontar]
+#
+# Bajar y editar directamente el archivo en nano
+#   curl -sL https://raw.githubusercontent.com/nipegun/dh-scripts/refs/heads/main/Recursos/SystemdSandbox/SystemdSandbox-Debian-Crear.sh | nano -
+# ----------
 
 # Paquetes mínimos
   vPaqMin="curl"
