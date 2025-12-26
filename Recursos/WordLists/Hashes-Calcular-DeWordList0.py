@@ -1,11 +1,73 @@
 #!/usr/bin/env python3
 
+# curl -sL https://raw.githubusercontent.com/nipegun/dh-scripts/refs/heads/main/Recursos/WordLists/Hashes-Calcular-DeWordList.py | python3 - -- [archivo]
+
 import argparse
 import hashlib
+import importlib.util
 import os
 import struct
 import sys
 from pathlib import Path
+
+
+def fTieneModulo(vNombre: str) -> bool:
+  return importlib.util.find_spec(vNombre) is not None
+
+
+def fImprimirFaltantes(aFaltantes: list[dict]) -> None:
+  print("Faltan dependencias para ejecutar el script:", file=sys.stderr)
+  for vF in aFaltantes:
+    vLinea = f"  - {vF['modulo']}"
+    if vF.get("debian"):
+      vLinea += f" | Debian: apt install {vF['debian']}"
+    if vF.get("pip"):
+      vLinea += f" | pip: python3 -m pip install {vF['pip']} --break-system-packages"
+    print(vLinea, file=sys.stderr)
+
+
+def fComprobarDependencias(vNecesitaChecklist: bool, vQuiereGPU: bool) -> int:
+  aFaltantes = []
+
+  # Checklist (curses)
+  if vNecesitaChecklist:
+    if not sys.stdin.isatty() or not sys.stdout.isatty():
+      print("Error: el checklist interactivo requiere un TTY.", file=sys.stderr)
+      print("Solución: usa --algos md5,sha1,... o ejecuta desde una terminal real.", file=sys.stderr)
+      return 3
+    if not fTieneModulo("curses"):
+      aFaltantes.append({
+        "modulo": "curses",
+        "debian": "python3-curses",
+        "pip": None
+      })
+
+  # GPU (opcional, solo si el usuario la pide)
+  if vQuiereGPU:
+    if not fTieneModulo("numpy"):
+      aFaltantes.append({
+        "modulo": "numpy",
+        "debian": "python3-numpy",
+        "pip": "numpy"
+      })
+
+    # Para CUDA (NVIDIA) intentaremos cupy si está. Para OpenCL intentaremos pyopencl.
+    # No obligamos a ambos, pero sí a tener al menos uno.
+    vTieneCuPy = fTieneModulo("cupy")
+    vTieneOpenCL = fTieneModulo("pyopencl")
+
+    if (not vTieneCuPy) and (not vTieneOpenCL):
+      aFaltantes.append({
+        "modulo": "cupy o pyopencl",
+        "debian": None,
+        "pip": "cupy-cuda12x (NVIDIA)  /  pyopencl (OpenCL)"
+      })
+
+  if len(aFaltantes) > 0:
+    fImprimirFaltantes(aFaltantes)
+    return 2
+
+  return 0
 
 
 def fMD4(vDatos: bytes) -> bytes:
@@ -90,11 +152,9 @@ def fMD4(vDatos: bytes) -> bytes:
 
 
 def fHashNTLM(vLinea: bytes, vEncoding: str) -> str:
-  # NTLM = MD4(UTF-16LE(password))
   try:
     vTexto = vLinea.decode(vEncoding)
   except UnicodeDecodeError:
-    # Fallback pragmático: latin-1 siempre decodifica 0-255
     vTexto = vLinea.decode("latin-1")
   vUtf16 = vTexto.encode("utf-16le")
   return fMD4(vUtf16).hex()
@@ -107,7 +167,6 @@ def fHashSHA256NTLM(vLinea: bytes, vEncoding: str) -> str:
 
 
 def fListaAlgoritmosHashlib() -> list[str]:
-  # Solo digests de longitud fija (evitamos shake_*).
   aPreferidos = [
     "md5", "sha1", "sha224", "sha256", "sha384", "sha512",
     "sha3_224", "sha3_256", "sha3_384", "sha3_512",
@@ -123,7 +182,6 @@ def fListaAlgoritmosHashlib() -> list[str]:
 
 
 def fCrearMapaAlgoritmos(vEncoding: str) -> dict:
-  # key -> dict con nombre, función hash, soporte GPU (solo md5 por ahora) y si usa encoding.
   vMapa = {}
 
   for vAlgo in fListaAlgoritmosHashlib():
@@ -155,7 +213,6 @@ def fCrearMapaAlgoritmos(vEncoding: str) -> dict:
 
 
 def fChecklistCurses(aOpciones: list[str]) -> list[str]:
-  # Checklist real con curses (SPACE para marcar, ENTER para aceptar).
   import curses
 
   aMarcadas = [False] * len(aOpciones)
@@ -165,6 +222,7 @@ def fChecklistCurses(aOpciones: list[str]) -> list[str]:
     nonlocal vIdx
     curses.curs_set(0)
     vStdScr.nodelay(False)
+
     while True:
       vStdScr.erase()
       vStdScr.addstr(0, 0, "Elige algoritmos (SPACE marca/desmarca, ENTER confirma, q cancela)")
@@ -191,7 +249,6 @@ def fChecklistCurses(aOpciones: list[str]) -> list[str]:
 
 
 def fDetectarGPU() -> dict:
-  # Detección simple por sysfs (no depende de lspci).
   aVendors = {
     "0x10de": "nvidia",
     "0x1002": "amd",
@@ -199,53 +256,42 @@ def fDetectarGPU() -> dict:
     "0x8086": "intel"
   }
 
-  aRutas = []
   vBase = Path("/sys/class/drm")
-  if vBase.exists():
-    for vP in vBase.glob("card*/device/vendor"):
-      aRutas.append(vP)
+  if not vBase.exists():
+    return {"hay_gpu": False, "gpus": []}
 
   aGPUs = []
-  for vVendorPath in aRutas:
+  for vP in vBase.glob("card*/device/vendor"):
     try:
-      vVendorId = vVendorPath.read_text().strip().lower()
+      vVendorId = vP.read_text().strip().lower()
     except Exception:
       continue
     vTipo = aVendors.get(vVendorId, "otra")
     aGPUs.append({
       "vendor_id": vVendorId,
       "tipo": vTipo,
-      "ruta": str(vVendorPath.parent)
+      "ruta": str(vP.parent)
     })
 
-  if len(aGPUs) == 0:
-    return {"hay_gpu": False, "gpus": []}
-  return {"hay_gpu": True, "gpus": aGPUs}
+  return {"hay_gpu": (len(aGPUs) > 0), "gpus": aGPUs}
 
 
 def fInicializarMD5GPU(vInfoGPU: dict) -> dict:
-  # Intento 1: CUDA (cupy) si NVIDIA
-  # Intento 2: OpenCL (pyopencl) en cualquier GPU
   vTipo = "desconocida"
   if vInfoGPU.get("hay_gpu") and len(vInfoGPU.get("gpus", [])) > 0:
     vTipo = vInfoGPU["gpus"][0].get("tipo", "desconocida")
 
   if vTipo == "nvidia":
-    try:
-      import cupy as cp  # noqa: F401
+    if fTieneModulo("cupy"):
       return {"ok": True, "backend": "cuda_cupy"}
-    except Exception:
-      pass
 
-  try:
-    import pyopencl as cl  # noqa: F401
+  if fTieneModulo("pyopencl"):
     return {"ok": True, "backend": "opencl"}
-  except Exception:
-    return {"ok": False, "backend": None}
+
+  return {"ok": False, "backend": None}
 
 
 def fMD5PadSingleBlock(vLinea: bytes) -> bytes | None:
-  # Para MD5 single-block: longitud máxima 55 bytes.
   if len(vLinea) > 55:
     return None
   aBloque = bytearray(64)
@@ -256,7 +302,6 @@ def fMD5PadSingleBlock(vLinea: bytes) -> bytes | None:
 
 
 def fMD5GPU_CUDA_CuPy(aLineas: list[bytes]) -> dict[int, str]:
-  # Devuelve {idx_linea_en_batch: md5hex} solo para las que caben en single-block.
   import numpy as np
   import cupy as cp
 
@@ -302,7 +347,6 @@ def fMD5GPU_CUDA_CuPy(aLineas: list[bytes]) -> dict[int, str]:
 
     unsigned int aa=a, bb=b, cc=c, dd=d;
 
-    // Round 1
     STEP(F,a,b,c,d,x[0], 0xd76aa478u, 7);
     STEP(F,d,a,b,c,x[1], 0xe8c7b756u, 12);
     STEP(F,c,d,a,b,x[2], 0x242070dbu, 17);
@@ -320,7 +364,6 @@ def fMD5GPU_CUDA_CuPy(aLineas: list[bytes]) -> dict[int, str]:
     STEP(F,c,d,a,b,x[14],0xa679438eu, 17);
     STEP(F,b,c,d,a,x[15],0x49b40821u, 22);
 
-    // Round 2
     STEP(G,a,b,c,d,x[1], 0xf61e2562u, 5);
     STEP(G,d,a,b,c,x[6], 0xc040b340u, 9);
     STEP(G,c,d,a,b,x[11],0x265e5a51u, 14);
@@ -338,7 +381,6 @@ def fMD5GPU_CUDA_CuPy(aLineas: list[bytes]) -> dict[int, str]:
     STEP(G,c,d,a,b,x[7], 0x676f02d9u, 14);
     STEP(G,b,c,d,a,x[12],0x8d2a4c8au, 20);
 
-    // Round 3
     STEP(H,a,b,c,d,x[5], 0xfffa3942u, 4);
     STEP(H,d,a,b,c,x[8], 0x8771f681u, 11);
     STEP(H,c,d,a,b,x[11],0x6d9d6122u, 16);
@@ -356,7 +398,6 @@ def fMD5GPU_CUDA_CuPy(aLineas: list[bytes]) -> dict[int, str]:
     STEP(H,c,d,a,b,x[15],0x1fa27cf8u, 16);
     STEP(H,b,c,d,a,x[2], 0xc4ac5665u, 23);
 
-    // Round 4
     STEP(I,a,b,c,d,x[0], 0xf4292244u, 6);
     STEP(I,d,a,b,c,x[7], 0x432aff97u, 10);
     STEP(I,c,d,a,b,x[14],0xab9423a7u, 15);
@@ -422,7 +463,6 @@ def fMD5GPU_OpenCL(aLineas: list[bytes]) -> dict[int, str]:
     except Exception:
       pass
   if len(aDispositivos) == 0:
-    # Si no hay GPU OpenCL, intentamos cualquier device (por si es iGPU o mal reportado)
     for vP in vPlataformas:
       try:
         aDispositivos.extend(vP.get_devices())
@@ -549,7 +589,6 @@ def fMD5GPU_OpenCL(aLineas: list[bytes]) -> dict[int, str]:
 
 
 def fNormalizarLineaBytes(vLinea: bytes) -> bytes:
-  # Quitamos SOLO saltos de línea.
   if vLinea.endswith(b"\n"):
     vLinea = vLinea[:-1]
   if vLinea.endswith(b"\r"):
@@ -581,7 +620,6 @@ def fProcesarBatch(aLineas: list[bytes],
                    vFicheros: dict,
                    vGPU: bool,
                    vGPUBackend: str | None):
-  # GPU (si aplica) solo para md5 y solo single-block (<=55 bytes).
   vUsarGPU_MD5 = vGPU and ("md5" in aSel) and (vMapaAlgoritmos.get("md5", {}).get("gpu") is True) and (vGPUBackend is not None)
 
   vMd5GPU = {}
@@ -616,6 +654,12 @@ def fMain():
   vParser.add_argument("--batch-lines", type=int, default=50000, help="Tamaño de batch (mejor para -gpu). Default: 50000.")
   vArgs = vParser.parse_args()
 
+  vNecesitaChecklist = (not vArgs.list) and (vArgs.algos is None)
+
+  vDep = fComprobarDependencias(vNecesitaChecklist=vNecesitaChecklist, vQuiereGPU=vArgs.gpu)
+  if vDep != 0:
+    return vDep
+
   vRutaEntrada = Path(vArgs.wordlist).expanduser().resolve()
   if not vRutaEntrada.exists():
     print(f"Error: no existe el archivo: {vRutaEntrada}", file=sys.stderr)
@@ -633,17 +677,12 @@ def fMain():
   if vArgs.algos:
     aSel = [v.strip().lower() for v in vArgs.algos.split(",") if v.strip()]
   else:
-    # Checklist
-    try:
-      aSel = fChecklistCurses(aDisponibles)
-    except Exception:
-      aSel = []
+    aSel = fChecklistCurses(aDisponibles)
 
   if len(aSel) == 0:
     print("No se ha seleccionado ningún algoritmo. Saliendo.", file=sys.stderr)
     return 1
 
-  # Validación
   aSel = [vA for vA in aSel if vA in vMapaAlgoritmos]
   if len(aSel) == 0:
     print("Selección inválida. Usa --list para ver algoritmos.", file=sys.stderr)
