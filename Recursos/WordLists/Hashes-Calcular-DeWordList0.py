@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 
-# curl -sL https://raw.githubusercontent.com/nipegun/dh-scripts/refs/heads/main/Recursos/WordLists/Hashes-Calcular-DeWordList.py | python3 - -- [archivo]
+# 
+# Ejecución remota:
+#   python3 <(curl -sL https://raw.githubusercontent.com/nipegun/dh-scripts/refs/heads/main/Recursos/WordLists/Hashes-Calcular-DeWordList0.py) -- rockyou.txt
 
 import argparse
 import hashlib
