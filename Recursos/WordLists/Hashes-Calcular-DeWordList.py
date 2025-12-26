@@ -10,6 +10,7 @@ import importlib.util
 import os
 import struct
 import sys
+import time
 from pathlib import Path
 
 
@@ -31,7 +32,6 @@ def fImprimirFaltantes(aFaltantes: list[dict]) -> None:
 def fComprobarDependencias(vNecesitaChecklist: bool, vQuiereGPU: bool) -> int:
   aFaltantes = []
 
-  # Checklist (curses)
   if vNecesitaChecklist:
     if not sys.stdin.isatty() or not sys.stdout.isatty():
       print("Error: el checklist interactivo requiere un TTY.", file=sys.stderr)
@@ -44,7 +44,6 @@ def fComprobarDependencias(vNecesitaChecklist: bool, vQuiereGPU: bool) -> int:
         "pip": None
       })
 
-  # GPU (opcional, solo si el usuario la pide)
   if vQuiereGPU:
     if not fTieneModulo("numpy"):
       aFaltantes.append({
@@ -53,11 +52,8 @@ def fComprobarDependencias(vNecesitaChecklist: bool, vQuiereGPU: bool) -> int:
         "pip": "numpy"
       })
 
-    # Para CUDA (NVIDIA) intentaremos cupy si está. Para OpenCL intentaremos pyopencl.
-    # No obligamos a ambos, pero sí a tener al menos uno.
     vTieneCuPy = fTieneModulo("cupy")
     vTieneOpenCL = fTieneModulo("pyopencl")
-
     if (not vTieneCuPy) and (not vTieneOpenCL):
       aFaltantes.append({
         "modulo": "cupy o pyopencl",
@@ -73,7 +69,6 @@ def fComprobarDependencias(vNecesitaChecklist: bool, vQuiereGPU: bool) -> int:
 
 
 def fMD4(vDatos: bytes) -> bytes:
-  # Implementación MD4 (RFC 1320) en puro Python (sin dependencias externas).
   def fRotl(vX, vN):
     return ((vX << vN) | (vX >> (32 - vN))) & 0xFFFFFFFF
 
@@ -101,7 +96,6 @@ def fMD4(vDatos: bytes) -> bytes:
     aX = list(struct.unpack("<16I", vDatos[vOffset:vOffset + 64]))
     vAA, vBB, vCC, vDD = vA, vB, vC, vD
 
-    # Ronda 1
     aS = [3, 7, 11, 19]
     for vI in range(16):
       vK = vI
@@ -115,7 +109,6 @@ def fMD4(vDatos: bytes) -> bytes:
       else:
         vB = fRotl((vB + fF(vC, vD, vA) + aX[vK]) & 0xFFFFFFFF, vS)
 
-    # Ronda 2
     aS = [3, 5, 9, 13]
     aK = [0, 4, 8, 12, 1, 5, 9, 13, 2, 6, 10, 14, 3, 7, 11, 15]
     for vI in range(16):
@@ -130,7 +123,6 @@ def fMD4(vDatos: bytes) -> bytes:
       else:
         vB = fRotl((vB + fG(vC, vD, vA) + aX[vK] + 0x5A827999) & 0xFFFFFFFF, vS)
 
-    # Ronda 3
     aS = [3, 9, 11, 15]
     aK = [0, 8, 4, 12, 2, 10, 6, 14, 1, 9, 5, 13, 3, 11, 7, 15]
     for vI in range(16):
@@ -598,49 +590,125 @@ def fNormalizarLineaBytes(vLinea: bytes) -> bytes:
   return vLinea
 
 
-def fAbrirSalidas(vRutaEntrada: Path, vOutDir: Path, aAlgoritmos: list[str]) -> dict:
+def fRutaSalidaPorAlgo(vRutaEntrada: Path, vOutDir: Path, vAlgo: str) -> Path:
   vBase = vRutaEntrada.stem
   vOutDir.mkdir(parents=True, exist_ok=True)
-  vFicheros = {}
-  for vAlgo in aAlgoritmos:
-    vRutaOut = vOutDir / f"{vBase}-{vAlgo}.txt"
-    vFicheros[vAlgo] = open(vRutaOut, "wb", buffering=1024 * 1024)
-  return vFicheros
+  return vOutDir / f"{vBase}-{vAlgo}.txt"
 
 
-def fCerrarSalidas(vFicheros: dict):
-  for vF in vFicheros.values():
-    try:
-      vF.close()
-    except Exception:
-      pass
+def fImprimirProgreso(vAlgo: str,
+                      vNumAlgo: int,
+                      vTotalAlgos: int,
+                      vLineas: int,
+                      vBytesPos: int,
+                      vBytesTotal: int,
+                      vVel: float,
+                      vFinal: bool = False) -> None:
+  vPct = 0.0
+  if vBytesTotal > 0:
+    vPct = (vBytesPos * 100.0) / float(vBytesTotal)
+
+  vMsg = f"[{vNumAlgo}/{vTotalAlgos}] {vAlgo}: {vPct:6.2f}%  líneas={vLineas}  vel={vVel:,.0f} l/s"
+
+  if sys.stderr.isatty():
+    if vFinal:
+      print("\r" + vMsg + " " * 10, file=sys.stderr)
+    else:
+      print("\r" + vMsg, end="", flush=True, file=sys.stderr)
+  else:
+    print(vMsg, file=sys.stderr)
 
 
-def fProcesarBatch(aLineas: list[bytes],
-                   vMapaAlgoritmos: dict,
-                   aSel: list[str],
-                   vFicheros: dict,
-                   vGPU: bool,
-                   vGPUBackend: str | None):
-  vUsarGPU_MD5 = vGPU and ("md5" in aSel) and (vMapaAlgoritmos.get("md5", {}).get("gpu") is True) and (vGPUBackend is not None)
+def fProcesarAlgoritmo(vRutaEntrada: Path,
+                       vRutaSalida: Path,
+                       vAlgo: str,
+                       vMapaAlgoritmos: dict,
+                       vBatchLines: int,
+                       vUsarGPU: bool,
+                       vGPUBackend: str | None,
+                       vProgressEveryLines: int,
+                       vProgressEverySeconds: float,
+                       vNumAlgo: int,
+                       vTotalAlgos: int) -> int:
+  vBytesTotal = 0
+  try:
+    vBytesTotal = vRutaEntrada.stat().st_size
+  except Exception:
+    vBytesTotal = 0
 
+  print(f"\nAlgoritmo {vNumAlgo}/{vTotalAlgos}: {vAlgo}", file=sys.stderr)
+  print(f"Salida: {vRutaSalida}", file=sys.stderr)
+
+  vEsMD5 = (vAlgo == "md5")
+  vMD5GPU = vUsarGPU and vEsMD5 and (vGPUBackend is not None)
+
+  vLineas = 0
+  vT0 = time.monotonic()
+  vTLast = vT0
+  vLineasLast = 0
+
+  with open(vRutaEntrada, "rb") as vFIn, open(vRutaSalida, "wb", buffering=1024 * 1024) as vFOut:
+    if vMD5GPU:
+      aBatch = []
+      for vLinea in vFIn:
+        aBatch.append(fNormalizarLineaBytes(vLinea))
+        if len(aBatch) >= vBatchLines:
+          vLineas = fProcesarBatchMD5(aBatch, vFOut, vGPUBackend)
+          aBatch = []
+
+        vLineas += 1
+        if (vLineas % vProgressEveryLines) == 0:
+          vT = time.monotonic()
+          if (vT - vTLast) >= vProgressEverySeconds:
+            vVel = (vLineas - vLineasLast) / max(0.001, (vT - vTLast))
+            vLineasLast = vLineas
+            vTLast = vT
+            fImprimirProgreso(vAlgo, vNumAlgo, vTotalAlgos, vLineas, vFIn.tell(), vBytesTotal, vVel, vFinal=False)
+
+      if len(aBatch) > 0:
+        fProcesarBatchMD5(aBatch, vFOut, vGPUBackend)
+
+    else:
+      vFHash = vMapaAlgoritmos[vAlgo]["fHash"]
+      for vLinea in vFIn:
+        vPalabra = fNormalizarLineaBytes(vLinea)
+        vHex = vFHash(vPalabra)
+        vFOut.write(vHex.encode("ascii") + b":" + vPalabra + b"\n")
+
+        vLineas += 1
+        if (vLineas % vProgressEveryLines) == 0:
+          vT = time.monotonic()
+          if (vT - vTLast) >= vProgressEverySeconds:
+            vVel = (vLineas - vLineasLast) / max(0.001, (vT - vTLast))
+            vLineasLast = vLineas
+            vTLast = vT
+            fImprimirProgreso(vAlgo, vNumAlgo, vTotalAlgos, vLineas, vFIn.tell(), vBytesTotal, vVel, vFinal=False)
+
+    vT1 = time.monotonic()
+    vVelTotal = vLineas / max(0.001, (vT1 - vT0))
+    fImprimirProgreso(vAlgo, vNumAlgo, vTotalAlgos, vLineas, vBytesTotal, vBytesTotal, vVelTotal, vFinal=True)
+
+  return vLineas
+
+
+def fProcesarBatchMD5(aLineas: list[bytes], vFOut, vGPUBackend: str) -> int:
   vMd5GPU = {}
-  if vUsarGPU_MD5:
-    try:
-      if vGPUBackend == "cuda_cupy":
-        vMd5GPU = fMD5GPU_CUDA_CuPy(aLineas)
-      elif vGPUBackend == "opencl":
-        vMd5GPU = fMD5GPU_OpenCL(aLineas)
-    except Exception:
-      vMd5GPU = {}
+  try:
+    if vGPUBackend == "cuda_cupy":
+      vMd5GPU = fMD5GPU_CUDA_CuPy(aLineas)
+    elif vGPUBackend == "opencl":
+      vMd5GPU = fMD5GPU_OpenCL(aLineas)
+  except Exception:
+    vMd5GPU = {}
 
   for vI, vLinea in enumerate(aLineas):
-    for vAlgo in aSel:
-      if vAlgo == "md5" and vUsarGPU_MD5 and (vI in vMd5GPU):
-        vHex = vMd5GPU[vI]
-      else:
-        vHex = vMapaAlgoritmos[vAlgo]["fHash"](vLinea)
-      vFicheros[vAlgo].write(vHex.encode("ascii") + b":" + vLinea + b"\n")
+    if vI in vMd5GPU:
+      vHex = vMd5GPU[vI]
+    else:
+      vHex = hashlib.md5(vLinea).hexdigest()
+    vFOut.write(vHex.encode("ascii") + b":" + vLinea + b"\n")
+
+  return len(aLineas)
 
 
 def fMain():
@@ -653,11 +721,12 @@ def fMain():
   vParser.add_argument("--list", action="store_true", help="Lista algoritmos disponibles y sale.")
   vParser.add_argument("-gpu", action="store_true", help="Intenta usar GPU (solo acelera MD5 <=55 bytes; resto CPU).")
   vParser.add_argument("--encoding", default="utf-8", help="Encoding para NTLM/SHA256NTLM (default: utf-8; fallback latin-1 por línea).")
-  vParser.add_argument("--batch-lines", type=int, default=50000, help="Tamaño de batch (mejor para -gpu). Default: 50000.")
+  vParser.add_argument("--batch-lines", type=int, default=50000, help="Tamaño de batch para MD5 en GPU. Default: 50000.")
+  vParser.add_argument("--progress-every-lines", type=int, default=200000, help="Cada cuántas líneas informar progreso. Default: 200000.")
+  vParser.add_argument("--progress-every-seconds", type=float, default=1.0, help="Mínimo de segundos entre updates. Default: 1.0.")
   vArgs = vParser.parse_args()
 
   vNecesitaChecklist = (not vArgs.list) and (vArgs.algos is None)
-
   vDep = fComprobarDependencias(vNecesitaChecklist=vNecesitaChecklist, vQuiereGPU=vArgs.gpu)
   if vDep != 0:
     return vDep
@@ -704,29 +773,30 @@ def fMain():
         vTipo = vInfoGPU["gpus"][0].get("tipo", "desconocida")
         print(f"GPU detectada ({vTipo}). Backend: {vGPUBackend}. GPU solo acelera MD5 <=55 bytes.", file=sys.stderr)
 
-  vFicheros = fAbrirSalidas(vRutaEntrada, vOutDir, aSel)
+  print(f"Wordlist: {vRutaEntrada}", file=sys.stderr)
+  print(f"Algoritmos: {', '.join(aSel)}", file=sys.stderr)
+  print(f"Salida en: {vOutDir}", file=sys.stderr)
 
-  vCont = 0
-  aBatch = []
-  try:
-    with open(vRutaEntrada, "rb") as vF:
-      for vLinea in vF:
-        aBatch.append(fNormalizarLineaBytes(vLinea))
-        if len(aBatch) >= vArgs.batch_lines:
-          fProcesarBatch(aBatch, vMapaAlgoritmos, aSel, vFicheros, vArgs.gpu, vGPUBackend)
-          vCont += len(aBatch)
-          aBatch = []
-          if vCont % 500000 == 0:
-            print(f"Procesadas {vCont} líneas...", file=sys.stderr)
+  vTotal = len(aSel)
+  vTotalLineas = 0
+  for vNum, vAlgo in enumerate(aSel, start=1):
+    vRutaSalida = fRutaSalidaPorAlgo(vRutaEntrada, vOutDir, vAlgo)
+    vLineas = fProcesarAlgoritmo(
+      vRutaEntrada=vRutaEntrada,
+      vRutaSalida=vRutaSalida,
+      vAlgo=vAlgo,
+      vMapaAlgoritmos=vMapaAlgoritmos,
+      vBatchLines=vArgs.batch_lines,
+      vUsarGPU=vArgs.gpu,
+      vGPUBackend=vGPUBackend,
+      vProgressEveryLines=vArgs.progress_every_lines,
+      vProgressEverySeconds=vArgs.progress_every_seconds,
+      vNumAlgo=vNum,
+      vTotalAlgos=vTotal
+    )
+    vTotalLineas = max(vTotalLineas, vLineas)
 
-      if len(aBatch) > 0:
-        fProcesarBatch(aBatch, vMapaAlgoritmos, aSel, vFicheros, vArgs.gpu, vGPUBackend)
-        vCont += len(aBatch)
-
-  finally:
-    fCerrarSalidas(vFicheros)
-
-  print(f"OK. Total líneas: {vCont}. Salida en: {vOutDir}", file=sys.stderr)
+  print(f"\nOK. Salida en: {vOutDir}", file=sys.stderr)
   return 0
 
 
