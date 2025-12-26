@@ -2,7 +2,7 @@
 
 # 
 # Ejecución remota:
-#   python3 <(curl -sL https://raw.githubusercontent.com/nipegun/dh-scripts/refs/heads/main/Recursos/WordLists/Hashes-Calcular-DeWordList0.py) -- rockyou.txt
+#   python3 <(curl -sL https://raw.githubusercontent.com/nipegun/dh-scripts/refs/heads/main/Recursos/WordLists/Hashes-Calcular-DeWordList.py) -- rockyou.txt
 
 import argparse
 import hashlib
@@ -593,7 +593,7 @@ def fNormalizarLineaBytes(vLinea: bytes) -> bytes:
 def fRutaSalidaPorAlgo(vRutaEntrada: Path, vOutDir: Path, vAlgo: str) -> Path:
   vBase = vRutaEntrada.stem
   vOutDir.mkdir(parents=True, exist_ok=True)
-  return vOutDir / f"{vBase}-{vAlgo}.txt"
+  return vOutDir / f"{vAlgo}-{vBase}.txt"
 
 
 def fImprimirProgreso(vAlgo: str,
