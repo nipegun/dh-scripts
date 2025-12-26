@@ -400,7 +400,9 @@
               # Asegurarse de que la carpeta final exista
                 mkdir -p "$vCarpetaDeWordLists"/EnTextoPlano/Packs/RockYou/ 2> /dev/null
               # Descomprimir
-                bzip2 -dk /tmp/rockyou.txt.bz2 && mv /tmp/rockyou.txt "$vCarpetaDeWordLists"/EnTextoPlano/Packs/RockYou/
+                bzip2 -dk /tmp/rockyou.txt.bz2 && mv /tmp/rockyou.txt "$vCarpetaDeWordLists"/EnTextoPlano/Packs/RockYou/rockyou-unsorted.txt
+              # Ordenar alfabéticamente
+                sort "$vCarpetaDeWordLists"/EnTextoPlano/Packs/RockYou/rockyou-unsorted.txt -o "$vCarpetaDeWordLists"/EnTextoPlano/Packs/RockYou/rockyou.txt --parallel=$(nproc)
 
             ;;
 
