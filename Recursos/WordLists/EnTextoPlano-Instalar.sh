@@ -63,13 +63,14 @@
   menu=(dialog --checklist "Marca las opciones que quieras instalar:" 22 96 16)
     opciones=(
       1 "  Instalar WordLists de Debian"                       on
-      2 "  Descargar WordLists de SecLists"                    on
-      3 "  Descargar WordLists de CSL-LABS"                    on
-      4 "  Descargar WordLists de CrackStation"                on
-      5 "  Descargar WordList WeakPass 4a"                     on
-      6 "  Descargar RockYou"                                  on
-      7 "    Eliminar caracteres de tabulación"                on
-      8 "      Preparar WordLists de caracteres incrementales" on
+      2 "  Instalar WordLists de wfuzz"                        on
+      3 "  Descargar WordLists de SecLists"                    on
+      4 "  Descargar WordLists de CSL-LABS"                    on
+      5 "  Descargar WordLists de CrackStation"                on
+      6 "  Descargar WordList WeakPass 4a"                     on
+      7 "  Descargar RockYou"                                  on
+      8 "    Eliminar caracteres de tabulación"                on
+      9 "      Preparar WordLists de caracteres incrementales" on
     )
     choices=$("${menu[@]}" "${opciones[@]}" 2>&1 >/dev/tty)
 
@@ -83,7 +84,6 @@
               echo "  Instalando WordLists de Debian..."
               echo ""
               sudo apt-get -y update
-              # 
               sudo apt-get -y --reinstall install cracklib-runtime
               sudo apt-get -y --reinstall install miscfiles
               sudo apt-get -y --reinstall install wamerican
@@ -223,6 +223,22 @@
             2)
 
               echo ""
+              echo "  Instalando WordLists de wfuzz..."
+              echo ""
+              sudo apt-get -y update
+              sudo apt-get -y --reinstall install wfuzz
+              # Borrar la carpeta vieja
+                rm -rf "$vCarpetaDeWordLists"/EnTextoPlano/Packs/wfuzz/ 2> /dev/null
+              # Asegurarse de que la carpeta base exista
+                mkdir -p "$vCarpetaDeWordLists"/EnTextoPlano/Packs/wfuzz/ 2> /dev/null
+              # Copiar WordLists a la carpeta wfuzz
+                cp -rfv /usr/share/wfuzz/wordlist/* "$vCarpetaDeWordLists"/EnTextoPlano/Packs/wfuzz/
+
+            ;;
+
+            3)
+
+              echo ""
               echo "  Descargando WordLists de SecLists..."
               echo ""
               # Borrar la carpeta vieja
@@ -307,7 +323,7 @@
 
             ;;
 
-            3)
+            4)
 
               echo ""
               echo "  Descargando WordLists de CSL-LABS..."
@@ -345,7 +361,7 @@
 
             ;;
 
-            4)
+            5)
 
               echo ""
               echo "  Descargando WordLists de CrackStation..."
@@ -358,7 +374,7 @@
 
             ;;
 
-            5)
+            6)
 
               echo ""
               echo "  Descargando WordList WeakPass 4a..."
@@ -389,7 +405,7 @@
 
             ;;
 
-            6)
+            7)
 
               echo ""
               echo "  Descargando RockYou..."
@@ -407,7 +423,7 @@
 
             ;;
 
-            7)
+            8)
 
               echo ""
               echo "  Eliminando caracteres de tabulación..."
@@ -420,7 +436,7 @@
 
             ;;
 
-            8)
+            9)
 
               echo ""
               echo "  Preparando WordLists de caracteres incrementales..."
