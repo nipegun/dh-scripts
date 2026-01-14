@@ -84,9 +84,9 @@
               echo "  Clonando el repo de volatility2 para python 2.x..."
               echo ""
 
-              mkdir -p ~/repos/python/
-              cd ~/repos/python/
-              rm -rf ~/repos/python/volatility2/
+              mkdir -p $HOME/HackingTools/Forensics/ 2> /dev/null
+              cd $HOME/HackingTools/
+              rm -rf $HOME/HackingTools/Forensics/volatility2/
               # Comprobar si el paquete git está instalado. Si no lo está, instalarlo.
                 if [[ $(dpkg-query -s git 2>/dev/null | grep installed) == "" ]]; then
                   echo ""
@@ -96,8 +96,7 @@
                   sudo apt-get -y install git
                   echo ""
                 fi
-              git clone https://github.com/volatilityfoundation/volatility.git
-              mv ~/repos/python/volatility/ ~/repos/python/volatility2/
+              git clone --depth=1 https://github.com/volatilityfoundation/volatility.git
 
             ;;
 
@@ -118,9 +117,9 @@
                       sudo apt-get -y install git
                       echo ""
                     fi
-                  curl -sL https://raw.githubusercontent.com/nipegun/d-scripts/refs/heads/master/InstDeSoftware/ParaCLI/Python2-Instalar.sh | sudo bash
+                  curl -sL https://raw.githubusercontent.com/nipegun/d-scripts/refs/heads/master/InstDeSoftware/ParaCLI/Python2-Instalar.sh | sed 's/--enable-optimizations/--enable-optimizations --without-ssl/g' | sudo bash
                 fi
-              cd ~/repos/python/volatility2/
+              cd $HOME/HackingTools/Forensics/volatility2/
               # Eliminar el virtualenv actualmente instalado
                 sudo apt-get -y autoremove virtualenv
               # Instalar el virtualenv de python2
@@ -129,18 +128,18 @@
               # Crear el entorno virtual
                 /usr/local/bin/virtualenv -p /usr/local/bin/python2.7 venv
               # Crear el mensaje para mostrar cuando se entra al entorno virtual
-                echo ''                                                                                        >> ~/repos/python/volatility2/venv/bin/activate
-                echo 'echo -e "\n  Activando el entorno virtual de Volatility2... \n"'                         >> ~/repos/python/volatility2/venv/bin/activate
-                echo 'echo -e "    Forma de uso:\n"'                                                           >> ~/repos/python/volatility2/venv/bin/activate
-                echo 'echo -e "      vol.py -f [RutaAlArchivoDeDump] [Plugin]\n"'                              >> ~/repos/python/volatility2/venv/bin/activate
-                echo 'echo -e "    Comandos rápidos:\n"'                                                       >> ~/repos/python/volatility2/venv/bin/activate
-                echo 'echo -e "      Obtener info de la imagen:\n"'                                            >> ~/repos/python/volatility2/venv/bin/activate
-                echo 'echo -e "        vol.py -f $HOME/Descargas/Evidencia.raw imageinfo\n"'                   >> ~/repos/python/volatility2/venv/bin/activate
-                echo 'echo -e "      Aplicar un perfil y un plugin:\n"'                                        >> ~/repos/python/volatility2/venv/bin/activate
-                echo 'echo -e "        vol.py -f $HOME/Descargas/Evidencia.raw --profile=Win7SP1x86 pslist\n"' >> ~/repos/python/volatility2/venv/bin/activate
+                echo ''                                                                                        >> $HOME/HackingTools/Forensics/volatility2/venv/bin/activate
+                echo 'echo -e "\n  Activando el entorno virtual de Volatility2... \n"'                         >> $HOME/HackingTools/Forensics/volatility2/venv/bin/activate
+                echo 'echo -e "    Forma de uso:\n"'                                                           >> $HOME/HackingTools/Forensics/volatility2/venv/bin/activate
+                echo 'echo -e "      vol.py -f [RutaAlArchivoDeDump] [Plugin]\n"'                              >> $HOME/HackingTools/Forensics/volatility2/venv/bin/activate
+                echo 'echo -e "    Comandos rápidos:\n"'                                                       >> $HOME/HackingTools/Forensics/volatility2/venv/bin/activate
+                echo 'echo -e "      Obtener info de la imagen:\n"'                                            >> $HOME/HackingTools/Forensics/volatility2/venv/bin/activate
+                echo 'echo -e "        vol.py -f $HOME/Descargas/Evidencia.raw imageinfo\n"'                   >> $HOME/HackingTools/Forensics/volatility2/venv/bin/activate
+                echo 'echo -e "      Aplicar un perfil y un plugin:\n"'                                        >> $HOME/HackingTools/Forensics/volatility2/venv/bin/activate
+                echo 'echo -e "        vol.py -f $HOME/Descargas/Evidencia.raw --profile=Win7SP1x86 pslist\n"' >> $HOME/HackingTools/Forensics/volatility2/venv/bin/activate
 
               # Entrar al entorno virtual
-                source ~/repos/python/volatility2/venv/bin/activate
+                source $HOME/HackingTools/Forensics/volatility2/venv/bin/activate
 
               # Instalar dependencias
                 pip2 install -U wheel
@@ -154,7 +153,7 @@
                 pip2 install -U ipython
                 pip2 install -U capstone
                 pip2 install -U yara-python
-                cd ~/repos/python/volatility2/
+                cd $HOME/HackingTools/Forensics/volatility2/
                 pip2 install .
                 #sudo ln -s /usr/local/lib/python2.7/dist-packages/usr/lib/libyara.so /usr/lib/libyara.so
                 #sudo ln -s /usr/local/lib/python2.7/dist-packages/usr/lib/libyara.so /usr/local/lib/libyara.so
@@ -166,7 +165,7 @@
                 echo ""
                 echo -e "${cColorVerde}    Entorno virtual preparado. volatility2 se puede ejecutar desde el venv de la siguiente forma:${cFinColor}"
                 echo ""
-                echo -e "${cColorVerde}      source ~/repos/python/volatility2/venv/bin/activate${cFinColor}"
+                echo -e "${cColorVerde}      source $HOME/HackingTools/Forensics/volatility2/venv/bin/activate${cFinColor}"
                 echo ""
                 echo -e "${cColorVerde}        vol.py [Parámetros]${cFinColor}"
                 echo ""
@@ -182,8 +181,8 @@
               echo ""
 
               # Entrar en el entorno virtual
-                source ~/repos/python/volatility2/venv/bin/activate
-                cd ~/repos/python/volatility2/
+                source $HOME/HackingTools/Forensics/volatility2/venv/bin/activate
+                cd $HOME/HackingTools/Forensics/volatility2/
 
               # Compilar
                 pip2 install -U pyinstaller==3.6
@@ -193,18 +192,18 @@
                 deactivate
 
               # Mover el binario a la carpeta de binarios del usuario
-                mkdir -p ~/bin/
-                cp ~/repos/python/volatility2/dist/vol      ~/bin/volatility2
+                mkdir -p $HOME/bin/
+                cp $HOME/HackingTools/Forensics/volatility2/dist/vol      $HOME/bin/volatility2
 
               # Notificar fin de ejecución del script
                 echo ""
                 echo -e "${cColorVerde}    El script compilado se ha copiado a:${cFinColor}"
                 echo ""
-                echo -e "${cColorVerde}      ~/bin/volatility2${cFinColor}"
+                echo -e "${cColorVerde}      $HOME/bin/volatility2${cFinColor}"
                 echo ""
                 echo -e "${cColorVerde}      El binario debe ser ejecutado con precaución. Es mejor correr el script dentro del entorno virtual:${cFinColor}"
                 echo ""
-                echo -e "${cColorVerde}        source ~/repos/python/volatility2/venv/bin/activate${cFinColor}"
+                echo -e "${cColorVerde}        source $HOME/HackingTools/Forensics/volatility2/venv/bin/activate${cFinColor}"
                 echo ""
                 echo -e "${cColorVerde}          vol.py [Parámetros]${cFinColor}"
                 echo ""
@@ -234,7 +233,7 @@
                 fi
 
               # x
-                cd ~
+                cd $HOME
                 /usr/local/bin/python2.7 -m ensurepip --default-pip         --user
                 /usr/local/bin/python2.7 -m pip install -U pip              --user
                 /usr/local/bin/python2.7 -m pip install -U wheel            --user
@@ -251,7 +250,7 @@
                 /usr/local/bin/python2.7 -m pip install -U yara-python      --user
                 /usr/local/bin/python2.7 -m pip install -U pyinstaller==3.6 --user
                 /usr/local/bin/python2.7 -m pip install -U git+https://github.com/volatilityfoundation/volatility.git --user
-                mv ~/.local/bin/vol.py ~/.local/bin/volatility2
+                mv $HOME/.local/bin/vol.py $HOME/.local/bin/volatility2
                 # Falta relacionar correctamente los plugins
 
             ;;
@@ -261,7 +260,7 @@
               echo ""
               echo "    Agregando /home/$USER/.local/bin al path..."
               echo ""
-              echo 'export PATH=/home/'"$USER"'/.local/bin:$PATH' >> ~/.bashrc
+              echo 'export PATH=/home/'"$USER"'/.local/bin:$PATH' >> $HOME/.bashrc
 
             ;;
 
@@ -371,7 +370,7 @@
                 echo ""
                 sudo rm -f /usr/bin/volatility2
                 sudo cp -vf /tmp/PythonVirtualEnvironments/volatility2/code/dist/vol      /usr/bin/volatility2
-                cd ~
+                cd $HOME
 
               # Notificar fin de ejecución del script
                 echo ""
@@ -389,9 +388,9 @@
               echo "  Instalación rápida, beta..."
               echo ""
 
-              mkdir -p ~/VirtualEnvs/
-              cd ~/VirtualEnvs/
-              rm -rf ~/VirtualEnvs/volatility2/
+              mkdir -p $HOME/VirtualEnvs/
+              cd $HOME/VirtualEnvs/
+              rm -rf $HOME/VirtualEnvs/volatility2/
               # Comprobar si el paquete git está instalado. Si no lo está, instalarlo.
                 if [[ $(dpkg-query -s git 2>/dev/null | grep installed) == "" ]]; then
                   echo ""
@@ -402,24 +401,24 @@
                   echo ""
                 fi
               git clone https://github.com/volatilityfoundation/volatility.git
-              mv ~/VirtualEnvs/volatility/ ~/VirtualEnvs/volatility2/
+              mv $HOME/VirtualEnvs/volatility/ $HOME/VirtualEnvs/volatility2/
               /usr/local/bin/virtualenv -p /usr/local/bin/python2.7 volatility2
               # Crear el mensaje para mostrar cuando se entra al entorno virtual
-                echo ''                                                                                        >> ~/VirtualEnvs/volatility2/bin/activate
-                echo 'echo -e "\n  Activando el entorno virtual de Volatility2... \n"'                         >> ~/VirtualEnvs/volatility2/bin/activate
-                echo 'echo -e "    Forma de uso:\n"'                                                           >> ~/VirtualEnvs/volatility2/bin/activate
-                echo 'echo -e "      vol.py -f [RutaAlArchivoDeDump] [Plugin]\n"'                              >> ~/VirtualEnvs/volatility2/bin/activate
-                echo 'echo -e "    Comandos rápidos:\n"'                                                       >> ~/VirtualEnvs/volatility2/bin/activate
-                echo 'echo -e "      Obtener info de la imagen:\n"'                                            >> ~/VirtualEnvs/volatility2/bin/activate
-                echo 'echo -e "        vol.py -f $HOME/Descargas/Evidencia.raw imageinfo\n"'                   >> ~/VirtualEnvs/volatility2/bin/activate
-                echo 'echo -e "      Aplicar un perfil y un plugin:\n"'                                        >> ~/VirtualEnvs/volatility2/bin/activate
-                echo 'echo -e "        vol.py -f $HOME/Descargas/Evidencia.raw --profile=Win7SP1x86 pslist\n"' >> ~/VirtualEnvs/volatility2/bin/activate
+                echo ''                                                                                        >> $HOME/VirtualEnvs/volatility2/bin/activate
+                echo 'echo -e "\n  Activando el entorno virtual de Volatility2... \n"'                         >> $HOME/VirtualEnvs/volatility2/bin/activate
+                echo 'echo -e "    Forma de uso:\n"'                                                           >> $HOME/VirtualEnvs/volatility2/bin/activate
+                echo 'echo -e "      vol.py -f [RutaAlArchivoDeDump] [Plugin]\n"'                              >> $HOME/VirtualEnvs/volatility2/bin/activate
+                echo 'echo -e "    Comandos rápidos:\n"'                                                       >> $HOME/VirtualEnvs/volatility2/bin/activate
+                echo 'echo -e "      Obtener info de la imagen:\n"'                                            >> $HOME/VirtualEnvs/volatility2/bin/activate
+                echo 'echo -e "        vol.py -f $HOME/Descargas/Evidencia.raw imageinfo\n"'                   >> $HOME/VirtualEnvs/volatility2/bin/activate
+                echo 'echo -e "      Aplicar un perfil y un plugin:\n"'                                        >> $HOME/VirtualEnvs/volatility2/bin/activate
+                echo 'echo -e "        vol.py -f $HOME/Descargas/Evidencia.raw --profile=Win7SP1x86 pslist\n"' >> $HOME/VirtualEnvs/volatility2/bin/activate
 
               # Entrar al entorno virtual
-                source ~/VirtualEnvs/volatility2/bin/activate
+                source $HOME/VirtualEnvs/volatility2/bin/activate
 
               # Instalar dependencias
-                cd ~/VirtualEnvs/volatility2
+                cd $HOME/VirtualEnvs/volatility2
                 pip2 install -U wheel
                 pip2 install -U setuptools
                 pip2 install -U distorm3
@@ -443,7 +442,7 @@
                 echo ""
                 echo -e "${cColorVerde}    Entorno virtual preparado. volatility2 se puede ejecutar desde el entorno virtual de la siguiente forma:${cFinColor}"
                 echo ""
-                echo -e "${cColorVerde}      source ~/VirtualEnvs/volatility2/bin/activate ${cFinColor}"
+                echo -e "${cColorVerde}      source $HOME/VirtualEnvs/volatility2/bin/activate ${cFinColor}"
                 echo ""
                 echo -e "${cColorVerde}        vol.py [Parámetros]${cFinColor}"
                 echo ""
@@ -494,9 +493,10 @@
               echo "  Clonando el repo de volatility2 para python 2.x..."
               echo ""
 
-              mkdir -p ~/repos/python/
-              cd ~/repos/python/
-              rm -rf ~/repos/python/volatility2/
+              mkdir -p $HOME/HackingTools/Forensics/ 2> /dev/null
+              cd $HOME/HackingTools/Forensics/
+              rm -rf $HOME/HackingTools/Forensics/volatility/ 2> /dev/null
+              rm -rf $HOME/HackingTools/Forensics/volatility2/ 2> /dev/null
               # Comprobar si el paquete git está instalado. Si no lo está, instalarlo.
                 if [[ $(dpkg-query -s git 2>/dev/null | grep installed) == "" ]]; then
                   echo ""
@@ -506,8 +506,8 @@
                   sudo apt-get -y install git
                   echo ""
                 fi
-              git clone https://github.com/volatilityfoundation/volatility.git
-              mv ~/repos/python/volatility/ ~/repos/python/volatility2/
+              git clone --depth=1 https://github.com/volatilityfoundation/volatility.git
+              mv $HOME/HackingTools/Forensics/volatility/ $HOME/HackingTools/Forensics/volatility2/
 
             ;;
 
@@ -528,9 +528,9 @@
                       sudo apt-get -y install git
                       echo ""
                     fi
-                  curl -sL https://raw.githubusercontent.com/nipegun/d-scripts/refs/heads/master/SoftInst/ParaCLI/Python2-Instalar.sh | sudo bash
+                  curl -sL https://raw.githubusercontent.com/nipegun/d-scripts/refs/heads/master/InstDeSoftware/ParaCLI/Python2-Instalar.sh | sed 's/--enable-optimizations/--enable-optimizations --without-ssl/g' | sudo bash
                 fi
-              cd ~/repos/python/volatility2/
+              cd $HOME/HackingTools/Forensics/volatility2/
               # Eliminar el virtualenv actualmente instalado
                 sudo apt-get -y autoremove virtualenv
               # Instalar el virtualenv de python2
@@ -539,18 +539,18 @@
               # Crear el entorno virtual
                 /usr/local/bin/virtualenv -p /usr/local/bin/python2.7 venv
               # Crear el mensaje para mostrar cuando se entra al entorno virtual
-                echo ''                                                                                        >> ~/repos/python/volatility2/venv/bin/activate
-                echo 'echo -e "\n  Activando el entorno virtual de Volatility2... \n"'                         >> ~/repos/python/volatility2/venv/bin/activate
-                echo 'echo -e "    Forma de uso:\n"'                                                           >> ~/repos/python/volatility2/venv/bin/activate
-                echo 'echo -e "      vol.py -f [RutaAlArchivoDeDump] [Plugin]\n"'                              >> ~/repos/python/volatility2/venv/bin/activate
-                echo 'echo -e "    Comandos rápidos:\n"'                                                       >> ~/repos/python/volatility2/venv/bin/activate
-                echo 'echo -e "      Obtener info de la imagen:\n"'                                            >> ~/repos/python/volatility2/venv/bin/activate
-                echo 'echo -e "        vol.py -f $HOME/Descargas/Evidencia.raw imageinfo\n"'                   >> ~/repos/python/volatility2/venv/bin/activate
-                echo 'echo -e "      Aplicar un perfil y un plugin:\n"'                                        >> ~/repos/python/volatility2/venv/bin/activate
-                echo 'echo -e "        vol.py -f $HOME/Descargas/Evidencia.raw --profile=Win7SP1x86 pslist\n"' >> ~/repos/python/volatility2/venv/bin/activate
+                echo ''                                                                                        >> $HOME/HackingTools/Forensics/volatility2/venv/bin/activate
+                echo 'echo -e "\n  Activando el entorno virtual de Volatility2... \n"'                         >> $HOME/HackingTools/Forensics/volatility2/venv/bin/activate
+                echo 'echo -e "    Forma de uso:\n"'                                                           >> $HOME/HackingTools/Forensics/volatility2/venv/bin/activate
+                echo 'echo -e "      vol.py -f [RutaAlArchivoDeDump] [Plugin]\n"'                              >> $HOME/HackingTools/Forensics/volatility2/venv/bin/activate
+                echo 'echo -e "    Comandos rápidos:\n"'                                                       >> $HOME/HackingTools/Forensics/volatility2/venv/bin/activate
+                echo 'echo -e "      Obtener info de la imagen:\n"'                                            >> $HOME/HackingTools/Forensics/volatility2/venv/bin/activate
+                echo 'echo -e "        vol.py -f $HOME/Descargas/Evidencia.raw imageinfo\n"'                   >> $HOME/HackingTools/Forensics/volatility2/venv/bin/activate
+                echo 'echo -e "      Aplicar un perfil y un plugin:\n"'                                        >> $HOME/HackingTools/Forensics/volatility2/venv/bin/activate
+                echo 'echo -e "        vol.py -f $HOME/Descargas/Evidencia.raw --profile=Win7SP1x86 pslist\n"' >> $HOME/HackingTools/Forensics/volatility2/venv/bin/activate
 
               # Entrar al entorno virtual
-                source ~/repos/python/volatility2/venv/bin/activate
+                source $HOME/HackingTools/Forensics/volatility2/venv/bin/activate
 
               # Instalar dependencias
                 pip2 install -U wheel
@@ -564,7 +564,7 @@
                 pip2 install -U ipython
                 pip2 install -U capstone
                 pip2 install -U yara-python
-                cd ~/repos/python/volatility2/
+                cd $HOME/HackingTools/Forensics/volatility2/
                 pip2 install .
                 #sudo ln -s /usr/local/lib/python2.7/dist-packages/usr/lib/libyara.so /usr/lib/libyara.so
                 #sudo ln -s /usr/local/lib/python2.7/dist-packages/usr/lib/libyara.so /usr/local/lib/libyara.so
@@ -576,7 +576,7 @@
                 echo ""
                 echo -e "${cColorVerde}    Entorno virtual preparado. volatility2 se puede ejecutar desde el venv de la siguiente forma:${cFinColor}"
                 echo ""
-                echo -e "${cColorVerde}      source ~/repos/python/volatility2/venv/bin/activate${cFinColor}"
+                echo -e "${cColorVerde}      source $HOME/HackingTools/Forensics/volatility2/venv/bin/activate${cFinColor}"
                 echo ""
                 echo -e "${cColorVerde}        vol.py [Parámetros]${cFinColor}"
                 echo ""
@@ -592,8 +592,8 @@
               echo ""
 
               # Entrar en el entorno virtual
-                source ~/repos/python/volatility2/venv/bin/activate
-                cd ~/repos/python/volatility2/
+                source $HOME/HackingTools/Forensics/volatility2/venv/bin/activate
+                cd $HOME/HackingTools/Forensics/volatility2/
 
               # Compilar
                 pip2 install -U pyinstaller==3.6
@@ -603,18 +603,18 @@
                 deactivate
 
               # Mover el binario a la carpeta de binarios del usuario
-                mkdir -p ~/bin/
-                cp ~/repos/python/volatility2/dist/vol      ~/bin/volatility2
+                mkdir -p $HOME/bin/
+                cp $HOME/HackingTools/Forensics/volatility2/dist/vol      $HOME/bin/volatility2
 
               # Notificar fin de ejecución del script
                 echo ""
                 echo -e "${cColorVerde}    El script compilado se ha copiado a:${cFinColor}"
                 echo ""
-                echo -e "${cColorVerde}      ~/bin/volatility2${cFinColor}"
+                echo -e "${cColorVerde}      $HOME/bin/volatility2${cFinColor}"
                 echo ""
                 echo -e "${cColorVerde}      El binario debe ser ejecutado con precaución. Es mejor correr el script dentro del entorno virtual:${cFinColor}"
                 echo ""
-                echo -e "${cColorVerde}        source ~/repos/python/volatility2/venv/bin/activate${cFinColor}"
+                echo -e "${cColorVerde}        source $HOME/HackingTools/Forensics/volatility2/venv/bin/activate${cFinColor}"
                 echo ""
                 echo -e "${cColorVerde}          vol.py [Parámetros]${cFinColor}"
                 echo ""
@@ -644,7 +644,7 @@
                 fi
 
               # x
-                cd ~
+                cd $HOME
                 /usr/local/bin/python2.7 -m ensurepip --default-pip         --user
                 /usr/local/bin/python2.7 -m pip install -U pip              --user
                 /usr/local/bin/python2.7 -m pip install -U wheel            --user
@@ -661,7 +661,7 @@
                 /usr/local/bin/python2.7 -m pip install -U yara-python      --user
                 /usr/local/bin/python2.7 -m pip install -U pyinstaller==3.6 --user
                 /usr/local/bin/python2.7 -m pip install -U git+https://github.com/volatilityfoundation/volatility.git --user
-                mv ~/.local/bin/vol.py ~/.local/bin/volatility2
+                mv $HOME/.local/bin/vol.py $HOME/.local/bin/volatility2
                 # Falta relacionar correctamente los plugins
 
             ;;
@@ -671,7 +671,7 @@
               echo ""
               echo "    Agregando /home/$USER/.local/bin al path..."
               echo ""
-              echo 'export PATH=/home/'"$USER"'/.local/bin:$PATH' >> ~/.bashrc
+              echo 'export PATH=/home/'"$USER"'/.local/bin:$PATH' >> $HOME/.bashrc
 
             ;;
 
@@ -781,7 +781,7 @@
                 echo ""
                 sudo rm -f /usr/bin/volatility2
                 sudo cp -vf /tmp/PythonVirtualEnvironments/volatility2/code/dist/vol      /usr/bin/volatility2
-                cd ~
+                cd $HOME
 
               # Notificar fin de ejecución del script
                 echo ""
@@ -799,9 +799,9 @@
               echo "  Instalación rápida, beta..."
               echo ""
 
-              mkdir -p ~/VirtualEnvs/
-              cd ~/VirtualEnvs/
-              rm -rf ~/VirtualEnvs/volatility2/
+              mkdir -p $HOME/VirtualEnvs/
+              cd $HOME/VirtualEnvs/
+              rm -rf $HOME/VirtualEnvs/volatility2/
               # Comprobar si el paquete git está instalado. Si no lo está, instalarlo.
                 if [[ $(dpkg-query -s git 2>/dev/null | grep installed) == "" ]]; then
                   echo ""
@@ -812,24 +812,24 @@
                   echo ""
                 fi
               git clone https://github.com/volatilityfoundation/volatility.git
-              mv ~/VirtualEnvs/volatility/ ~/VirtualEnvs/volatility2/
+              mv $HOME/VirtualEnvs/volatility/ $HOME/VirtualEnvs/volatility2/
               /usr/local/bin/virtualenv -p /usr/local/bin/python2.7 volatility2
               # Crear el mensaje para mostrar cuando se entra al entorno virtual
-                echo ''                                                                                        >> ~/VirtualEnvs/volatility2/bin/activate
-                echo 'echo -e "\n  Activando el entorno virtual de Volatility2... \n"'                         >> ~/VirtualEnvs/volatility2/bin/activate
-                echo 'echo -e "    Forma de uso:\n"'                                                           >> ~/VirtualEnvs/volatility2/bin/activate
-                echo 'echo -e "      vol.py -f [RutaAlArchivoDeDump] [Plugin]\n"'                              >> ~/VirtualEnvs/volatility2/bin/activate
-                echo 'echo -e "    Comandos rápidos:\n"'                                                       >> ~/VirtualEnvs/volatility2/bin/activate
-                echo 'echo -e "      Obtener info de la imagen:\n"'                                            >> ~/VirtualEnvs/volatility2/bin/activate
-                echo 'echo -e "        vol.py -f $HOME/Descargas/Evidencia.raw imageinfo\n"'                   >> ~/VirtualEnvs/volatility2/bin/activate
-                echo 'echo -e "      Aplicar un perfil y un plugin:\n"'                                        >> ~/VirtualEnvs/volatility2/bin/activate
-                echo 'echo -e "        vol.py -f $HOME/Descargas/Evidencia.raw --profile=Win7SP1x86 pslist\n"' >> ~/VirtualEnvs/volatility2/bin/activate
+                echo ''                                                                                        >> $HOME/VirtualEnvs/volatility2/bin/activate
+                echo 'echo -e "\n  Activando el entorno virtual de Volatility2... \n"'                         >> $HOME/VirtualEnvs/volatility2/bin/activate
+                echo 'echo -e "    Forma de uso:\n"'                                                           >> $HOME/VirtualEnvs/volatility2/bin/activate
+                echo 'echo -e "      vol.py -f [RutaAlArchivoDeDump] [Plugin]\n"'                              >> $HOME/VirtualEnvs/volatility2/bin/activate
+                echo 'echo -e "    Comandos rápidos:\n"'                                                       >> $HOME/VirtualEnvs/volatility2/bin/activate
+                echo 'echo -e "      Obtener info de la imagen:\n"'                                            >> $HOME/VirtualEnvs/volatility2/bin/activate
+                echo 'echo -e "        vol.py -f $HOME/Descargas/Evidencia.raw imageinfo\n"'                   >> $HOME/VirtualEnvs/volatility2/bin/activate
+                echo 'echo -e "      Aplicar un perfil y un plugin:\n"'                                        >> $HOME/VirtualEnvs/volatility2/bin/activate
+                echo 'echo -e "        vol.py -f $HOME/Descargas/Evidencia.raw --profile=Win7SP1x86 pslist\n"' >> $HOME/VirtualEnvs/volatility2/bin/activate
 
               # Entrar al entorno virtual
-                source ~/VirtualEnvs/volatility2/bin/activate
+                source $HOME/VirtualEnvs/volatility2/bin/activate
 
               # Instalar dependencias
-                cd ~/VirtualEnvs/volatility2
+                cd $HOME/VirtualEnvs/volatility2
                 pip2 install -U wheel
                 pip2 install -U setuptools
                 pip2 install -U distorm3
@@ -853,7 +853,7 @@
                 echo ""
                 echo -e "${cColorVerde}    Entorno virtual preparado. volatility2 se puede ejecutar desde el entorno virtual de la siguiente forma:${cFinColor}"
                 echo ""
-                echo -e "${cColorVerde}      source ~/VirtualEnvs/volatility2/bin/activate ${cFinColor}"
+                echo -e "${cColorVerde}      source $HOME/VirtualEnvs/volatility2/bin/activate ${cFinColor}"
                 echo ""
                 echo -e "${cColorVerde}        vol.py [Parámetros]${cFinColor}"
                 echo ""
@@ -924,7 +924,7 @@
               sudo python2 -m pip install yara
               sudo ln -s /usr/local/lib/python2.7/dist-packages/usr/lib/libyara.so /usr/lib/libyara.so
               python2 -m pip install -U git+https://github.com/volatilityfoundation/volatility.git
-              echo 'export PATH=/home/nipegun/.local/bin:$PATH' >> ~/.bashrc
+              echo 'export PATH=/home/nipegun/.local/bin:$PATH' >> $HOME/.bashrc
               echo ""
               echo "  Volatility2 instalado. Cierra la sesión de terminal, vuélvela a abrir y, para usarlo, simplemente ejecuta:"
               echo "    vol.py -f [ArchivoDump] [Script]"
@@ -932,17 +932,17 @@
 
               # Preparando el ambiente para compilarlo
                 python2 -m pip install virtualenv
-                mkdir -p ~/PythonVirtualEnvironments/ 2> /dev/null
-                cd ~/PythonVirtualEnvironments/
-                rm -rf ~/PythonVirtualEnvironments/volatility/*
+                mkdir -p $HOME/PythonVirtualEnvironments/ 2> /dev/null
+                cd $HOME/PythonVirtualEnvironments/
+                rm -rf $HOME/PythonVirtualEnvironments/volatility/*
                 python2 -m virtualenv volatility2
-                source ~/PythonVirtualEnvironments/volatility2/bin/activate
+                source $HOME/PythonVirtualEnvironments/volatility2/bin/activate
                 pip2 install pyinstaller==3.6
 
                 # Descargar el repo
-                  mkdir -p ~/scripts/python/ 2> /dev/null
-                  cd ~/scripts/python/
-                  rm -rf ~/scripts/python/volatility/
+                  mkdir -p $HOME/scripts/python/ 2> /dev/null
+                  cd $HOME/scripts/python/
+                  rm -rf $HOME/scripts/python/volatility/
                   if [[ $(dpkg-query -s git 2>/dev/null | grep installed) == "" ]]; then
                     echo ""
                     echo -e "${cColorRojo}  El paquete git no está instalado. Iniciando su instalación...${cFinColor}"
@@ -952,17 +952,17 @@
                     echo ""
                   fi
                   git clone https://github.com/volatilityfoundation/volatility.git
-                  mv ~/scripts/python/volatility/ ~/scripts/python/volatility2/
+                  mv $HOME/scripts/python/volatility/ $HOME/scripts/python/volatility2/
 
               # Compilar
-                cd ~/scripts/python/volatility2/
+                cd $HOME/scripts/python/volatility2/
                 # pyinstaller --onefile vol.py --hidden-import=modulo1
                 pyinstaller --onefile vol.py
                   
 
               # Mover el binario a la carpeta de binarios del usuario
-                mkdir -p ~/bin/
-                cp ~/scripts/python/volatility2/dist/vol ~/bin/volatility2
+                mkdir -p $HOME/bin/
+                cp $HOME/scripts/python/volatility2/dist/vol $HOME/bin/volatility2
 
               # Desactivar el entorno virtual
                 deactivate
@@ -971,7 +971,7 @@
                 echo ""
                 echo "  El script ha finalizado. El script compilado se ha copiado a:"
                 echo ""
-                echo "    ~/bin/volatility2"
+                echo "    $HOME/bin/volatility2"
                 echo ""
                 echo "  El binario debe ser usado con precaución. Es mejor correr directamente el script, como se indicó arriba:"
                 echo ""
@@ -998,9 +998,9 @@
     echo "  Instalando versión 2.x..."
     echo ""
     # Descargar el repo
-      mkdir -p ~/scripts/python/ 2> /dev/null
-      cd ~/scripts/python/
-      rm -rf ~/scripts/python/*
+      mkdir -p $HOME/scripts/python/ 2> /dev/null
+      cd $HOME/scripts/python/
+      rm -rf $HOME/scripts/python/*
       if [[ $(dpkg-query -s git 2>/dev/null | grep installed) == "" ]]; then
         echo ""
         echo -e "${cColorRojo}  El paquete git no está instalado. Iniciando su instalación...${cFinColor}"
@@ -1016,16 +1016,16 @@
       apt-get -y install python2
       python2 /tmp/get-pip.py
       python2 -m pip install virtualenv
-      mkdir -p ~/PythonVirtualEnvironments/ 2> /dev/null
-      cd ~/PythonVirtualEnvironments/
-      rm -rf ~/PythonVirtualEnvironments/volatility2/*
+      mkdir -p $HOME/PythonVirtualEnvironments/ 2> /dev/null
+      cd $HOME/PythonVirtualEnvironments/
+      rm -rf $HOME/PythonVirtualEnvironments/volatility2/*
       python2 -m virtualenv volatility2
-      source ~/PythonVirtualEnvironments/volatility2/bin/activate
+      source $HOME/PythonVirtualEnvironments/volatility2/bin/activate
       pip2 install pyinstaller==3.6
 
     # Compilar
-      mv ~/scripts/python/volatility/ ~/scripts/python/volatility2/
-      cd ~/scripts/python/volatility2/
+      mv $HOME/scripts/python/volatility/ $HOME/scripts/python/volatility2/
+      cd $HOME/scripts/python/volatility2/
       apt-get -y install python-dev
       apt-get -y install upx
       apt-get -y install binutils
@@ -1033,8 +1033,8 @@
       pyinstaller --onefile vol.py
 
     # Mover el binario a la carpeta de binarios del usuario
-      mkdir -p ~/bin/
-      cp ~/scripts/python/volatility2/dist/vol ~/bin/volatility2
+      mkdir -p $HOME/bin/
+      cp $HOME/scripts/python/volatility2/dist/vol $HOME/bin/volatility2
 
     # Desactivar el entorno virtual
       deactivate
@@ -1043,12 +1043,12 @@
       echo ""
       echo "  El script ha finalizado. El script compilado se ha copiado a:"
       echo ""
-      echo "    ~/bin/volatility2"
+      echo "    $HOME/bin/volatility2"
       echo ""
       echo "  El binario debe ser usado con precaución. Es mejor correr el script directamente con python, de la siguiente manera:"
       echo ""
-      echo "    source ~/PythonVirtualEnvironments/volatility2/bin/activate"
-      echo "    python2.7 ~/scripts/python/volatility2/vol.py [Argumentos]"
+      echo "    source $HOME/PythonVirtualEnvironments/volatility2/bin/activate"
+      echo "    python2.7 $HOME/scripts/python/volatility2/vol.py [Argumentos]"
       echo "    deactivate"
       echo ""
 
