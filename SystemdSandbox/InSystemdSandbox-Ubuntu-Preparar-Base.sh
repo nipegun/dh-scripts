@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Ejecución remota únicamente como root:
-#  curl -sL https://raw.githubusercontent.com/nipegun/dh-scripts/refs/heads/main/Recursos/SystemdSandbox/InSystemdSandbox-Ubuntu-Preparar-Base.sh | bash
+#  curl -sL https://raw.githubusercontent.com/nipegun/h-resources/refs/heads/main/SystemdSandbox/InSystemdSandbox-Ubuntu-Preparar-Base.sh | bash
 
 # Corregir hostnames
   echo 'SystemdSandbox'           | tee /etc/hostname
