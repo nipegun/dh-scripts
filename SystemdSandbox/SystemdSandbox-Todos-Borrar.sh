@@ -9,13 +9,13 @@
 # Script de NiPeGun para borrar todos los contenedores systemd de un Debian
 #
 # Ejecución remota (puede requerir permisos sudo):
-#   curl -sL https://raw.githubusercontent.com/nipegun/dh-scripts/refs/heads/main/Recursos/SystemdSandbox/SystemdSandbox-Todos-Borrar.sh | bash
+#   curl -sL https://raw.githubusercontent.com/nipegun/h-resources/refs/heads/main/SystemdSandbox/SystemdSandbox-Todos-Borrar.sh | bash
 #
 # Ejecución remota como root (para sistemas sin sudo):
-#   curl -sL https://raw.githubusercontent.com/nipegun/dh-scripts/refs/heads/main/Recursos/SystemdSandbox/SystemdSandbox-Todos-Borrar.sh | sed 's-sudo--g' | bash
+#   curl -sL https://raw.githubusercontent.com/nipegun/h-resources/refs/heads/main/SystemdSandbox/SystemdSandbox-Todos-Borrar.sh | sed 's-sudo--g' | bash
 #
 # Bajar y editar directamente el archivo en nano
-#   curl -sL https://raw.githubusercontent.com/nipegun/dh-scripts/refs/heads/main/Recursos/SystemdSandbox/SystemdSandbox-Todos-Borrar.sh | nano -
+#   curl -sL https://raw.githubusercontent.com/nipegun/h-resources/refs/heads/main/SystemdSandbox/SystemdSandbox-Todos-Borrar.sh | nano -
 # ----------
 
 vCarpetaPorDefectoParaContenedores='/var/lib/machines'
