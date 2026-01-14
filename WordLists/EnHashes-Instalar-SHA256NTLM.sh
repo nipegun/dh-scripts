@@ -9,16 +9,16 @@
 # Script de NiPeGun para instalar en Debian las diferentes Wordlists con hashes SHA256NTLM pre-calculados
 #
 # Ejecución remota (puede requerir permisos sudo):
-#   curl -sL https://raw.githubusercontent.com/nipegun/dh-scripts/refs/heads/main/Recursos/WordLists/EnHashes-Instalar-SHA256NTLM.sh | bash
+#   curl -sL https://raw.githubusercontent.com/nipegun/h-resources/refs/heads/main/WordLists/EnHashes-Instalar-SHA256NTLM.sh | bash
 #
 # Ejecución remota como root (para sistemas sin sudo):
-#   curl -sL https://raw.githubusercontent.com/nipegun/dh-scripts/refs/heads/main/Recursos/WordLists/EnHashes-Instalar-SHA256NTLM.sh | sed 's-sudo--g' | bash
+#   curl -sL https://raw.githubusercontent.com/nipegun/h-resources/refs/heads/main/WordLists/EnHashes-Instalar-SHA256NTLM.sh | sed 's-sudo--g' | bash
 #
 # Ejecución remota como root indicando diferentes carpetas (para sistemas sin sudo):
-#   curl -sL https://raw.githubusercontent.com/nipegun/dh-scripts/refs/heads/main/Recursos/WordLists/EnHashes-Instalar-SHA256NTLM.sh | sed 's-sudo--g' | bash -s "/WordLists/tmp" "/WordLists"
+#   curl -sL https://raw.githubusercontent.com/nipegun/h-resources/refs/heads/main/WordLists/EnHashes-Instalar-SHA256NTLM.sh | sed 's-sudo--g' | bash -s "/WordLists/tmp" "/WordLists"
 #
 # Bajar y editar directamente el archivo en nano
-#   curl -sL https://raw.githubusercontent.com/nipegun/dh-scripts/refs/heads/main/Recursos/WordLists/EnHashes-Instalar-SHA256NTLM.sh | nano -
+#   curl -sL https://raw.githubusercontent.com/nipegun/h-resources/refs/heads/main/WordLists/EnHashes-Instalar-SHA256NTLM.sh | nano -
 # ----------
 
 # Definir cual va a ser la carpeta temporal
