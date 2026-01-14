@@ -9,16 +9,16 @@
 # Script de NiPeGun para crear un contenedor de systemd de Debian dentro del propio Debian
 #
 # Ejecución remota (puede requerir permisos sudo):
-#   curl -sLk https://raw.githubusercontent.com/nipegun/dh-scripts/refs/heads/main/Recursos/SystemdSandbox/SystemdSandbox-Debian-Crear.sh -o /tmp/sb.sh && chmod +x /tmp/sb.sh && sudo /tmp/sb.sh [CarpetaAMontar]
+#   curl -sLk https://raw.githubusercontent.com/nipegun/h-resources/refs/heads/main/SystemdSandbox/SystemdSandbox-Debian-Crear.sh -o /tmp/sb.sh && chmod +x /tmp/sb.sh && sudo /tmp/sb.sh [CarpetaAMontar]
 #
 # Ejecución remota como root (para sistemas sin sudo):
-#   curl -sLk https://raw.githubusercontent.com/nipegun/dh-scripts/refs/heads/main/Recursos/SystemdSandbox/SystemdSandbox-Debian-Crear.sh -o /tmp/sb.sh && chmod +x /tmp/sb.sh && sed -i 's-sudo--g' /tmp/sb.sh && /tmp/sb.sh [CarpetaAMontar]
+#   curl -sLk https://raw.githubusercontent.com/nipegun/h-resources/refs/heads/main/SystemdSandbox/SystemdSandbox-Debian-Crear.sh -o /tmp/sb.sh && chmod +x /tmp/sb.sh && sed -i 's-sudo--g' /tmp/sb.sh && /tmp/sb.sh [CarpetaAMontar]
 #
 # Ejecución remota como root (para sistemas sin sudo) (modificando la carpeta donde crear el sandbox):
-#   curl -sLk https://raw.githubusercontent.com/nipegun/dh-scripts/refs/heads/main/Recursos/SystemdSandbox/SystemdSandbox-Debian-Crear.sh -o /tmp/sb.sh && chmod +x /tmp/sb.sh && sed -i 's-$HOME-/mnt/PartLocalBTRFS-g' /tmp/sb.sh  && sed -i 's-sudo--g' /tmp/sb.sh && /tmp/sb.sh  [CarpetaAMontar]
+#   curl -sLk https://raw.githubusercontent.com/nipegun/h-resources/refs/heads/main/SystemdSandbox/SystemdSandbox-Debian-Crear.sh -o /tmp/sb.sh && chmod +x /tmp/sb.sh && sed -i 's-$HOME-/mnt/PartLocalBTRFS-g' /tmp/sb.sh  && sed -i 's-sudo--g' /tmp/sb.sh && /tmp/sb.sh  [CarpetaAMontar]
 #
 # Bajar y editar directamente el archivo en nano
-#   curl -sL https://raw.githubusercontent.com/nipegun/dh-scripts/refs/heads/main/Recursos/SystemdSandbox/SystemdSandbox-Debian-Crear.sh | nano -
+#   curl -sL https://raw.githubusercontent.com/nipegun/h-resources/refs/heads/main/SystemdSandbox/SystemdSandbox-Debian-Crear.sh | nano -
 # ----------
 
 # Paquetes mínimos
