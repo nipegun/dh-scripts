@@ -1,2 +1,3 @@
-# dh-scripts
-.
+# h-resources
+
+Recursos variados de/para hacking.
