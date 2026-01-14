@@ -117,7 +117,8 @@
                       sudo apt-get -y install git
                       echo ""
                     fi
-                  curl -sL https://raw.githubusercontent.com/nipegun/d-scripts/refs/heads/master/InstDeSoftware/ParaCLI/Python2-Instalar.sh | sed 's/--enable-optimizations/--enable-optimizations --without-ssl/g' | sudo bash
+                  sudo apt-get -y autoremove --purge libssl-dev
+                  curl -sL https://raw.githubusercontent.com/nipegun/d-scripts/refs/heads/master/InstDeSoftware/ParaCLI/Python2-Instalar.sh | sed 's/--enable-optimizations/--without-ssl/g' | sudo bash
                 fi
               cd $HOME/HackingTools/Forensics/volatility2/
               # Eliminar el virtualenv actualmente instalado
@@ -518,7 +519,7 @@
               echo ""
 
               # Comprobar si python 2.7 está instalado y, si no lo está, instalarlo
-                if [ ! -f /usr/local/bin/python2.7 ]; then
+                if [ ! -f /opt/python2/bin/python2.7 ]; then
                   # Comprobar si el paquete git está instalado. Si no lo está, instalarlo.
                     if [[ $(dpkg-query -s git 2>/dev/null | grep installed) == "" ]]; then
                       echo ""
@@ -528,26 +529,26 @@
                       sudo apt-get -y install git
                       echo ""
                     fi
-                  curl -sL https://raw.githubusercontent.com/nipegun/d-scripts/refs/heads/master/InstDeSoftware/ParaCLI/Python2-Instalar.sh | sed 's/--enable-optimizations/--enable-optimizations --without-ssl/g' | sudo bash
+                  curl -sL https://raw.githubusercontent.com/nipegun/d-scripts/refs/heads/master/InstDeSoftware/ParaCLI/Python2-Instalar.sh | sed 's/--enable-optimizations/--without-ssl/g' | sudo bash
                 fi
               cd $HOME/HackingTools/Forensics/volatility2/
               # Eliminar el virtualenv actualmente instalado
                 sudo apt-get -y autoremove virtualenv
               # Instalar el virtualenv de python2
-                curl https://bootstrap.pypa.io/pip/2.7/get-pip.py | sudo python2.7
-                sudo pip2 install virtualenv
+                curl -L https://bootstrap.pypa.io/pip/2.7/get-pip.py | sudo /opt/python2/bin/python2.7
+                sudo /opt/python2/bin/python2.7 -m pip install virtualenv
               # Crear el entorno virtual
-                /usr/local/bin/virtualenv -p /usr/local/bin/python2.7 venv
+                /opt/python2/bin/virtualenv -p /opt/python2/bin/python2.7 venv
               # Crear el mensaje para mostrar cuando se entra al entorno virtual
-                echo ''                                                                                        >> $HOME/HackingTools/Forensics/volatility2/venv/bin/activate
-                echo 'echo -e "\n  Activando el entorno virtual de Volatility2... \n"'                         >> $HOME/HackingTools/Forensics/volatility2/venv/bin/activate
-                echo 'echo -e "    Forma de uso:\n"'                                                           >> $HOME/HackingTools/Forensics/volatility2/venv/bin/activate
-                echo 'echo -e "      vol.py -f [RutaAlArchivoDeDump] [Plugin]\n"'                              >> $HOME/HackingTools/Forensics/volatility2/venv/bin/activate
-                echo 'echo -e "    Comandos rápidos:\n"'                                                       >> $HOME/HackingTools/Forensics/volatility2/venv/bin/activate
-                echo 'echo -e "      Obtener info de la imagen:\n"'                                            >> $HOME/HackingTools/Forensics/volatility2/venv/bin/activate
-                echo 'echo -e "        vol.py -f $HOME/Descargas/Evidencia.raw imageinfo\n"'                   >> $HOME/HackingTools/Forensics/volatility2/venv/bin/activate
-                echo 'echo -e "      Aplicar un perfil y un plugin:\n"'                                        >> $HOME/HackingTools/Forensics/volatility2/venv/bin/activate
-                echo 'echo -e "        vol.py -f $HOME/Descargas/Evidencia.raw --profile=Win7SP1x86 pslist\n"' >> $HOME/HackingTools/Forensics/volatility2/venv/bin/activate
+                echo ''                                                                                                                                 >> $HOME/HackingTools/Forensics/volatility2/venv/bin/activate
+                echo 'echo -e "\n  Activando el entorno virtual de Volatility2... \n"'                                                                  >> $HOME/HackingTools/Forensics/volatility2/venv/bin/activate
+                echo 'echo -e "    Forma de uso:\n"'                                                                                                    >> $HOME/HackingTools/Forensics/volatility2/venv/bin/activate
+                echo 'echo -e "      $HOME/HackingTools/Forensics/volatility2/vol.py -f [RutaAlArchivoDeDump] [Plugin]\n"'                              >> $HOME/HackingTools/Forensics/volatility2/venv/bin/activate
+                echo 'echo -e "    Comandos rápidos:\n"'                                                                                                >> $HOME/HackingTools/Forensics/volatility2/venv/bin/activate
+                echo 'echo -e "      Obtener info de la imagen:\n"'                                                                                     >> $HOME/HackingTools/Forensics/volatility2/venv/bin/activate
+                echo 'echo -e "        $HOME/HackingTools/Forensics/volatility2/vol.py -f $HOME/Descargas/Evidencia.raw imageinfo\n"'                   >> $HOME/HackingTools/Forensics/volatility2/venv/bin/activate
+                echo 'echo -e "      Aplicar un perfil y un plugin:\n"'                                                                                 >> $HOME/HackingTools/Forensics/volatility2/venv/bin/activate
+                echo 'echo -e "        $HOME/HackingTools/Forensics/volatility2/vol.py -f $HOME/Descargas/Evidencia.raw --profile=Win7SP1x86 pslist\n"' >> $HOME/HackingTools/Forensics/volatility2/venv/bin/activate
 
               # Entrar al entorno virtual
                 source $HOME/HackingTools/Forensics/volatility2/venv/bin/activate
@@ -572,13 +573,16 @@
               # Desactivar el entorno virtual
                 deactivate
 
+              # Asignar permisos de ejecucción
+                find $HOME/HackingTools/Forensics/volatility2/ -type f -name "*.py" -exec chmod +x {} \;
+
               # Notificar fin de instalación en el entorno virtual
                 echo ""
                 echo -e "${cColorVerde}    Entorno virtual preparado. volatility2 se puede ejecutar desde el venv de la siguiente forma:${cFinColor}"
                 echo ""
                 echo -e "${cColorVerde}      source $HOME/HackingTools/Forensics/volatility2/venv/bin/activate${cFinColor}"
                 echo ""
-                echo -e "${cColorVerde}        vol.py [Parámetros]${cFinColor}"
+                echo -e "${cColorVerde}        $HOME/HackingTools/Forensics/volatility2/vol.py [Parámetros]${cFinColor}"
                 echo ""
                 echo -e "${cColorVerde}      deactivate${cFinColor}"
                 echo ""
