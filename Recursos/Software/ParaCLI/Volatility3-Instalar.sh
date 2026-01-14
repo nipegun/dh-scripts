@@ -21,8 +21,8 @@
 #   sudo apt -y install python3-pip
 #   pip3 install volatility3 --user --break-system-packages
 #  
-#   export VOLATILITY_SYMBOL_PATH=~/.local/lib/python3.11/site-packages/volatility3/symbols/
-#   source ~/.bashrc
+#   export VOLATILITY_SYMBOL_PATH=$HOME/.local/lib/python3.11/site-packages/volatility3/symbols/
+#   source $HOME/.bashrc
 # ----------
 
 # Definir constantes de color
@@ -71,7 +71,7 @@
           sudo apt-get -y update && sudo apt-get -y install dialog
           echo ""
         fi
-      menu=(dialog --checklist "Marca las opciones que quieras instalar:" 22 96 16)
+      menu=(dialog --checklist "Marca las opciones que quieras instalar (es preferible instalar en debian 12) :" 22 96 16)
         opciones=(
           1 "Clonar el repo de volatility3 para python 3.x"                   on
           2 "  Crear el entorno virtual de python e instalar dentro"          on
@@ -92,9 +92,9 @@
               echo "  Clonar el repo de volatility3 para python 3.x..."
               echo ""
 
-              mkdir -p ~/HackingTools/Forensics/ 2> /dev/null
-              cd ~/HackingTools/Forensics/
-              rm -rf ~/HackingTools/Forensics/volatility3/ 2> /dev/null
+              mkdir -p $HOME/HackingTools/Forensics/ 2> /dev/null
+              cd $HOME/HackingTools/Forensics/
+              rm -rf $HOME/HackingTools/Forensics/volatility3/ 2> /dev/null
               # Comprobar si el paquete git está instalado. Si no lo está, instalarlo.
                 if [[ $(dpkg-query -s git 2>/dev/null | grep installed) == "" ]]; then
                   echo ""
@@ -113,7 +113,7 @@
               echo ""
               echo "  Creando el entorno virtual de python e instalando dentro..."
               echo ""
-              cd ~/HackingTools/Forensics/volatility3/
+              cd $HOME/HackingTools/Forensics/volatility3/
               # Comprobar si el paquete python3-venv está instalado. Si no lo está, instalarlo.
                 if [[ $(dpkg-query -s python3-venv 2>/dev/null | grep installed) == "" ]]; then
                   echo ""
@@ -125,19 +125,19 @@
                 fi
               python3 -m venv venv
               # Crear el mensaje para mostrar cuando se entra al entorno virtual
-                echo ''                                                                                                                          >> ~/HackingTools/Forensics/volatility3/venv/bin/activate
-                echo 'echo -e "\n  Activando el entorno virtual de volatility3... \n"'                                                           >> ~/HackingTools/Forensics/volatility3/venv/bin/activate
-                echo 'echo -e "    Forma de uso:\n"'                                                                                             >> ~/HackingTools/Forensics/volatility3/venv/bin/activate
-                echo 'echo -e "      $HOME/HackingTools/Forensics/volatility3/vol.py -f [RutaAlArchivoDeDump] [Plugin]\n"'                       >> ~/HackingTools/Forensics/volatility3/venv/bin/activate
-                echo 'echo -e "    Forma de uso en modo super verbose (Para ver posibles errores):\n"'                                           >> ~/HackingTools/Forensics/volatility3/venv/bin/activate
-                echo 'echo -e "      $HOME/HackingTools/Forensics/volatility3/vol.py -vvv -f [RutaAlArchivoDeDump] [Plugin]\n"'                  >> ~/HackingTools/Forensics/volatility3/venv/bin/activate
-                echo 'echo -e "    Forma de uso en modo silencioso:\n"'                                                                          >> ~/HackingTools/Forensics/volatility3/venv/bin/activate
-                echo 'echo -e "      $HOME/HackingTools/Forensics/volatility3/vol.py -q -f [RutaAlArchivoDeDump] [Plugin]\n"'                    >> ~/HackingTools/Forensics/volatility3/venv/bin/activate
-                echo 'echo -e "    Comandos rápidos:\n"'                                                                                         >> ~/HackingTools/Forensics/volatility3/venv/bin/activate
-                echo 'echo -e "      Obtener info de windows:\n"'                                                                                >> ~/HackingTools/Forensics/volatility3/venv/bin/activate
-                echo 'echo -e "        $HOME/HackingTools/Forensics/volatility3/vol.py -q -f $HOME/Descargas/Evidencia.raw windows.info.Info\n"' >> ~/HackingTools/Forensics/volatility3/venv/bin/activate
-                echo 'echo -e "      Obtener info de linux:\n"'                                                                                  >> ~/HackingTools/Forensics/volatility3/venv/bin/activate
-                echo 'echo -e "        $HOME/HackingTools/Forensics/volatility3/vol.py -q -f $HOME/Descargas/Evidencia.raw banners.Banners\n"'   >> ~/HackingTools/Forensics/volatility3/venv/bin/activate
+                echo ''                                                                                                                          >> $HOME/HackingTools/Forensics/volatility3/venv/bin/activate
+                echo 'echo -e "\n  Activando el entorno virtual de volatility3... \n"'                                                           >> $HOME/HackingTools/Forensics/volatility3/venv/bin/activate
+                echo 'echo -e "    Forma de uso:\n"'                                                                                             >> $HOME/HackingTools/Forensics/volatility3/venv/bin/activate
+                echo 'echo -e "      $HOME/HackingTools/Forensics/volatility3/vol.py -f [RutaAlArchivoDeDump] [Plugin]\n"'                       >> $HOME/HackingTools/Forensics/volatility3/venv/bin/activate
+                echo 'echo -e "    Forma de uso en modo super verbose (Para ver posibles errores):\n"'                                           >> $HOME/HackingTools/Forensics/volatility3/venv/bin/activate
+                echo 'echo -e "      $HOME/HackingTools/Forensics/volatility3/vol.py -vvv -f [RutaAlArchivoDeDump] [Plugin]\n"'                  >> $HOME/HackingTools/Forensics/volatility3/venv/bin/activate
+                echo 'echo -e "    Forma de uso en modo silencioso:\n"'                                                                          >> $HOME/HackingTools/Forensics/volatility3/venv/bin/activate
+                echo 'echo -e "      $HOME/HackingTools/Forensics/volatility3/vol.py -q -f [RutaAlArchivoDeDump] [Plugin]\n"'                    >> $HOME/HackingTools/Forensics/volatility3/venv/bin/activate
+                echo 'echo -e "    Comandos rápidos:\n"'                                                                                         >> $HOME/HackingTools/Forensics/volatility3/venv/bin/activate
+                echo 'echo -e "      Obtener info de windows:\n"'                                                                                >> $HOME/HackingTools/Forensics/volatility3/venv/bin/activate
+                echo 'echo -e "        $HOME/HackingTools/Forensics/volatility3/vol.py -q -f $HOME/Descargas/Evidencia.raw windows.info.Info\n"' >> $HOME/HackingTools/Forensics/volatility3/venv/bin/activate
+                echo 'echo -e "      Obtener info de linux:\n"'                                                                                  >> $HOME/HackingTools/Forensics/volatility3/venv/bin/activate
+                echo 'echo -e "        $HOME/HackingTools/Forensics/volatility3/vol.py -q -f $HOME/Descargas/Evidencia.raw banners.Banners\n"'   >> $HOME/HackingTools/Forensics/volatility3/venv/bin/activate
 
               # Instalar symbols
                 echo ""
@@ -153,15 +153,18 @@
                     echo ""
                   fi
                 curl -L https://downloads.volatilityfoundation.org/volatility3/symbols/windows.zip -o /tmp/vol3-windows-symbols.zip
-                unzip /tmp/vol3-windows-symbols.zip -d ~/HackingTools/Forensics/volatility3/volatility3/symbols/
+                unzip /tmp/vol3-windows-symbols.zip -d $HOME/HackingTools/Forensics/volatility3/volatility3/symbols/
                 curl -L https://downloads.volatilityfoundation.org/volatility3/symbols/linux.zip   -o /tmp/vol3-linux-symbols.zip
-                unzip /tmp/vol3-linux-symbols.zip   -d ~/HackingTools/Forensics/volatility3/volatility3/symbols/
+                unzip /tmp/vol3-linux-symbols.zip   -d $HOME/HackingTools/Forensics/volatility3/volatility3/symbols/
                 curl -L https://downloads.volatilityfoundation.org/volatility3/symbols/mac.zip     -o /tmp/vol3-mac-symbols.zip
-                mkdir -p ~/HackingTools/Forensics/volatility3/volatility3/symbols/mac/
-                unzip /tmp/vol3-mac-symbols.zip -d ~/HackingTools/Forensics/volatility3/volatility3/symbols/mac/
+                mkdir -p $HOME/HackingTools/Forensics/volatility3/volatility3/symbols/mac/
+                unzip /tmp/vol3-mac-symbols.zip -d $HOME/HackingTools/Forensics/volatility3/volatility3/symbols/mac/
               # Entrar al entorno virtual
-                source ~/HackingTools/Forensics/volatility3/venv/bin/activate
+                source $HOME/HackingTools/Forensics/volatility3/venv/bin/activate
               # Instalar requerimientos
+                # Instalar dependencias para compilar paquetes
+                  sudo apt-get -y install build-essential
+                  sudo apt-get -y install python3-dev
                 python3 -m pip install wheel
                 python3 -m pip install distorm3
                 python3 -m pip install pycryptodome
@@ -175,18 +178,18 @@
               # Salir del entorno virtual
                 deactivate
               # Copiar símbolos a la carpeta donde Volatility3 los va a buscar
-                vCarpetaPython=$(ls ~/HackingTools/Forensics/volatility3/venv/lib/)
-                mkdir -p ~/HackingTools/Forensics/volatility3/venv/lib/"$vCarpetaPython"/site-packages/volatility3/symbols/
-                cp -rfv ~/HackingTools/Forensics/volatility3/volatility3/symbols/* ~/HackingTools/Forensics/volatility3/venv/lib/"$vCarpetaPython"/site-packages/volatility3/symbols/
-                cd ~
+                vCarpetaPython=$(ls $HOME/HackingTools/Forensics/volatility3/venv/lib/)
+                mkdir -p $HOME/HackingTools/Forensics/volatility3/venv/lib/"$vCarpetaPython"/site-packages/volatility3/symbols/
+                cp -rfv $HOME/HackingTools/Forensics/volatility3/volatility3/symbols/* $HOME/HackingTools/Forensics/volatility3/venv/lib/"$vCarpetaPython"/site-packages/volatility3/symbols/
+                cd $HOME
               # Notificar fin de instalación en el entorno virtual
                 echo ""
                 echo -e "${cColorVerde}    Entorno virtual preparado. volatility3 se puede ejecutar desde el venv de la siguiente forma:${cFinColor}"
                 echo ""
-                echo -e "${cColorVerde}      source ~/HackingTools/Forensics/volatility3/venv/bin/activate${cFinColor}"
+                echo -e "${cColorVerde}      source $HOME/HackingTools/Forensics/volatility3/venv/bin/activate${cFinColor}"
                 echo ""
-                echo -e "${cColorVerde}        $HOME/repos/python/volatility3/vol.py -f [RutaAlArchivo] [Plugin]${cFinColor}"
-                echo -e "${cColorVerde}        $HOME/repos/python/volatility3/volshell.py [Parámetros]${cFinColor}"
+                echo -e "${cColorVerde}        $HOME/HackingTools/Forensics/volatility3/vol.py -f [RutaAlArchivo] [Plugin]${cFinColor}"
+                echo -e "${cColorVerde}        $HOME/HackingTools/Forensics/volatility3/volshell.py [Parámetros]${cFinColor}"
                 echo ""
                 echo -e "${cColorVerde}      deactivate${cFinColor}"
                 echo ""
@@ -224,8 +227,8 @@
                 # python3 -m pip install -U pycrypto pytz
 
               # Entrar en el entorno virtual
-                source ~/HackingTools/Forensics/volatility3/venv/bin/activate
-                cd ~/HackingTools/Forensics/volatility3/
+                source $HOME/HackingTools/Forensics/volatility3/venv/bin/activate
+                cd $HOME/HackingTools/Forensics/volatility3/
 
               # Compilar
                 # Comprobar si el paquete python3-pip está instalado. Si no lo está, instalarlo.
@@ -247,29 +250,29 @@
                 deactivate
 
               # Mover el binario a la carpeta de binarios del usuario
-                mkdir -p ~/bin/
-                cp -vf ~/HackingTools/Forensics/volatility3/dist/vol      ~/bin/volatility3
-                cp -vf ~/HackingTools/Forensics/volatility3/dist/volshell ~/bin/volatility3shell
+                mkdir -p $HOME/bin/
+                cp -vf $HOME/HackingTools/Forensics/volatility3/dist/vol      $HOME/bin/volatility3
+                cp -vf $HOME/HackingTools/Forensics/volatility3/dist/volshell $HOME/bin/volatility3shell
 
               # Notificar fin de ejecución del script
                 echo ""
                 echo "  El script ha finalizado. Los scripts compilados se han copiado a:"
                 echo ""
-                echo "    ~/bin/volatility3"
+                echo "    $HOME/bin/volatility3"
                 echo ""
                 echo "      y"
                 echo ""
-                echo "    ~/bin/volatility3shell"
+                echo "    $HOME/bin/volatility3shell"
                 echo ""
                 echo "  Los binarios deben ser ejecutados con precaución. Es mejor correr los scripts directamente con python, de la siguiente manera:"
                 echo ""
-                echo "    ~/HackingTools/Forensics/volatility3/vol.py [Argumentos]"
+                echo "    $HOME/HackingTools/Forensics/volatility3/vol.py [Argumentos]"
                 echo ""
                 echo ""
                 echo "    O, si se quiere ejecutar dentro del entorno virtual:"
                 echo ""
-                echo "      source ~/HackingTools/Forensics/volatility3/venv/bin/activate"
-                echo "      ~/HackingTools/Forensics/volatility3/vol.py [Argumentos]"
+                echo "      source $HOME/HackingTools/Forensics/volatility3/venv/bin/activate"
+                echo "      $HOME/HackingTools/Forensics/volatility3/vol.py [Argumentos]"
                 echo "      deactivate"
                 echo ""
 
@@ -290,9 +293,9 @@
                   sudo apt-get -y install python3-setuptools
                   echo ""
                 fi
-              cd ~/HackingTools/Forensics/volatility3/
+              cd $HOME/HackingTools/Forensics/volatility3/
               python3 setup.py install --user
-              cd ~
+              cd $HOME
 
               # Notificar fin de ejecución del script
                 echo ""
@@ -304,7 +307,7 @@
                 echo ""
                 echo -e "${cColorVerde}      Si al instalar NO has marcado 'Agregar /home/$USER/.local/bin/ al path', ejecuta:${cFinColor}"
                 echo ""
-                echo -e "${cColorVerde}       ~/.local/bin/vol -vvv -f [RutaAlArchivo] [Plugins] ${cFinColor}"
+                echo -e "${cColorVerde}       $HOME/.local/bin/vol -vvv -f [RutaAlArchivo] [Plugins] ${cFinColor}"
                 echo ""
 
             ;;
@@ -314,7 +317,7 @@
               echo ""
               echo "  Agregando /home/$USER/.local/bin al path..."
               echo ""
-              echo 'export PATH=/home/'"$USER"'/.local/bin:$PATH' >> ~/.bashrc
+              echo 'export PATH=/home/'"$USER"'/.local/bin:$PATH' >> $HOME/.bashrc
 
             ;;
 
@@ -328,9 +331,9 @@
                 echo ""
                 echo "    Preparando el entorno virtual de python..."
                 echo ""
-                mkdir -p ~/Git/ 2> /dev/null
-                rm -rf ~/Git/volatility3/
-                cd ~/Git/
+                mkdir -p $HOME/Git/ 2> /dev/null
+                rm -rf $HOME/Git/volatility3/
+                cd $HOME/Git/
               # Comprobar si el paquete python3-venv está instalado. Si no lo está, instalarlo.
                 if [[ $(dpkg-query -s python3-venv 2>/dev/null | grep installed) == "" ]]; then
                   echo ""
@@ -346,13 +349,13 @@
                 echo ""
                 echo "    Ingresando en el entorno virtual e instalando..."
                 echo ""
-                source ~/Git/volatility3/bin/activate
+                source $HOME/Git/volatility3/bin/activate
 
               # Clonar el repo
                 echo ""
                 echo "  Clonando el repo..."
                 echo ""
-                cd ~/Git/volatility3/
+                cd $HOME/Git/volatility3/
                 # Comprobar si el paquete git está instalado. Si no lo está, instalarlo.
                   if [[ $(dpkg-query -s git 2>/dev/null | grep installed) == "" ]]; then
                     echo ""
@@ -439,10 +442,10 @@
                 echo "    Copiando los binarios a la carpeta /usr/bin/"
                 echo ""
                 sudo rm -f /usr/bin/volatility3
-                sudo cp -vf ~/Git/volatility3/code/dist/vol      /usr/bin/volatility3
+                sudo cp -vf $HOME/Git/volatility3/code/dist/vol      /usr/bin/volatility3
                 sudo rm -f /usr/bin/volatility3shell
-                sudo cp -vf ~/Git/volatility3/code/dist/volshell /usr/bin/volatility3shell
-                cd ~
+                sudo cp -vf $HOME/Git/volatility3/code/dist/volshell /usr/bin/volatility3shell
+                cd $HOME
 
               # Notificar fin de ejecución del script
                 echo ""
@@ -494,9 +497,9 @@
               echo "  Clonar el repo de volatility3 para python 3.x..."
               echo ""
 
-              mkdir -p ~/HackingTools/
-              cd ~/HackingTools/
-              rm -rf ~/HackingTools/Forensics/volatility3/
+              mkdir -p $HOME/HackingTools/Forensics/ 2> /dev/null
+              cd $HOME/HackingTools/Forensics/
+              rm -rf $HOME/HackingTools/Forensics/volatility3/ 2> /dev/null
               # Comprobar si el paquete git está instalado. Si no lo está, instalarlo.
                 if [[ $(dpkg-query -s git 2>/dev/null | grep installed) == "" ]]; then
                   echo ""
@@ -506,7 +509,7 @@
                   sudo apt-get -y install git
                   echo ""
                 fi
-              git clone https://github.com/volatilityfoundation/volatility3.git
+              git clone --depth=1 https://github.com/volatilityfoundation/volatility3.git
 
             ;;
 
@@ -515,7 +518,7 @@
               echo ""
               echo "  Creando el entorno virtual de python e instalando dentro..."
               echo ""
-              cd ~/HackingTools/Forensics/volatility3/
+              cd $HOME/HackingTools/Forensics/volatility3/
               # Comprobar si el paquete python3-venv está instalado. Si no lo está, instalarlo.
                 if [[ $(dpkg-query -s python3-venv 2>/dev/null | grep installed) == "" ]]; then
                   echo ""
@@ -527,15 +530,19 @@
                 fi
               python3 -m venv venv
               # Crear el mensaje para mostrar cuando se entra al entorno virtual
-                echo ''                                                                           >> ~/HackingTools/Forensics/volatility3/venv/bin/activate
-                echo 'echo -e "\n  Activando el entorno virtual de volatility3... \n"'            >> ~/HackingTools/Forensics/volatility3/venv/bin/activate
-                echo 'echo -e "    Forma de uso:\n"'                                              >> ~/HackingTools/Forensics/volatility3/venv/bin/activate
-                echo 'echo -e "      vol -vvv -f [RutaAlArchivoDeDump] [Plugin]\n"'               >> ~/HackingTools/Forensics/volatility3/venv/bin/activate
-                echo 'echo -e "    Comandos rápidos:\n"'                                          >> ~/HackingTools/Forensics/volatility3/venv/bin/activate
-                echo 'echo -e "      Obtener info de windows:\n"'                                 >> ~/HackingTools/Forensics/volatility3/venv/bin/activate
-                echo 'echo -e "        vol -vvv -f $HOME/Descargas/Evidencia.raw windows.info\n"' >> ~/HackingTools/Forensics/volatility3/venv/bin/activate
-                echo 'echo -e "      Obtener info de linux:\n"'                                   >> ~/HackingTools/Forensics/volatility3/venv/bin/activate
-                echo 'echo -e "        vol -vvv -f $HOME/Descargas/Evidencia.raw linux.banner\n"'   >> ~/HackingTools/Forensics/volatility3/venv/bin/activate
+                echo ''                                                                                                                          >> $HOME/HackingTools/Forensics/volatility3/venv/bin/activate
+                echo 'echo -e "\n  Activando el entorno virtual de volatility3... \n"'                                                           >> $HOME/HackingTools/Forensics/volatility3/venv/bin/activate
+                echo 'echo -e "    Forma de uso:\n"'                                                                                             >> $HOME/HackingTools/Forensics/volatility3/venv/bin/activate
+                echo 'echo -e "      $HOME/HackingTools/Forensics/volatility3/vol.py -f [RutaAlArchivoDeDump] [Plugin]\n"'                       >> $HOME/HackingTools/Forensics/volatility3/venv/bin/activate
+                echo 'echo -e "    Forma de uso en modo super verbose (Para ver posibles errores):\n"'                                           >> $HOME/HackingTools/Forensics/volatility3/venv/bin/activate
+                echo 'echo -e "      $HOME/HackingTools/Forensics/volatility3/vol.py -vvv -f [RutaAlArchivoDeDump] [Plugin]\n"'                  >> $HOME/HackingTools/Forensics/volatility3/venv/bin/activate
+                echo 'echo -e "    Forma de uso en modo silencioso:\n"'                                                                          >> $HOME/HackingTools/Forensics/volatility3/venv/bin/activate
+                echo 'echo -e "      $HOME/HackingTools/Forensics/volatility3/vol.py -q -f [RutaAlArchivoDeDump] [Plugin]\n"'                    >> $HOME/HackingTools/Forensics/volatility3/venv/bin/activate
+                echo 'echo -e "    Comandos rápidos:\n"'                                                                                         >> $HOME/HackingTools/Forensics/volatility3/venv/bin/activate
+                echo 'echo -e "      Obtener info de windows:\n"'                                                                                >> $HOME/HackingTools/Forensics/volatility3/venv/bin/activate
+                echo 'echo -e "        $HOME/HackingTools/Forensics/volatility3/vol.py -q -f $HOME/Descargas/Evidencia.raw windows.info.Info\n"' >> $HOME/HackingTools/Forensics/volatility3/venv/bin/activate
+                echo 'echo -e "      Obtener info de linux:\n"'                                                                                  >> $HOME/HackingTools/Forensics/volatility3/venv/bin/activate
+                echo 'echo -e "        $HOME/HackingTools/Forensics/volatility3/vol.py -q -f $HOME/Descargas/Evidencia.raw banners.Banners\n"'   >> $HOME/HackingTools/Forensics/volatility3/venv/bin/activate
               # Instalar symbols
                 # Comprobar si el paquete unzip está instalado. Si no lo está, instalarlo.
                   if [[ $(dpkg-query -s unzip 2>/dev/null | grep installed) == "" ]]; then
@@ -547,15 +554,18 @@
                     echo ""
                   fi
                 curl -L https://downloads.volatilityfoundation.org/volatility3/symbols/windows.zip -o /tmp/vol3-windows-symbols.zip
-                unzip /tmp/vol3-windows-symbols.zip -d ~/HackingTools/Forensics/volatility3/volatility3/symbols/
+                unzip /tmp/vol3-windows-symbols.zip -d $HOME/HackingTools/Forensics/volatility3/volatility3/symbols/
                 curl -L https://downloads.volatilityfoundation.org/volatility3/symbols/linux.zip   -o /tmp/vol3-linux-symbols.zip
-                unzip /tmp/vol3-linux-symbols.zip   -d ~/HackingTools/Forensics/volatility3/volatility3/symbols/
+                unzip /tmp/vol3-linux-symbols.zip   -d $HOME/HackingTools/Forensics/volatility3/volatility3/symbols/
                 curl -L https://downloads.volatilityfoundation.org/volatility3/symbols/mac.zip     -o /tmp/vol3-mac-symbols.zip
-                mkdir -p ~/HackingTools/Forensics/volatility3/volatility3/symbols/mac/
-                unzip /tmp/vol3-mac-symbols.zip -d ~/HackingTools/Forensics/volatility3/volatility3/symbols/mac/
+                mkdir -p $HOME/HackingTools/Forensics/volatility3/volatility3/symbols/mac/
+                unzip /tmp/vol3-mac-symbols.zip -d $HOME/HackingTools/Forensics/volatility3/volatility3/symbols/mac/
               # Entrar al entorno virtual
-                source ~/HackingTools/Forensics/volatility3/venv/bin/activate
+                source $HOME/HackingTools/Forensics/volatility3/venv/bin/activate
               # Instalar requerimientos
+                # Instalar dependencias para compilar paquetes
+                  sudo apt-get -y install build-essential
+                  sudo apt-get -y install python3-dev
                 python3 -m pip install wheel
                 python3 -m pip install distorm3
                 python3 -m pip install pycryptodome
@@ -569,17 +579,19 @@
                 python3 -m pip install .
               # Salir del entorno virtual
                 deactivate
-              # Instalar símbolos
-                vCarpetaPython=$(ls ~/HackingTools/Forensics/volatility3/venv/lib/)
-                cp -rfv ~/HackingTools/Forensics/volatility3/volatility3/symbols/* ~/HackingTools/Forensics/volatility3/venv/lib/"$vCarpetaPython"/site-packages/volatility3/symbols/
+              # Copiar símbolos a la carpeta donde Volatility3 los va a buscar
+                vCarpetaPython=$(ls $HOME/HackingTools/Forensics/volatility3/venv/lib/)
+                mkdir -p $HOME/HackingTools/Forensics/volatility3/venv/lib/"$vCarpetaPython"/site-packages/volatility3/symbols/
+                cp -rfv $HOME/HackingTools/Forensics/volatility3/volatility3/symbols/* $HOME/HackingTools/Forensics/volatility3/venv/lib/"$vCarpetaPython"/site-packages/volatility3/symbols/
+                cd $HOME
               # Notificar fin de instalación en el entorno virtual
                 echo ""
                 echo -e "${cColorVerde}    Entorno virtual preparado. volatility3 se puede ejecutar desde el venv de la siguiente forma:${cFinColor}"
                 echo ""
-                echo -e "${cColorVerde}      source ~/HackingTools/Forensics/volatility3/venv/bin/activate${cFinColor}"
+                echo -e "${cColorVerde}      source $HOME/HackingTools/Forensics/volatility3/venv/bin/activate${cFinColor}"
                 echo ""
-                echo -e "${cColorVerde}        vol -vvv -f [RutaAlArchivo] [Plugin]${cFinColor}"
-                echo -e "${cColorVerde}        volshell [Parámetros]${cFinColor}"
+                echo -e "${cColorVerde}        $HOME/HackingTools/Forensics/volatility3/vol.py -f [RutaAlArchivo] [Plugin]${cFinColor}"
+                echo -e "${cColorVerde}        $HOME/HackingTools/Forensics/volatility3/volshell.py [Parámetros]${cFinColor}"
                 echo ""
                 echo -e "${cColorVerde}      deactivate${cFinColor}"
                 echo ""
@@ -617,8 +629,8 @@
                 # python3 -m pip install -U pycrypto pytz
 
               # Entrar en el entorno virtual
-                source ~/HackingTools/Forensics/volatility3/venv/bin/activate
-                cd ~/HackingTools/Forensics/volatility3/
+                source $HOME/HackingTools/Forensics/volatility3/venv/bin/activate
+                cd $HOME/HackingTools/Forensics/volatility3/
 
               # Compilar
                 # Comprobar si el paquete python3-pip está instalado. Si no lo está, instalarlo.
@@ -639,29 +651,29 @@
                 deactivate
 
               # Mover el binario a la carpeta de binarios del usuario
-                mkdir -p ~/bin/
-                cp ~/HackingTools/Forensics/volatility3/dist/vol      ~/bin/volatility3
-                cp ~/HackingTools/Forensics/volatility3/dist/volshell ~/bin/volatility3shell
+                mkdir -p $HOME/bin/
+                cp $HOME/HackingTools/Forensics/volatility3/dist/vol      $HOME/bin/volatility3
+                cp $HOME/HackingTools/Forensics/volatility3/dist/volshell $HOME/bin/volatility3shell
 
               # Notificar fin de ejecución del script
                 echo ""
                 echo "  El script ha finalizado. Los scripts compilados se han copiado a:"
                 echo ""
-                echo "    ~/bin/volatility3"
+                echo "    $HOME/bin/volatility3"
                 echo ""
                 echo "      y"
                 echo ""
-                echo "    ~/bin/volatility3shell"
+                echo "    $HOME/bin/volatility3shell"
                 echo ""
                 echo "  Los binarios deben ser ejecutados con precaución. Es mejor correr los scripts directamente con python, de la siguiente manera:"
                 echo ""
-                echo "    ~/scripts/python/volatility3/vol.py [Argumentos]"
+                echo "    $HOME/scripts/python/volatility3/vol.py [Argumentos]"
                 echo ""
                 echo ""
                 echo "    O, si se quiere ejecutar dentro del entorno virtual:"
                 echo ""
-                echo "      source ~/PythonVirtualEnvironments/volatility3/bin/activate"
-                echo "      ~/scripts/python/volatility3/vol.py [Argumentos]"
+                echo "      source $HOME/PythonVirtualEnvironments/volatility3/bin/activate"
+                echo "      $HOME/scripts/python/volatility3/vol.py [Argumentos]"
                 echo "      deactivate"
                 echo ""
 
@@ -682,9 +694,9 @@
                   sudo apt-get -y install python3-setuptools
                   echo ""
                 fi
-              cd ~/HackingTools/Forensics/volatility3/
+              cd $HOME/HackingTools/Forensics/volatility3/
               python3 setup.py install --user
-              cd ~
+              cd $HOME
 
               # Notificar fin de ejecución del script
                 echo ""
@@ -696,7 +708,7 @@
                 echo ""
                 echo -e "${cColorVerde}      Si al instalar NO has marcado 'Agregar /home/$USER/.local/bin/ al path', ejecuta:${cFinColor}"
                 echo ""
-                echo -e "${cColorVerde}       ~/.local/bin/vol -vvv -f [RutaAlArchivo] [Plugins] ${cFinColor}"
+                echo -e "${cColorVerde}       $HOME/.local/bin/vol -vvv -f [RutaAlArchivo] [Plugins] ${cFinColor}"
                 echo ""
 
             ;;
@@ -706,7 +718,7 @@
               echo ""
               echo "  Agregando /home/$USER/.local/bin al path..."
               echo ""
-              echo 'export PATH=/home/'"$USER"'/.local/bin:$PATH' >> ~/.bashrc
+              echo 'export PATH=/home/'"$USER"'/.local/bin:$PATH' >> $HOME/.bashrc
 
             ;;
 
@@ -720,9 +732,9 @@
                 echo ""
                 echo "    Preparando el entorno virtual de python..."
                 echo ""
-                mkdir -p ~/Git/ 2> /dev/null
-                rm -rf ~/Git/volatility3/
-                cd ~/Git/
+                mkdir -p $HOME/Git/ 2> /dev/null
+                rm -rf $HOME/Git/volatility3/
+                cd $HOME/Git/
               # Comprobar si el paquete python3-venv está instalado. Si no lo está, instalarlo.
                 if [[ $(dpkg-query -s python3-venv 2>/dev/null | grep installed) == "" ]]; then
                   echo ""
@@ -738,13 +750,13 @@
                 echo ""
                 echo "    Ingresando en el entorno virtual e instalando..."
                 echo ""
-                source ~/Git/volatility3/bin/activate
+                source $HOME/Git/volatility3/bin/activate
 
               # Clonar el repo
                 echo ""
                 echo "  Clonando el repo..."
                 echo ""
-                cd ~/Git/volatility3/
+                cd $HOME/Git/volatility3/
                 # Comprobar si el paquete git está instalado. Si no lo está, instalarlo.
                   if [[ $(dpkg-query -s git 2>/dev/null | grep installed) == "" ]]; then
                     echo ""
@@ -831,10 +843,10 @@
                 echo "    Copiando los binarios a la carpeta /usr/bin/"
                 echo ""
                 sudo rm -f /usr/bin/volatility3
-                sudo cp -vf ~/Git/volatility3/code/dist/vol      /usr/bin/volatility3
+                sudo cp -vf $HOME/Git/volatility3/code/dist/vol      /usr/bin/volatility3
                 sudo rm -f /usr/bin/volatility3shell
-                sudo cp -vf ~/Git/volatility3/code/dist/volshell /usr/bin/volatility3shell
-                cd ~
+                sudo cp -vf $HOME/Git/volatility3/code/dist/volshell /usr/bin/volatility3shell
+                cd $HOME
 
               # Notificar fin de ejecución del script
                 echo ""
@@ -886,8 +898,8 @@
               echo ""
 
               # Descargar el repo
-                mkdir -p ~/scripts/python/ 2> /dev/null
-                cd ~/scripts/python/
+                mkdir -p $HOME/scripts/python/ 2> /dev/null
+                cd $HOME/scripts/python/
                 if [[ $(dpkg-query -s git 2>/dev/null | grep installed) == "" ]]; then
                   echo ""
                   echo -e "${cColorRojo}  El paquete git no está instalado. Iniciando su instalación...${cFinColor}"
@@ -899,8 +911,8 @@
                 git clone https://github.com/volatilityfoundation/volatility3.git
 
               # Crear el ambiente virtual
-                mkdir -p ~/VEnvs/ 2> /dev/null
-                cd ~/VEnvs/
+                mkdir -p $HOME/VEnvs/ 2> /dev/null
+                cd $HOME/VEnvs/
                 if [[ $(dpkg-query -s python3-venv 2>/dev/null | grep installed) == "" ]]; then
                   echo ""
                   echo -e "${cColorRojo}  El paquete python3-venv no está instalado. Iniciando su instalación...${cFinColor}"
@@ -910,8 +922,8 @@
                   echo ""
                 fi
                 python3 -m venv volatility3
-                source ~/VEnvs/volatility3/bin/activate
-                cd ~/scripts/python/volatility3/
+                source $HOME/VEnvs/volatility3/bin/activate
+                cd $HOME/scripts/python/volatility3/
                 # Comprobar si el paquete python3-pip está instalado. Si no lo está, instalarlo.
                   if [[ $(dpkg-query -s python3-pip 2>/dev/null | grep installed) == "" ]]; then
                     echo ""
@@ -930,9 +942,9 @@
                 pyinstaller --onefile --collect-all=volatility3 volshell.py
 
               # Mover el binario a la carpeta de binarios del usuario
-                mkdir -p ~/bin/
-                cp ~/scripts/python/volatility3/dist/vol      ~/bin/volatility3
-                cp ~/scripts/python/volatility3/dist/volshell ~/bin/volatility3shell
+                mkdir -p $HOME/bin/
+                cp $HOME/scripts/python/volatility3/dist/vol      $HOME/bin/volatility3
+                cp $HOME/scripts/python/volatility3/dist/volshell $HOME/bin/volatility3shell
 
               # Desactivar el entorno virtual
                 deactivate
@@ -941,20 +953,20 @@
                 echo ""
                 echo "  El script ha finalizado. Los scripts compilados se han copiado a:"
                 echo ""
-                echo "    ~/bin/volatility3"
+                echo "    $HOME/bin/volatility3"
                 echo ""
                 echo "      y"
                 echo ""
-                echo "    ~/bin/volatility3shell"
+                echo "    $HOME/bin/volatility3shell"
                 echo ""
                 echo "  Los binarios deben ser ejecutados con precaución. Es mejor correr los scripts directamente con python, de la siguiente manera:"
                 echo ""
-                echo "    ~/scripts/python/volatility3/vol.py  -vvv -f [RutaAlArchivo] [Plugins] "
+                echo "    $HOME/scripts/python/volatility3/vol.py  -vvv -f [RutaAlArchivo] [Plugins] "
                 echo ""
                 echo "    O, si se quiere ejecutar dentro del entorno virtual:"
                 echo ""
-                echo "      source ~/PythonVirtualEnvironments/volatility3/bin/activate"
-                echo "      ~/scripts/python/volatility3/vol.py  -vvv -f [RutaAlArchivo] [Plugins] "
+                echo "      source $HOME/PythonVirtualEnvironments/volatility3/bin/activate"
+                echo "      $HOME/scripts/python/volatility3/vol.py  -vvv -f [RutaAlArchivo] [Plugins] "
                 echo "      deactivate"
                 echo ""
 
