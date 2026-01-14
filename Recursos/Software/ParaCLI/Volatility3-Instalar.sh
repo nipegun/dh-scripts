@@ -12,7 +12,7 @@
 #   curl -sL https://raw.githubusercontent.com/nipegun/dh-scripts/refs/heads/main/Recursos/Software/ParaCLI/Volatility3-Instalar.sh | bash
 #
 # Ejecución remota como root:
-#   curl -sL https://raw.githubusercontent.com/nipegun/dh-scripts/refs/heads/main/Recursos/Software/ParaCLI/Volatility3-Instalar.sh | bash
+#   curl -sL https://raw.githubusercontent.com/nipegun/dh-scripts/refs/heads/main/Recursos/Software/ParaCLI/Volatility3-Instalar.sh | sed 's-sudo--g' | bash
 #
 # Bajar y editar directamente el archivo en nano
 #   curl -sL https://raw.githubusercontent.com/nipegun/dh-scripts/refs/heads/main/Recursos/Software/ParaCLI/Volatility3-Instalar.sh | nano -
