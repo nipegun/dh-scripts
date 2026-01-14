@@ -2,7 +2,7 @@
 
 # 
 # Ejecución remota:
-#   python3 <(curl -sL https://raw.githubusercontent.com/nipegun/dh-scripts/refs/heads/main/Recursos/WordLists/Hashes-Calcular-DeWordList.py) -- rockyou.txt
+#   python3 <(curl -sL hhttps://raw.githubusercontent.com/nipegun/h-resources/refs/heads/main/WordLists/Hashes-Calcular-DeWordList.py) -- rockyou.txt
 
 import argparse
 import hashlib
