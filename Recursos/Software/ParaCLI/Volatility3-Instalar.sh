@@ -543,23 +543,6 @@
                 echo 'echo -e "        $HOME/HackingTools/Forensics/volatility3/vol.py -q -f $HOME/Descargas/Evidencia.raw windows.info.Info\n"' >> $HOME/HackingTools/Forensics/volatility3/venv/bin/activate
                 echo 'echo -e "      Obtener info de linux:\n"'                                                                                  >> $HOME/HackingTools/Forensics/volatility3/venv/bin/activate
                 echo 'echo -e "        $HOME/HackingTools/Forensics/volatility3/vol.py -q -f $HOME/Descargas/Evidencia.raw banners.Banners\n"'   >> $HOME/HackingTools/Forensics/volatility3/venv/bin/activate
-              # Instalar symbols
-                # Comprobar si el paquete unzip está instalado. Si no lo está, instalarlo.
-                  if [[ $(dpkg-query -s unzip 2>/dev/null | grep installed) == "" ]]; then
-                    echo ""
-                    echo -e "${cColorRojo}  El paquete unzip no está instalado. Iniciando su instalación...${cFinColor}"
-                    echo ""
-                    sudo apt-get -y update
-                    sudo apt-get -y install unzip
-                    echo ""
-                  fi
-                curl -L https://downloads.volatilityfoundation.org/volatility3/symbols/windows.zip -o /tmp/vol3-windows-symbols.zip
-                unzip /tmp/vol3-windows-symbols.zip -d $HOME/HackingTools/Forensics/volatility3/volatility3/symbols/
-                curl -L https://downloads.volatilityfoundation.org/volatility3/symbols/linux.zip   -o /tmp/vol3-linux-symbols.zip
-                unzip /tmp/vol3-linux-symbols.zip   -d $HOME/HackingTools/Forensics/volatility3/volatility3/symbols/
-                curl -L https://downloads.volatilityfoundation.org/volatility3/symbols/mac.zip     -o /tmp/vol3-mac-symbols.zip
-                mkdir -p $HOME/HackingTools/Forensics/volatility3/volatility3/symbols/mac/
-                unzip /tmp/vol3-mac-symbols.zip -d $HOME/HackingTools/Forensics/volatility3/volatility3/symbols/mac/
               # Entrar al entorno virtual
                 source $HOME/HackingTools/Forensics/volatility3/venv/bin/activate
               # Instalar requerimientos
@@ -579,11 +562,28 @@
                 python3 -m pip install .
               # Salir del entorno virtual
                 deactivate
+              # Instalar symbols
+                # Comprobar si el paquete unzip está instalado. Si no lo está, instalarlo.
+                  if [[ $(dpkg-query -s unzip 2>/dev/null | grep installed) == "" ]]; then
+                    echo ""
+                    echo -e "${cColorRojo}  El paquete unzip no está instalado. Iniciando su instalación...${cFinColor}"
+                    echo ""
+                    sudo apt-get -y update
+                    sudo apt-get -y install unzip
+                    echo ""
+                  fi
+                #curl -L https://downloads.volatilityfoundation.org/volatility3/symbols/windows.zip -o /tmp/vol3-windows-symbols.zip
+                #unzip /tmp/vol3-windows-symbols.zip -d $HOME/HackingTools/Forensics/volatility3/volatility3/symbols/
+                #curl -L https://downloads.volatilityfoundation.org/volatility3/symbols/linux.zip   -o /tmp/vol3-linux-symbols.zip
+                #unzip /tmp/vol3-linux-symbols.zip   -d $HOME/HackingTools/Forensics/volatility3/volatility3/symbols/
+                #curl -L https://downloads.volatilityfoundation.org/volatility3/symbols/mac.zip     -o /tmp/vol3-mac-symbols.zip
+                #mkdir -p $HOME/HackingTools/Forensics/volatility3/volatility3/symbols/mac/
+                #unzip /tmp/vol3-mac-symbols.zip -d $HOME/HackingTools/Forensics/volatility3/volatility3/symbols/mac/
               # Copiar símbolos a la carpeta donde Volatility3 los va a buscar
-                vCarpetaPython=$(ls $HOME/HackingTools/Forensics/volatility3/venv/lib/)
-                mkdir -p $HOME/HackingTools/Forensics/volatility3/venv/lib/"$vCarpetaPython"/site-packages/volatility3/symbols/
-                cp -rfv $HOME/HackingTools/Forensics/volatility3/volatility3/symbols/* $HOME/HackingTools/Forensics/volatility3/venv/lib/"$vCarpetaPython"/site-packages/volatility3/symbols/
-                cd $HOME
+                #vCarpetaPython=$(ls $HOME/HackingTools/Forensics/volatility3/venv/lib/)
+                #mkdir -p $HOME/HackingTools/Forensics/volatility3/venv/lib/"$vCarpetaPython"/site-packages/volatility3/symbols/
+                #cp -rfv $HOME/HackingTools/Forensics/volatility3/volatility3/symbols/* $HOME/HackingTools/Forensics/volatility3/venv/lib/"$vCarpetaPython"/site-packages/volatility3/symbols/
+                #cd $HOME
               # Notificar fin de instalación en el entorno virtual
                 echo ""
                 echo -e "${cColorVerde}    Entorno virtual preparado. volatility3 se puede ejecutar desde el venv de la siguiente forma:${cFinColor}"
