@@ -138,7 +138,24 @@
                 echo 'echo -e "        $HOME/HackingTools/Forensics/volatility3/vol.py -q -f $HOME/Descargas/Evidencia.raw windows.info.Info\n"' >> $HOME/HackingTools/Forensics/volatility3/venv/bin/activate
                 echo 'echo -e "      Obtener info de linux:\n"'                                                                                  >> $HOME/HackingTools/Forensics/volatility3/venv/bin/activate
                 echo 'echo -e "        $HOME/HackingTools/Forensics/volatility3/vol.py -q -f $HOME/Descargas/Evidencia.raw banners.Banners\n"'   >> $HOME/HackingTools/Forensics/volatility3/venv/bin/activate
-
+              # Entrar al entorno virtual
+                source $HOME/HackingTools/Forensics/volatility3/venv/bin/activate
+              # Instalar requerimientos
+                # Instalar dependencias para compilar paquetes
+                  sudo apt-get -y install build-essential
+                  sudo apt-get -y install python3-dev
+                python3 -m pip install wheel
+                python3 -m pip install distorm3
+                python3 -m pip install pycryptodome
+                python3 -m pip install pillow
+                python3 -m pip install openpyxl
+                python3 -m pip install ujson
+                python3 -m pip install pytz
+                python3 -m pip install ipython
+                python3 -m pip install capstone
+                python3 -m pip install yara-python
+              # Salir del entorno virtual
+                deactivate
               # Instalar symbols
                 echo ""
                 echo "  Descargando símbolos..."
@@ -159,29 +176,11 @@
                 curl -L https://downloads.volatilityfoundation.org/volatility3/symbols/mac.zip     -o /tmp/vol3-mac-symbols.zip
                 mkdir -p $HOME/HackingTools/Forensics/volatility3/volatility3/symbols/mac/
                 unzip /tmp/vol3-mac-symbols.zip -d $HOME/HackingTools/Forensics/volatility3/volatility3/symbols/mac/
-              # Entrar al entorno virtual
-                source $HOME/HackingTools/Forensics/volatility3/venv/bin/activate
-              # Instalar requerimientos
-                # Instalar dependencias para compilar paquetes
-                  sudo apt-get -y install build-essential
-                  sudo apt-get -y install python3-dev
-                python3 -m pip install wheel
-                python3 -m pip install distorm3
-                python3 -m pip install pycryptodome
-                python3 -m pip install pillow
-                python3 -m pip install openpyxl
-                python3 -m pip install ujson
-                python3 -m pip install pytz
-                python3 -m pip install ipython
-                python3 -m pip install capstone
-                python3 -m pip install yara-python
-              # Salir del entorno virtual
-                deactivate
-              # Copiar símbolos a la carpeta donde Volatility3 los va a buscar
-                vCarpetaPython=$(ls $HOME/HackingTools/Forensics/volatility3/venv/lib/)
-                mkdir -p $HOME/HackingTools/Forensics/volatility3/venv/lib/"$vCarpetaPython"/site-packages/volatility3/symbols/
-                cp -rfv $HOME/HackingTools/Forensics/volatility3/volatility3/symbols/* $HOME/HackingTools/Forensics/volatility3/venv/lib/"$vCarpetaPython"/site-packages/volatility3/symbols/
-                cd $HOME
+                # Copiar símbolos a la carpeta donde Volatility3 los va a buscar
+                  vCarpetaPython=$(ls $HOME/HackingTools/Forensics/volatility3/venv/lib/)
+                  mkdir -p $HOME/HackingTools/Forensics/volatility3/venv/lib/"$vCarpetaPython"/site-packages/volatility3/symbols/
+                  cp -rfv $HOME/HackingTools/Forensics/volatility3/volatility3/symbols/* $HOME/HackingTools/Forensics/volatility3/venv/lib/"$vCarpetaPython"/site-packages/volatility3/symbols/
+                  cd $HOME
               # Notificar fin de instalación en el entorno virtual
                 echo ""
                 echo -e "${cColorVerde}    Entorno virtual preparado. volatility3 se puede ejecutar desde el venv de la siguiente forma:${cFinColor}"
@@ -473,7 +472,8 @@
           echo ""
           echo -e "${cColorRojo}  El paquete dialog no está instalado. Iniciando su instalación...${cFinColor}"
           echo ""
-          sudo apt-get -y update && sudo apt-get -y install dialog
+          sudo apt-get -y update
+          sudo apt-get -y install dialog
           echo ""
         fi
       menu=(dialog --checklist "Marca las opciones que quieras instalar:" 22 96 16)
@@ -579,11 +579,11 @@
                 #curl -L https://downloads.volatilityfoundation.org/volatility3/symbols/mac.zip     -o /tmp/vol3-mac-symbols.zip
                 #mkdir -p $HOME/HackingTools/Forensics/volatility3/volatility3/symbols/mac/
                 #unzip /tmp/vol3-mac-symbols.zip -d $HOME/HackingTools/Forensics/volatility3/volatility3/symbols/mac/
-              # Copiar símbolos a la carpeta donde Volatility3 los va a buscar
-                #vCarpetaPython=$(ls $HOME/HackingTools/Forensics/volatility3/venv/lib/)
-                #mkdir -p $HOME/HackingTools/Forensics/volatility3/venv/lib/"$vCarpetaPython"/site-packages/volatility3/symbols/
-                #cp -rfv $HOME/HackingTools/Forensics/volatility3/volatility3/symbols/* $HOME/HackingTools/Forensics/volatility3/venv/lib/"$vCarpetaPython"/site-packages/volatility3/symbols/
-                #cd $HOME
+                # Copiar símbolos a la carpeta donde Volatility3 los va a buscar
+                  #vCarpetaPython=$(ls $HOME/HackingTools/Forensics/volatility3/venv/lib/)
+                  #mkdir -p $HOME/HackingTools/Forensics/volatility3/venv/lib/"$vCarpetaPython"/site-packages/volatility3/symbols/
+                  #cp -rfv $HOME/HackingTools/Forensics/volatility3/volatility3/symbols/* $HOME/HackingTools/Forensics/volatility3/venv/lib/"$vCarpetaPython"/site-packages/volatility3/symbols/
+                  #cd $HOME
               # Notificar fin de instalación en el entorno virtual
                 echo ""
                 echo -e "${cColorVerde}    Entorno virtual preparado. volatility3 se puede ejecutar desde el venv de la siguiente forma:${cFinColor}"
