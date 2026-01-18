@@ -24,7 +24,7 @@
 #   curl -sL https://raw.githubusercontent.com/nipegun/h-resources/refs/heads/main/Software/ServWeb/ReverseShellGenerator-Instalar.sh | nano -
 #
 # Servidor rápido:
-#   cd /tmp && git clone https://github.com/0dayCTF/reverse-shell-generator.git && cd reverse-shell-generator && python3 -m http.server 8080
+#   cd /tmp && git clone https://github.com/0dayCTF/reverse-shell-generator.git; cd reverse-shell-generator && python3 -m http.server 8080
 # ----------
 
 # Definir constantes de color
