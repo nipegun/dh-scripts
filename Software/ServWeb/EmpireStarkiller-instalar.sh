@@ -61,8 +61,7 @@
     echo -e "${cColorAzulClaro}  Iniciando el script de instalación de Starkiller para Debian 13 (x)...${cFinColor}"
     echo ""
 
-    #
-      sudo apt-get -y update
+    # Instalar dependencias
       sudo apt-get -y update
       sudo apt-get -y install git
       sudo apt-get -y install python3
@@ -76,7 +75,7 @@
       mkdir $HOME/HackingTools/ 2> /dev/null
 
     # Clonar el repositorio
-      rm -rf $HOME/HackingTools/EmpireStarkiller/ 2> /dev/null
+      sudo rm -rf $HOME/HackingTools/EmpireStarkiller/ 2> /dev/null
       cd $HOME/HackingTools/
       git clone --recursive https://github.com/BC-SECURITY/Empire.git
       mv Empire EmpireStarkiller
@@ -84,7 +83,8 @@
     # Compilar
       cd $HOME/HackingTools/EmpireStarkiller/
       rm -rf $HOME/.pyenv
-      ./ps-empire install -y
+      ./setup/checkout-latest-tag.sh
+      ./ps-empire install -y -f
 
     # Notificar fin de la instalación
       echo ""
@@ -94,7 +94,7 @@
 
     # Servir
       cd $HOME/HackingTools/EmpireStarkiller/
-      ./ps-empire server
+      ./ps-empire server -f
 
   elif [ $cVerSO == "12" ]; then
 
