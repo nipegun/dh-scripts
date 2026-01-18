@@ -6,22 +6,22 @@
 # No tienes que aceptar ningún tipo de términos de uso o licencia para utilizarlo o modificarlo porque va sin CopyLeft.
 
 # ----------
-# Script de NiPeGun para instalar y configurar Starkiller en Debian
+# Script de NiPeGun para instalar y configurar EmpireStarkiller en Debian
 #
 # Ejecución remota (puede requerir permisos sudo):
-#   curl -sL x | bash
+#   curl -sL https://raw.githubusercontent.com/nipegun/h-resources/refs/heads/main/Software/ServWeb/EmpireStarkiller-instalar.sh | bash
 #
 # Ejecución remota como root (para sistemas sin sudo):
-#   curl -sL x | sed 's-sudo--g' | bash
+#   curl -sL https://raw.githubusercontent.com/nipegun/h-resources/refs/heads/main/Software/ServWeb/EmpireStarkiller-instalar.sh | sed 's-sudo--g' | bash
 #
 # Ejecución remota sin caché:
-#   curl -sL -H 'Cache-Control: no-cache, no-store' x | bash
+#   curl -sL -H 'Cache-Control: no-cache, no-store' https://raw.githubusercontent.com/nipegun/h-resources/refs/heads/main/Software/ServWeb/EmpireStarkiller-instalar.sh | bash
 #
 # Ejecución remota con parámetros:
-#   curl -sL x | bash -s Parámetro1 Parámetro2
+#   curl -sL https://raw.githubusercontent.com/nipegun/h-resources/refs/heads/main/Software/ServWeb/EmpireStarkiller-instalar.sh | bash -s Parámetro1 Parámetro2
 #
 # Bajar y editar directamente el archivo en nano
-#   curl -sL x | nano -
+#   curl -sL https://raw.githubusercontent.com/nipegun/h-resources/refs/heads/main/Software/ServWeb/EmpireStarkiller-instalar.sh | nano -
 # ----------
 
 # Definir constantes de color
@@ -61,14 +61,45 @@
     echo -e "${cColorAzulClaro}  Iniciando el script de instalación de Starkiller para Debian 13 (x)...${cFinColor}"
     echo ""
 
-    echo ""
-    echo -e "${cColorRojo}    Comandos para Debian 13 todavía no preparados. Prueba ejecutarlo en otra versión de Debian.${cFinColor}"
-    echo ""
+    #
+      sudo apt-get -y update
+      sudo apt-get -y update
+      sudo apt-get -y install git
+      sudo apt-get -y install python3
+      sudo apt-get -y install python3-venv
+      sudo apt-get -y install python3-pip
+      sudo apt-get -y install libssl-dev
+      sudo apt-get -y install libffi-dev
+      sudo apt-get -y install build-essential
+
+    # Crear la carpeta HackingTools
+      mkdir $HOME/HackingTools/ 2> /dev/null
+
+    # Clonar el repositorio
+      rm -rf $HOME/HackingTools/EmpireStarkiller/ 2> /dev/null
+      cd $HOME/HackingTools/
+      git clone --recursive https://github.com/BC-SECURITY/Empire.git
+      mv Empire EmpireStarkiller
+
+    # Compilar
+      cd $HOME/HackingTools/EmpireStarkiller/
+      rm -rf $HOME/.pyenv
+      ./ps-empire install -y
+
+    # Notificar fin de la instalación
+      echo ""
+      echo "  Usuario por defecto:    empireadmin"
+      echo "  Contraseña por defecto: password123"
+      echo ""
+
+    # Servir
+      cd $HOME/HackingTools/EmpireStarkiller/
+      ./ps-empire server
 
   elif [ $cVerSO == "12" ]; then
 
     echo ""
-    echo -e "${cColorAzulClaro}  Iniciando el script de instalación de Starkiller para Debian 12 (Bookworm)...${cFinColor}"
+    echo -e "${cColorAzulClaro}  Iniciando el script de instalación de EmpireStarkiller para Debian 12 (Bookworm)...${cFinColor}"
     echo ""
 
     echo ""
@@ -78,7 +109,7 @@
   elif [ $cVerSO == "11" ]; then
 
     echo ""
-    echo -e "${cColorAzulClaro}  Iniciando el script de instalación de Starkiller para Debian 11 (Bullseye)...${cFinColor}"
+    echo -e "${cColorAzulClaro}  Iniciando el script de instalación de EmpireStarkiller para Debian 11 (Bullseye)...${cFinColor}"
     echo ""
 
     echo ""
@@ -88,7 +119,7 @@
   elif [ $cVerSO == "10" ]; then
 
     echo ""
-    echo -e "${cColorAzulClaro}  Iniciando el script de instalación de Starkiller para Debian 10 (Buster)...${cFinColor}"
+    echo -e "${cColorAzulClaro}  Iniciando el script de instalación de EmpireStarkiller para Debian 10 (Buster)...${cFinColor}"
     echo ""
 
     echo ""
@@ -98,7 +129,7 @@
   elif [ $cVerSO == "9" ]; then
 
     echo ""
-    echo -e "${cColorAzulClaro}  Iniciando el script de instalación de Starkiller para Debian 9 (Stretch)...${cFinColor}"
+    echo -e "${cColorAzulClaro}  Iniciando el script de instalación de EmpireStarkiller para Debian 9 (Stretch)...${cFinColor}"
     echo ""
 
     echo ""
@@ -108,7 +139,7 @@
   elif [ $cVerSO == "8" ]; then
 
     echo ""
-    echo -e "${cColorAzulClaro}  Iniciando el script de instalación de Starkiller para Debian 8 (Jessie)...${cFinColor}"
+    echo -e "${cColorAzulClaro}  Iniciando el script de instalación de EmpireStarkiller para Debian 8 (Jessie)...${cFinColor}"
     echo ""
 
     echo ""
@@ -118,7 +149,7 @@
   elif [ $cVerSO == "7" ]; then
 
     echo ""
-    echo -e "${cColorAzulClaro}  Iniciando el script de instalación de Starkiller para Debian 7 (Wheezy)...${cFinColor}"
+    echo -e "${cColorAzulClaro}  Iniciando el script de instalación de EmpireStarkiller para Debian 7 (Wheezy)...${cFinColor}"
     echo ""
 
     echo ""
