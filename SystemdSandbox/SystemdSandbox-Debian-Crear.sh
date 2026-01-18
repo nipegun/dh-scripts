@@ -199,7 +199,7 @@
   echo ""
   echo "    Copia y ejecuta esta línea dentro del contenedor para preparar el sistema básico:"
   echo ""
-  echo "      curl -sLk https://raw.githubusercontent.com/nipegun/dh-scripts/refs/heads/main/Recursos/SystemdSandbox/InSystemdSandbox-Debian-Preparar-Base.sh | sed 's-SystemdSandbox-'"$vNombreDelContenedor"'-g' | bash"
+  echo "      curl -sLk https://raw.githubusercontent.com/nipegun/dh-scripts/refs/heads/main/SystemdSandbox/InSystemdSandbox-Debian-Preparar-Base.sh | sed 's-SystemdSandbox-'"$vNombreDelContenedor"'-g' | bash"
   echo ""
   sudo systemd-nspawn -D "$vDirSandbox" --bind="$vMountHost:/mnt/host" --machine="$vNombreDelContenedor"
 
