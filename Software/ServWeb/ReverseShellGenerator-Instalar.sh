@@ -10,19 +10,19 @@
 # Script de NiPeGun para instalar y configurar ReverseShellGenerator en Debian
 #
 # Ejecución remota (puede requerir permisos sudo):
-#   curl -sL x | bash
+#   curl -sL https://raw.githubusercontent.com/nipegun/h-resources/refs/heads/main/Software/ServWeb/ReverseShellGenerator-Instalar.sh | bash
 #
 # Ejecución remota como root (para sistemas sin sudo):
-#   curl -sL x | sed 's-sudo--g' | bash
+#   curl -sL https://raw.githubusercontent.com/nipegun/h-resources/refs/heads/main/Software/ServWeb/ReverseShellGenerator-Instalar.sh | sed 's-sudo--g' | bash
 #
 # Ejecución remota sin caché:
-#   curl -sL -H 'Cache-Control: no-cache, no-store' x | bash
+#   curl -sL -H 'Cache-Control: no-cache, no-store' https://raw.githubusercontent.com/nipegun/h-resources/refs/heads/main/Software/ServWeb/ReverseShellGenerator-Instalar.sh | bash
 #
 # Ejecución remota con parámetros:
-#   curl -sL x | bash -s Parámetro1 Parámetro2
+#   curl -sL https://raw.githubusercontent.com/nipegun/h-resources/refs/heads/main/Software/ServWeb/ReverseShellGenerator-Instalar.sh | bash -s Parámetro1 Parámetro2
 #
 # Bajar y editar directamente el archivo en nano
-#   curl -sL x | nano -
+#   curl -sL https://raw.githubusercontent.com/nipegun/h-resources/refs/heads/main/Software/ServWeb/ReverseShellGenerator-Instalar.sh | nano -
 # ----------
 
 # Definir constantes de color
@@ -62,9 +62,31 @@
     echo -e "${cColorAzulClaro}  Iniciando el script de instalación de ReverseShellGenerator para Debian 13 (x)...${cFinColor}"
     echo ""
 
-    echo ""
-    echo -e "${cColorRojo}    Comandos para Debian 13 todavía no preparados. Prueba ejecutarlo en otra versión de Debian.${cFinColor}"
-    echo ""
+    # Instalar dependencias
+      sudo apt-get -y update
+      sudo apt-get -y install git
+      sudo apt-get -y install python3
+
+    # Clonar repo
+      cd /opt/
+      rm -rf /opt/reverse-shell-generator
+      git clone --depth=1 https://github.com/0dayCTF/reverse-shell-generator.git
+      rm -rf /opt/reverse-shell-generator/.git
+      rm -f /opt/reverse-shell-generator/.all-contributorsrc
+      rm -f /opt/reverse-shell-generator/.gitignore
+      rm -f /opt/reverse-shell-generator/Dockerfile
+      rm -rf /opt/reverse-shell-generator/netlify.toml
+      rm -rf /opt/reverse-shell-generator/package.json
+      rm -rf /opt/reverse-shell-generator/README.md
+      rm -rf /opt/reverse-shell-generator/LICENSE
+      rm -rf /opt/reverse-shell-generator/css/meme-mode.css
+      rm -rf /opt/reverse-shell-generator/assets/meme_doge.jpg
+      rm -rf /opt/reverse-shell-generator/server_functions
+      rm -rf /opt/reverse-shell-generator/parcel-transformer-obfuscation
+
+    # Lanzar 
+      cd reverse-shell-generator
+      python3 -m http.server 8080
 
   elif [ $cVerSO == "12" ]; then
 
