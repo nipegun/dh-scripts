@@ -9,19 +9,13 @@
 # Script de NiPeGun para instalar y configurar Sliver en Debian
 #
 # Ejecución remota (puede requerir permisos sudo):
-#   curl -sL x | bash
+#   curl -sL https://raw.githubusercontent.com/nipegun/h-resources/refs/heads/main/Software/ParaCLI/Sliver-Instalar.sh | bash
 #
 # Ejecución remota como root (para sistemas sin sudo):
-#   curl -sL x | sed 's-sudo--g' | bash
-#
-# Ejecución remota sin caché:
-#   curl -sL -H 'Cache-Control: no-cache, no-store' x | bash
-#
-# Ejecución remota con parámetros:
-#   curl -sL x | bash -s Parámetro1 Parámetro2
+#   curl -sL https://raw.githubusercontent.com/nipegun/h-resources/refs/heads/main/Software/ParaCLI/Sliver-Instalar.sh | sed 's-sudo--g' | bash
 #
 # Bajar y editar directamente el archivo en nano
-#   curl -sL x | nano -
+#   curl -sL https://raw.githubusercontent.com/nipegun/h-resources/refs/heads/main/Software/ParaCLI/Sliver-Instalar.sh | nano -
 # ----------
 
 # Definir constantes de color
@@ -61,9 +55,8 @@
     echo -e "${cColorAzulClaro}  Iniciando el script de instalación de Sliver para Debian 13 (x)...${cFinColor}"
     echo ""
 
-    echo ""
-    echo -e "${cColorRojo}    Comandos para Debian 13 todavía no preparados. Prueba ejecutarlo en otra versión de Debian.${cFinColor}"
-    echo ""
+    # Instalar directamente
+      curl -sL https://sliver.sh/install| sudo bash
 
   elif [ $cVerSO == "12" ]; then
 
@@ -71,9 +64,8 @@
     echo -e "${cColorAzulClaro}  Iniciando el script de instalación de Sliver para Debian 12 (Bookworm)...${cFinColor}"
     echo ""
 
-    echo ""
-    echo -e "${cColorRojo}    Comandos para Debian 12 todavía no preparados. Prueba ejecutarlo en otra versión de Debian.${cFinColor}"
-    echo ""
+    # Instalar directamente
+      curl -sL https://sliver.sh/install| sudo bash
 
   elif [ $cVerSO == "11" ]; then
 
