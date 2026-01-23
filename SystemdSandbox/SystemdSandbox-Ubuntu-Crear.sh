@@ -38,8 +38,8 @@
     fi
   menu=(dialog --radiolist "En que carpeta ráiz quieres crear el contenedor:" 22 60 16)
     opciones=(
-      1 "/var/lib/machines"             on
-      2 "/tmp"                          off
+      1 "/var/lib/machines/"            on
+      2 "/tmp/nspawn/"                  off
       3 "Otra (introducir manualmente)" off
     )
   choices=$("${menu[@]}" "${opciones[@]}" 2>&1 >/dev/tty)
@@ -53,7 +53,7 @@
         ;;
 
         2)
-          vCarpetaBase='/tmp'
+          vCarpetaBase='/tmp/nspawn'
         ;;
 
         3)
