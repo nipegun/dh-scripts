@@ -50,8 +50,8 @@
     fi
   menu=(dialog --radiolist "En que carpeta ráiz quieres crear el contenedor:" 22 60 16)
     opciones=(
-      1 "/var/lib/machines"             on
-      2 "/tmp"                          off
+      1 "/var/lib/machines/"            on
+      2 "/tmp/nspawn/"                  off
       3 "Otra (introducir manualmente)" off
     )
   choices=$("${menu[@]}" "${opciones[@]}" 2>&1 >/dev/tty)
@@ -65,11 +65,11 @@
         ;;
 
         2)
-          vCarpetaBase='/tmp'
+          vCarpetaBase='/tmp/nspawn'
         ;;
 
         3)
-          read -p "    Introduce la ruta absoluta donde quieras crear en contenedor (sin / final): " vCarpetaBase
+          read -p "    Introduce la ruta absoluta donde quieras crear en contenedor (sin / final): " v
         ;;
 
     esac
@@ -219,13 +219,11 @@
   echo ""
   echo "    Para renombrarlo:"
   echo ""
-  echo "      sudo mv -f "$vDirSandbox" /tmp/"$vNombreDelContenedor""
-  echo "      sudo mv -f "$vDirSandbox" /var/lib/machines/"$vNombreDelContenedor"" 
+  echo "      sudo mv -f "$vDirSandbox" "$vCarpetaBase"/"$vNombreDelContenedor""
   echo ""
   echo "      Y luego volver a iniciarlo con:"
   echo ""
-  echo "        sudo systemd-nspawn -D "$vDirSandbox" /tmp"$vNombreDelContenedor""
-  echo "        sudo systemd-nspawn -D "$vDirSandbox" /var/lib/machines/"$vNombreDelContenedor""
+  echo "        sudo systemd-nspawn -D "$vDirSandbox" "$vCarpetaBase"/"$vNombreDelContenedor""
   echo ""
   echo "    Para borrarlo:"
   echo ""
