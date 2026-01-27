@@ -9,13 +9,13 @@
 # Script de NiPeGun para instalar y configurar Volatility en Debian
 #
 # Ejecución remota  (No debería pipearse con sudo, aunque luego pida permisos sudo):
-#   curl -sL https://raw.githubusercontent.com/nipegun/h-resources/refs/heads/main/Recursos/Software/ParaCLI/Volatility3-Instalar.sh | bash
+#   curl -sL https://raw.githubusercontent.com/nipegun/h-resources/refs/heads/main/Software/ParaCLI/Volatility3-Instalar.sh | bash
 #
 # Ejecución remota como root:
-#   curl -sL https://raw.githubusercontent.com/nipegun/h-resources/refs/heads/main/Recursos/Software/ParaCLI/Volatility3-Instalar.sh | sed 's-sudo--g' | bash
+#   curl -sL https://raw.githubusercontent.com/nipegun/h-resources/refs/heads/main/Software/ParaCLI/Volatility3-Instalar.sh | sed 's-sudo--g' | bash
 #
 # Bajar y editar directamente el archivo en nano
-#   curl -sL https://raw.githubusercontent.com/nipegun/h-resources/refs/heads/main/Recursos/Software/ParaCLI/Volatility3-Instalar.sh | nano -
+#   curl -sL https://raw.githubusercontent.com/nipegun/h-resources/refs/heads/main/Software/ParaCLI/Volatility3-Instalar.sh | nano -
 #
 # Instalación rápida de volatility3
 #   sudo apt -y install python3-pip
