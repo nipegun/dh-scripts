@@ -9,10 +9,10 @@
 # Script de NiPeGun para instalar y configurar Volatility2 en Debian
 #
 # Ejecución remota  (No debería pipearse con sudo, aunque luego pida permisos sudo):
-#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/SoftInst/ParaCLI/Volatility2-Instalar.sh | bash
+#   curl -sL https://raw.githubusercontent.com/nipegun/h-resources/refs/heads/main/Software/ParaCLI/Volatility2-Instalar.sh | bash
 #
 # Bajar y editar directamente el archivo en nano
-#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/SoftInst/ParaCLI/Volatility2-Instalar.sh | nano -
+#   curl -sL https://raw.githubusercontent.com/nipegun/h-resources/refs/heads/main/Software/ParaCLI/Volatility2-Instalar.sh | nano -
 # ----------
 
 # Definir constantes de color
